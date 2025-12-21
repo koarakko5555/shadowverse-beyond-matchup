@@ -1,2 +1,77 @@
 [00:00:00.704] Server  LOG      ✓ Ready in 520ms
 [00:00:05.485] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:36:47.294] Server  ERROR    ⨯ Error: Failed to load external module @prisma/client: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/@prisma/client/default.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[root-of-the-server]__336696f6._.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[turbopack]_runtime.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/app/page.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/require.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/load-components.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/utils.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/options.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/index.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/next.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/lib/start-server.js
+[00:36:47.428] Server  ERROR    ⨯ Error: Failed to load external module @prisma/client: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/@prisma/client/default.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[root-of-the-server]__336696f6._.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[turbopack]_runtime.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/app/page.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/require.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/load-components.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/utils.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/options.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/index.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/next.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/lib/start-server.js
+[00:36:47.990] Server  ERROR    ⨯ Error: Failed to load external module @prisma/client: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/@prisma/client/default.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[root-of-the-server]__336696f6._.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[turbopack]_runtime.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/app/page.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/require.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/load-components.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/utils.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/options.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/index.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/next.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/lib/start-server.js
+[00:36:48.097] Server  ERROR    ⨯ Error: Failed to load external module @prisma/client: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/@prisma/client/default.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[root-of-the-server]__336696f6._.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[turbopack]_runtime.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/app/page.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/require.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/load-components.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/utils.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/options.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/index.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/next.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/lib/start-server.js
+[00:36:48.175] Browser ERROR   uncaughtError: Error: Failed to load external module @prisma/client: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/@prisma/client/default.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[root-of-the-server]__336696f6._.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/ssr/[turbopack]_runtime.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/app/page.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/require.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/load-components.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/utils.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/options.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/swc/index.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/config.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/next.js
+- /Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/node_modules/next/dist/server/lib/start-server.js
