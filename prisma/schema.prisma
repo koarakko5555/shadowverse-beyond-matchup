@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model CardPack {
+  id          Int      @id @default(autoincrement())
+  name        String
+  releaseDate DateTime
+  decks       Deck[]
+}
+
+model Deck {
+  id          Int       @id @default(autoincrement())
+  name        String
+  deckClass   DeckClass
+  cardPackId  Int
+  cardPack    CardPack  @relation(fields: [cardPackId], references: [id])
+  matchups    Matchup[]  @relation("Deck1")
+  matchups2   Matchup[]  @relation("Deck2")
+}
+
+enum DeckClass {
+  ELF
+  ROYAL
+  WITCH
+  NIGHTMARE
+  DRAGON
+  BISHOP
+  NEMESIS
+}
+
+model Matchup {
+  id          Int      @id @default(autoincrement())
+  deck1Id     Int
+  deck2Id     Int
+  userId      Int
+  deck1       Deck     @relation("Deck1", fields: [deck1Id], references: [id])
+  deck2       Deck     @relation("Deck2", fields: [deck2Id], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+  winRate     Float
+
+  @@unique([deck1Id, deck2Id, userId])
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  matchups  Matchup[]
+}

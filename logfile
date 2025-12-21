@@ -1,0 +1,31 @@
+2025-12-18 04:59:39.726 JST [18474] LOG:  starting PostgreSQL 14.20 (Homebrew) on aarch64-apple-darwin24.6.0, compiled by Apple clang version 17.0.0 (clang-1700.4.4.1), 64-bit
+2025-12-18 04:59:39.727 JST [18474] LOG:  listening on IPv6 address "::1", port 5432
+2025-12-18 04:59:39.727 JST [18474] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-18 04:59:39.728 JST [18474] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-12-18 04:59:39.730 JST [18475] LOG:  database system was shut down at 2025-12-18 04:59:31 JST
+2025-12-18 04:59:39.732 JST [18474] LOG:  database system is ready to accept connections
+2025-12-18 05:00:03.132 JST [18864] FATAL:  lock file "postmaster.pid" already exists
+2025-12-18 05:00:03.132 JST [18864] HINT:  Is another postmaster (PID 18474) running in data directory "/opt/homebrew/var/postgresql@14"?
+2025-12-18 05:10:49.879 JST [29200] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:10:49.879 JST [29201] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:11:10.975 JST [29509] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:11:10.976 JST [29510] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:11:29.639 JST [29776] FATAL:  role "postgres" does not exist
+2025-12-18 05:11:41.015 JST [29992] FATAL:  database "k-hosaka" does not exist
+2025-12-18 05:15:27.524 JST [32458] FATAL:  role "postgres" does not exist
+2025-12-18 05:15:33.217 JST [32631] FATAL:  role "postgres" does not exist
+2025-12-18 05:15:53.778 JST [33123] FATAL:  role "postgres" does not exist
+2025-12-18 05:16:01.135 JST [33314] FATAL:  database "k-hosaka" does not exist
+2025-12-18 05:20:04.465 JST [35668] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:20:04.466 JST [35669] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:22:33.144 JST [37256] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:22:33.145 JST [37257] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:23:17.016 JST [37721] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:23:17.016 JST [37722] FATAL:  no PostgreSQL user name specified in startup packet
+2025-12-18 05:23:48.143 JST [18474] LOG:  received SIGHUP, reloading configuration files
+2025-12-18 05:23:52.751 JST [18474] LOG:  received fast shutdown request
+2025-12-18 05:23:52.751 JST [18474] LOG:  aborting any active transactions
+2025-12-18 05:23:52.751 JST [37037] FATAL:  terminating connection due to administrator command
+2025-12-18 05:23:52.753 JST [18474] LOG:  background worker "logical replication launcher" (PID 18481) exited with exit code 1
+2025-12-18 05:23:52.753 JST [18476] LOG:  shutting down
+2025-12-18 05:23:52.758 JST [18474] LOG:  database system is shut down
