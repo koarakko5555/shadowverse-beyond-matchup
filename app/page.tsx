@@ -6,6 +6,7 @@ import UserManager from "@/app/components/UserManager";
 import { prisma } from "@/app/lib/prisma";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const cardPacks = await prisma.cardPack.findMany({
