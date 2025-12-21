@@ -5,11 +5,12 @@ import { prisma } from "@/app/lib/prisma";
 export const runtime = "nodejs";
 
 type Params = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function DELETE(_: Request, { params }: Params) {
-  const id = Number(params.id);
+  const { id: idParam } = await params;
+  const id = Number(idParam);
 
   if (!Number.isInteger(id)) {
     return NextResponse.json({ error: "IDが不正です。" }, { status: 400 });
