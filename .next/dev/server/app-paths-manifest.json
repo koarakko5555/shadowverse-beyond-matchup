@@ -1,7 +1,11 @@
 {
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/(dashboard)/matchups/page": "app/(dashboard)/matchups/page.js",
   "/(dashboard)/packs/page": "app/(dashboard)/packs/page.js",
   "/(dashboard)/records/page": "app/(dashboard)/records/page.js",
   "/(dashboard)/stats/page": "app/(dashboard)/stats/page.js",
   "/(dashboard)/users/page": "app/(dashboard)/users/page.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
   "/api/match-records/route": "app/api/match-records/route.js"
 }

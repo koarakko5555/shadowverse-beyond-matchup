@@ -209,7 +209,26 @@ const fetchDecks = async (deckId, opponentDeckId)=>{
     };
 };
 async function GET() {
+    const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getSession"])();
+    if (!session) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: "Unauthorized"
+        }, {
+            status: 401
+        });
+    }
+    const userId = Number(session.sub);
+    if (!Number.isInteger(userId)) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: "ユーザー情報を確認できませんでした。"
+        }, {
+            status: 401
+        });
+    }
     const records = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].matchRecord.findMany({
+        where: {
+            userId
+        },
         orderBy: {
             id: "desc"
         },

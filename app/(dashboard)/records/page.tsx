@@ -1,14 +1,19 @@
 import MatchRecordManager from "@/app/components/MatchRecordManager";
 import { prisma } from "@/app/lib/prisma";
+import { getSession } from "@/app/lib/session";
 
 export const runtime = "nodejs";
 
 export default async function RecordsPage() {
+  const session = await getSession();
+  const userId = Number(session?.sub);
+
   const decks = await prisma.deck.findMany({
     orderBy: { id: "desc" },
     include: { cardPack: true },
   });
   const records = await prisma.matchRecord.findMany({
+    where: Number.isInteger(userId) ? { userId } : undefined,
     orderBy: { id: "desc" },
     include: {
       deck: { include: { cardPack: true } },

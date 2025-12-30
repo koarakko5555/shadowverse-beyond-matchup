@@ -24,7 +24,21 @@ const fetchDecks = async (deckId: number, opponentDeckId: number) => {
 };
 
 export async function GET() {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = Number(session.sub);
+  if (!Number.isInteger(userId)) {
+    return NextResponse.json(
+      { error: "ユーザー情報を確認できませんでした。" },
+      { status: 401 }
+    );
+  }
+
   const records = await prisma.matchRecord.findMany({
+    where: { userId },
     orderBy: { id: "desc" },
     include: {
       deck: { include: { cardPack: true } },
