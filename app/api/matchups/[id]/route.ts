@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/app/lib/prisma";
+import { getSession } from "@/app/lib/session";
 
 export const runtime = "nodejs";
 
@@ -12,6 +13,11 @@ const isValidWinRate = (value: number) =>
   Number.isInteger(value) && value >= 0 && value <= 100 && value % 5 === 0;
 
 export async function DELETE(_: Request, { params }: Params) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { id: idParam } = await params;
   const id = Number(idParam);
 
@@ -27,6 +33,11 @@ export async function DELETE(_: Request, { params }: Params) {
 }
 
 export async function PUT(request: Request, { params }: Params) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { id: idParam } = await params;
   const id = Number(idParam);
 
@@ -39,7 +50,6 @@ export async function PUT(request: Request, { params }: Params) {
     typeof body?.deck1Id === "number" ? body.deck1Id : undefined;
   const deck2Id =
     typeof body?.deck2Id === "number" ? body.deck2Id : undefined;
-  const userId = typeof body?.userId === "number" ? body.userId : undefined;
   const winRate =
     typeof body?.winRate === "number" ? body.winRate : undefined;
 
@@ -57,13 +67,6 @@ export async function PUT(request: Request, { params }: Params) {
     );
   }
 
-  if (!userId) {
-    return NextResponse.json(
-      { error: "ユーザーを選択してください。" },
-      { status: 400 }
-    );
-  }
-
   if (winRate === undefined || !isValidWinRate(winRate)) {
     return NextResponse.json(
       { error: "相性評価は0〜100の5刻みで入力してください。" },
@@ -76,7 +79,7 @@ export async function PUT(request: Request, { params }: Params) {
     data: {
       deck1Id,
       deck2Id,
-      userId,
+      userId: Number(session.sub),
       winRate,
     },
     include: {

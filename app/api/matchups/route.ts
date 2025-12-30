@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/app/lib/prisma";
+import { getSession } from "@/app/lib/session";
 
 export const runtime = "nodejs";
 
@@ -21,25 +22,22 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const body = await request.json().catch(() => null);
   const deck1Id =
     typeof body?.deck1Id === "number" ? body.deck1Id : undefined;
   const deck2Id =
     typeof body?.deck2Id === "number" ? body.deck2Id : undefined;
-  const userId = typeof body?.userId === "number" ? body.userId : undefined;
   const winRate =
     typeof body?.winRate === "number" ? body.winRate : undefined;
 
   if (!deck1Id || !deck2Id) {
     return NextResponse.json(
       { error: "デッキを正しく選択してください。" },
-      { status: 400 }
-    );
-  }
-
-  if (!userId) {
-    return NextResponse.json(
-      { error: "ユーザーを選択してください。" },
       { status: 400 }
     );
   }
@@ -58,6 +56,14 @@ export async function POST(request: Request) {
     );
   }
 
+  const userId = Number(session.sub);
+  if (!Number.isInteger(userId)) {
+    return NextResponse.json(
+      { error: "ユーザー情報を確認できませんでした。" },
+      { status: 401 }
+    );
+  }
+
   const matchup = await prisma.matchup.upsert({
     where: {
       deck1Id_deck2Id_userId: {
@@ -72,7 +78,7 @@ export async function POST(request: Request) {
     create: {
       deck1Id,
       deck2Id,
-      userId,
+      userId: Number(session.sub),
       winRate,
     },
     include: {

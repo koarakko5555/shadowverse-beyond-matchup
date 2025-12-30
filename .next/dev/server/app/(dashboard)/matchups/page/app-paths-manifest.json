@@ -1,0 +1,3 @@
+{
+  "/(dashboard)/matchups/page": "app/(dashboard)/matchups/page.js"
+}

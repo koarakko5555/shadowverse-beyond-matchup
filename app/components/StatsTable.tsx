@@ -91,9 +91,28 @@ const buildMemberStats = (matchups: Matchup[]) => {
   }));
 };
 
+const buildMatchupMatrix = (decks: Deck[], matchups: Matchup[]) => {
+  const lookup = new Map<string, number>();
+  for (const matchup of matchups) {
+    lookup.set(`${matchup.deck1.id}:${matchup.deck2.id}`, matchup.winRate);
+  }
+
+  return decks.map((row) =>
+    decks.map((col) => {
+      if (row.id === col.id) return null;
+      const direct = lookup.get(`${row.id}:${col.id}`);
+      if (direct !== undefined) return direct;
+      const reverse = lookup.get(`${col.id}:${row.id}`);
+      if (reverse !== undefined) return 100 - reverse;
+      return undefined;
+    })
+  );
+};
+
 export default function StatsTable({ decks, matchups }: Props) {
   const stats = buildAverageStats(decks, matchups);
   const memberStats = buildMemberStats(matchups);
+  const matchupMatrix = buildMatchupMatrix(decks, matchups);
 
   return (
     <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
@@ -107,30 +126,58 @@ export default function StatsTable({ decks, matchups }: Props) {
       </div>
 
       <div className="mt-6 overflow-x-auto">
-        <table className="min-w-full text-left text-sm text-zinc-700">
-          <thead className="border-b border-zinc-200 text-xs uppercase tracking-wider text-zinc-400">
+        <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
+          <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
             <tr>
-              <th className="px-3 py-2">デッキ</th>
-              <th className="px-3 py-2">クラス</th>
-              <th className="px-3 py-2">カードパック</th>
-              <th className="px-3 py-2">平均相性</th>
-              <th className="px-3 py-2">評価数</th>
+              <th className="w-44 border border-zinc-300 bg-white px-3 py-2 text-left text-zinc-500">
+                デッキ
+              </th>
+              {decks.map((deck) => (
+                <th
+                  key={deck.id}
+                  className="min-w-[110px] border border-zinc-300 bg-white px-2 py-2 text-xs text-zinc-500"
+                >
+                  <div className="font-semibold text-zinc-900">{deck.name}</div>
+                  <div className="text-[10px] text-zinc-400">
+                    {deckClassLabels[deck.deckClass] ?? deck.deckClass}
+                  </div>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {stats.map((stat) => (
-              <tr key={stat.deckId} className="border-b border-zinc-100">
-                <td className="px-3 py-3 font-semibold text-zinc-900">
-                  {stat.name}
-                </td>
-                <td className="px-3 py-3">
-                  {deckClassLabels[stat.deckClass] ?? stat.deckClass}
-                </td>
-                <td className="px-3 py-3">{stat.cardPack}</td>
-                <td className="px-3 py-3">
-                  {stat.average === null ? "-" : stat.average.toFixed(1)}
-                </td>
-                <td className="px-3 py-3">{stat.count}</td>
+            {decks.map((rowDeck, rowIndex) => (
+              <tr key={rowDeck.id}>
+                <th className="border border-zinc-300 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                  {rowDeck.name}
+                  <div className="text-xs font-normal text-zinc-500">
+                    {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
+                    {" / "}
+                    {rowDeck.cardPack.name}
+                  </div>
+                </th>
+                {decks.map((colDeck, colIndex) => {
+                  const value = matchupMatrix[rowIndex]?.[colIndex];
+                  const isSame = rowDeck.id === colDeck.id;
+                  return (
+                    <td
+                      key={colDeck.id}
+                      className="border border-zinc-300 px-2 py-3 text-sm"
+                    >
+                      {isSame ? (
+                        <span className="text-base font-semibold text-zinc-400">
+                          *
+                        </span>
+                      ) : value === undefined ? (
+                        <span className="text-zinc-400">—</span>
+                      ) : (
+                        <span className="font-semibold text-zinc-900">
+                          {value}
+                        </span>
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
@@ -148,23 +195,30 @@ export default function StatsTable({ decks, matchups }: Props) {
         </h3>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-left text-sm text-zinc-700">
-            <thead className="border-b border-zinc-200 text-xs uppercase tracking-wider text-zinc-400">
+            <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400">
               <tr>
                 <th className="px-3 py-2">メンバー</th>
-                <th className="px-3 py-2">平均相性</th>
-                <th className="px-3 py-2">評価数</th>
+                <th className="px-3 py-2 text-center">平均相性</th>
+                <th className="px-3 py-2 text-center">評価数</th>
               </tr>
             </thead>
             <tbody>
-              {memberStats.map((stat) => (
+              {memberStats
+                .sort((a, b) => {
+                  if (a.average === null && b.average === null) return 0;
+                  if (a.average === null) return 1;
+                  if (b.average === null) return -1;
+                  return b.average - a.average;
+                })
+                .map((stat) => (
                 <tr key={stat.userId} className="border-b border-zinc-100">
                   <td className="px-3 py-3 font-semibold text-zinc-900">
                     {stat.name}
                   </td>
-                  <td className="px-3 py-3">
+                  <td className="px-3 py-3 text-center font-semibold text-zinc-900">
                     {stat.average === null ? "-" : stat.average.toFixed(1)}
                   </td>
-                  <td className="px-3 py-3">{stat.count}</td>
+                  <td className="px-3 py-3 text-center">{stat.count}</td>
                 </tr>
               ))}
             </tbody>

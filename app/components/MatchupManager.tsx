@@ -26,7 +26,6 @@ type Matchup = {
 
 type Props = {
   decks: Deck[];
-  users: User[];
   matchups: Matchup[];
 };
 
@@ -47,12 +46,11 @@ const deckClassLabels: Record<string, string> = {
 
 const winRateOptions = Array.from({ length: 21 }, (_, index) => index * 5);
 
-export default function MatchupManager({ decks, users, matchups }: Props) {
+export default function MatchupManager({ decks, matchups }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [deck1Id, setDeck1Id] = useState("");
   const [deck2Id, setDeck2Id] = useState("");
-  const [userId, setUserId] = useState("");
   const [winRate, setWinRate] = useState("50");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -76,11 +74,6 @@ export default function MatchupManager({ decks, users, matchups }: Props) {
       return;
     }
 
-    if (!userId) {
-      setError("ユーザーを選択してください。");
-      return;
-    }
-
     if (deck1Id === deck2Id) {
       setError("同じデッキ同士は選択できません。");
       return;
@@ -89,7 +82,6 @@ export default function MatchupManager({ decks, users, matchups }: Props) {
     const payload = {
       deck1Id: Number(deck1Id),
       deck2Id: Number(deck2Id),
-      userId: Number(userId),
       winRate: Number(winRate),
     };
 
@@ -112,7 +104,6 @@ export default function MatchupManager({ decks, users, matchups }: Props) {
 
     setDeck1Id("");
     setDeck2Id("");
-    setUserId("");
     setWinRate("50");
     setEditingId(null);
     startTransition(() => router.refresh());
@@ -121,7 +112,6 @@ export default function MatchupManager({ decks, users, matchups }: Props) {
   const onEdit = (matchup: Matchup) => {
     setDeck1Id(String(matchup.deck1.id));
     setDeck2Id(String(matchup.deck2.id));
-    setUserId(String(matchup.user.id));
     setWinRate(String(matchup.winRate));
     setEditingId(matchup.id);
   };
@@ -129,7 +119,6 @@ export default function MatchupManager({ decks, users, matchups }: Props) {
   const onCancelEdit = () => {
     setDeck1Id("");
     setDeck2Id("");
-    setUserId("");
     setWinRate("50");
     setEditingId(null);
     setError(null);
@@ -203,21 +192,6 @@ export default function MatchupManager({ decks, users, matchups }: Props) {
               {winRateOptions.map((value) => (
                 <option key={value} value={value}>
                   {value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2">
-            ユーザー
-            <select
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
-              value={userId}
-              onChange={(event) => setUserId(event.target.value)}
-            >
-              <option value="">選択してください</option>
-              {users.map((user) => (
-                <option key={user.id} value={user.id}>
-                  {user.name}
                 </option>
               ))}
             </select>
