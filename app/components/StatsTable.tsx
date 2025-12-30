@@ -1,3 +1,7 @@
+ "use client";
+
+import { useMemo, useState } from "react";
+
 type CardPack = {
   id: number;
   name: string;
@@ -92,27 +96,65 @@ const buildMemberStats = (matchups: Matchup[]) => {
 };
 
 const buildMatchupMatrix = (decks: Deck[], matchups: Matchup[]) => {
-  const lookup = new Map<string, number>();
+  const totals = new Map<string, { sum: number; count: number }>();
   for (const matchup of matchups) {
-    lookup.set(`${matchup.deck1.id}:${matchup.deck2.id}`, matchup.winRate);
+    const lowId = Math.min(matchup.deck1.id, matchup.deck2.id);
+    const highId = Math.max(matchup.deck1.id, matchup.deck2.id);
+    const key = `${lowId}:${highId}`;
+    const winRateFromLow =
+      matchup.deck1.id === lowId ? matchup.winRate : 100 - matchup.winRate;
+    const entry = totals.get(key) ?? { sum: 0, count: 0 };
+    entry.sum += winRateFromLow;
+    entry.count += 1;
+    totals.set(key, entry);
   }
 
   return decks.map((row) =>
     decks.map((col) => {
       if (row.id === col.id) return null;
-      const direct = lookup.get(`${row.id}:${col.id}`);
-      if (direct !== undefined) return direct;
-      const reverse = lookup.get(`${col.id}:${row.id}`);
-      if (reverse !== undefined) return 100 - reverse;
-      return undefined;
+      const lowId = Math.min(row.id, col.id);
+      const highId = Math.max(row.id, col.id);
+      const entry = totals.get(`${lowId}:${highId}`);
+      if (!entry) return undefined;
+      const avgFromLow = entry.sum / entry.count;
+      return row.id === lowId ? avgFromLow : 100 - avgFromLow;
     })
   );
 };
 
 export default function StatsTable({ decks, matchups }: Props) {
-  const stats = buildAverageStats(decks, matchups);
-  const memberStats = buildMemberStats(matchups);
-  const matchupMatrix = buildMatchupMatrix(decks, matchups);
+  const [activeTab, setActiveTab] = useState<"overall" | number>("overall");
+
+  const users = useMemo(() => {
+    const seen = new Map<number, string>();
+    for (const matchup of matchups) {
+      if (!seen.has(matchup.user.id)) {
+        seen.set(matchup.user.id, matchup.user.name);
+      }
+    }
+    return Array.from(seen.entries()).map(([id, name]) => ({ id, name }));
+  }, [matchups]);
+
+  const formatRate = (value: number) =>
+    Number.isInteger(value) ? value.toString() : value.toFixed(1);
+
+  const stats = useMemo(
+    () => buildAverageStats(decks, matchups),
+    [decks, matchups]
+  );
+  const memberStats = useMemo(() => buildMemberStats(matchups), [matchups]);
+  const overallMatrix = useMemo(
+    () => buildMatchupMatrix(decks, matchups),
+    [decks, matchups]
+  );
+  const activeMatchups = useMemo(() => {
+    if (activeTab === "overall") return matchups;
+    return matchups.filter((matchup) => matchup.user.id === activeTab);
+  }, [activeTab, matchups]);
+  const activeMatrix = useMemo(
+    () => buildMatchupMatrix(decks, activeMatchups),
+    [decks, activeMatchups]
+  );
 
   return (
     <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
@@ -123,6 +165,34 @@ export default function StatsTable({ decks, matchups }: Props) {
         <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
           統計表示
         </h2>
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        <button
+          type="button"
+          className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
+            activeTab === "overall"
+              ? "border-zinc-900 bg-zinc-900 text-white"
+              : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+          }`}
+          onClick={() => setActiveTab("overall")}
+        >
+          統計
+        </button>
+        {users.map((user) => (
+          <button
+            key={user.id}
+            type="button"
+            className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
+              activeTab === user.id
+                ? "border-zinc-900 bg-zinc-900 text-white"
+                : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+            }`}
+            onClick={() => setActiveTab(user.id)}
+          >
+            {user.name}
+          </button>
+        ))}
       </div>
 
       <div className="mt-6 overflow-x-auto">
@@ -157,7 +227,9 @@ export default function StatsTable({ decks, matchups }: Props) {
                   </div>
                 </th>
                 {decks.map((colDeck, colIndex) => {
-                  const value = matchupMatrix[rowIndex]?.[colIndex];
+                  const matrix =
+                    activeTab === "overall" ? overallMatrix : activeMatrix;
+                  const value = matrix[rowIndex]?.[colIndex];
                   const isSame = rowDeck.id === colDeck.id;
                   return (
                     <td
@@ -172,7 +244,7 @@ export default function StatsTable({ decks, matchups }: Props) {
                         <span className="text-zinc-400">—</span>
                       ) : (
                         <span className="font-semibold text-zinc-900">
-                          {value}
+                          {formatRate(value)}
                         </span>
                       )}
                     </td>
@@ -187,9 +259,15 @@ export default function StatsTable({ decks, matchups }: Props) {
             デッキが登録されていません。
           </p>
         )}
+        {activeTab !== "overall" && activeMatchups.length === 0 && (
+          <p className="mt-4 text-sm text-zinc-500">
+            選択したメンバーの相性評価がありません。
+          </p>
+        )}
       </div>
 
-      <div className="mt-8">
+      {activeTab === "overall" && (
+        <div className="mt-8">
         <h3 className="text-lg font-semibold text-zinc-900">
           メンバー別の平均相性
         </h3>
@@ -230,6 +308,7 @@ export default function StatsTable({ decks, matchups }: Props) {
           )}
         </div>
       </div>
+      )}
     </section>
   );
 }

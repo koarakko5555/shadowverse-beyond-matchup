@@ -529,6 +529,10 @@
     border-color: var(--color-zinc-300);
   }
 
+  .border-zinc-900 {
+    border-color: var(--color-zinc-900);
+  }
+
   .bg-white {
     background-color: var(--color-white);
   }

@@ -10,3 +10,6 @@
 [00:05:26.055] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:08:33.423] Server  ERROR   ReferenceError: userId is not defined
 [00:08:34.639] Server  ERROR   ReferenceError: userId is not defined
+[00:16:46.976] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:23:57.128] Server  LOG      ✓ Compiled in 86ms
+[00:25:29.823] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

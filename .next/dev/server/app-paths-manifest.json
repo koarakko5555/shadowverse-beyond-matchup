@@ -4,6 +4,7 @@
   "/(dashboard)/decks/page": "app/(dashboard)/decks/page.js",
   "/(dashboard)/matchups/page": "app/(dashboard)/matchups/page.js",
   "/(dashboard)/packs/page": "app/(dashboard)/packs/page.js",
+  "/(dashboard)/stats/page": "app/(dashboard)/stats/page.js",
   "/(dashboard)/users/page": "app/(dashboard)/users/page.js",
   "/api/admin/users/role/route": "app/api/admin/users/role/route.js",
   "/api/auth/login/route": "app/api/auth/login/route.js",
