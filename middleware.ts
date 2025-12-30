@@ -28,6 +28,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/packs") ||
     pathname.startsWith("/decks") ||
     pathname.startsWith("/matchups") ||
+    pathname.startsWith("/records") ||
     pathname.startsWith("/users") ||
     pathname.startsWith("/stats");
 
@@ -48,6 +49,7 @@ export const config = {
     "/packs/:path*",
     "/decks/:path*",
     "/matchups/:path*",
+    "/records/:path*",
     "/users/:path*",
     "/stats/:path*",
     "/login",

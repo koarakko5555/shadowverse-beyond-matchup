@@ -29,6 +29,10 @@ const navItems = [
         label: "相性評価"
     },
     {
+        href: "/records",
+        label: "戦績"
+    },
+    {
         href: "/users",
         label: "ユーザー"
     },
@@ -58,7 +62,7 @@ function DashboardSidebar() {
                         children: "Shadowverse"
                     }, void 0, false, {
                         fileName: "[project]/app/components/DashboardSidebar.tsx",
-                        lineNumber: 27,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -66,13 +70,13 @@ function DashboardSidebar() {
                         children: "Beyond Matchup"
                     }, void 0, false, {
                         fileName: "[project]/app/components/DashboardSidebar.tsx",
-                        lineNumber: 30,
+                        lineNumber: 31,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/DashboardSidebar.tsx",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -85,13 +89,13 @@ function DashboardSidebar() {
                         children: item.label
                     }, item.href, false, {
                         fileName: "[project]/app/components/DashboardSidebar.tsx",
-                        lineNumber: 39,
+                        lineNumber: 40,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/app/components/DashboardSidebar.tsx",
-                lineNumber: 35,
+                lineNumber: 36,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -103,18 +107,18 @@ function DashboardSidebar() {
                     children: "ログアウト"
                 }, void 0, false, {
                     fileName: "[project]/app/components/DashboardSidebar.tsx",
-                    lineNumber: 55,
+                    lineNumber: 56,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/DashboardSidebar.tsx",
-                lineNumber: 54,
+                lineNumber: 55,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/DashboardSidebar.tsx",
-        lineNumber: 25,
+        lineNumber: 26,
         columnNumber: 5
     }, this);
 }

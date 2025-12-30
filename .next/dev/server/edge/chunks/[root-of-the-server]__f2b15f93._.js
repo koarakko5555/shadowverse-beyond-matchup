@@ -40,7 +40,7 @@ async function middleware(request) {
     const token = request.cookies.get(SESSION_COOKIE)?.value;
     const session = await getSession(token);
     const pathname = request.nextUrl.pathname;
-    const isProtected = pathname.startsWith("/packs") || pathname.startsWith("/decks") || pathname.startsWith("/matchups") || pathname.startsWith("/users") || pathname.startsWith("/stats");
+    const isProtected = pathname.startsWith("/packs") || pathname.startsWith("/decks") || pathname.startsWith("/matchups") || pathname.startsWith("/records") || pathname.startsWith("/users") || pathname.startsWith("/stats");
     if (isProtected && !session) {
         const loginUrl = new URL("/login", request.url);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(loginUrl);
@@ -55,6 +55,7 @@ const config = {
         "/packs/:path*",
         "/decks/:path*",
         "/matchups/:path*",
+        "/records/:path*",
         "/users/:path*",
         "/stats/:path*",
         "/login",

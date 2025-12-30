@@ -28,6 +28,8 @@ model Deck {
   cardPack    CardPack  @relation(fields: [cardPackId], references: [id])
   matchups    Matchup[]  @relation("Deck1")
   matchups2   Matchup[]  @relation("Deck2")
+  matchRecords MatchRecord[] @relation("MatchRecordDeck")
+  opponentRecords MatchRecord[] @relation("MatchRecordOpponent")
 }
 
 enum DeckClass {
@@ -53,6 +55,24 @@ model Matchup {
   @@unique([deck1Id, deck2Id, userId])
 }
 
+model MatchRecord {
+  id             Int         @id @default(autoincrement())
+  deckId         Int
+  opponentDeckId Int
+  userId         Int
+  deck           Deck        @relation("MatchRecordDeck", fields: [deckId], references: [id])
+  opponentDeck   Deck        @relation("MatchRecordOpponent", fields: [opponentDeckId], references: [id])
+  user           User        @relation(fields: [userId], references: [id])
+  turn           MatchTurn
+  result         MatchResult
+  note           String      @db.Text
+  createdAt      DateTime    @default(now())
+
+  @@index([deckId])
+  @@index([opponentDeckId])
+  @@index([userId])
+}
+
 model User {
   id           Int       @id @default(autoincrement())
   loginId      String    @unique
@@ -61,6 +81,7 @@ model User {
   role         UserRole  @default(MEMBER)
   createdAt    DateTime  @default(now())
   matchups     Matchup[]
+  matchRecords MatchRecord[]
 
   @@map("users")
 }
@@ -68,4 +89,14 @@ model User {
 enum UserRole {
   ADMIN
   MEMBER
+}
+
+enum MatchTurn {
+  FIRST
+  SECOND
+}
+
+enum MatchResult {
+  WIN
+  LOSS
 }

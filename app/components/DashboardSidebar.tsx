@@ -8,6 +8,7 @@ const navItems = [
   { href: "/packs", label: "カードパック" },
   { href: "/decks", label: "デッキ" },
   { href: "/matchups", label: "相性評価" },
+  { href: "/records", label: "戦績" },
   { href: "/users", label: "ユーザー" },
   { href: "/stats", label: "統計" },
 ];
