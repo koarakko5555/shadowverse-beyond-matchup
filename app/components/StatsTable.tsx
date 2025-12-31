@@ -189,10 +189,10 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
               {sortedDecks.map((deck) => (
                 <th
                   key={deck.id}
-                  className="min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
+                  className="min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
                 >
                   <div
-                    className="max-w-[120px] text-center text-xs font-semibold text-zinc-900"
+                    className="max-w-[160px] text-center text-xs font-semibold text-zinc-900"
                     style={{
                       display: "-webkit-box",
                       WebkitLineClamp: 2,
@@ -214,26 +214,26 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
           <tbody>
             {sortedDecks.map((rowDeck, rowIndex) => (
               <tr key={rowDeck.id}>
-                <th className="border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
-                  <div
-                    className="max-w-[140px]"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      lineHeight: "1.2",
-                      minHeight: "2.4em",
-                    }}
-                  >
-                    {rowDeck.name}
-                  </div>
-                  <div className="text-xs font-normal text-zinc-700">
-                    {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
-                    {" / "}
-                    {rowDeck.cardPack.name}
-                  </div>
-                </th>
+              <th className="min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                <div
+                  className="max-w-[200px]"
+                  style={{
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    lineHeight: "1.2",
+                    minHeight: "2.4em",
+                  }}
+                >
+                  {rowDeck.name}
+                </div>
+                <div className="text-xs font-normal text-zinc-700">
+                  {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
+                  {" / "}
+                  {rowDeck.cardPack.name}
+                </div>
+              </th>
                 {sortedDecks.map((colDeck, colIndex) => {
                   const value = overallMatrix[rowIndex]?.[colIndex];
                   const isSame = rowDeck.id === colDeck.id;

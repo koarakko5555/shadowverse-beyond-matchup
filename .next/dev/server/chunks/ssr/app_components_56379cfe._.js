@@ -187,10 +187,10 @@ function StatsTable({ decks, matchups, embedded }) {
                                             columnNumber: 15
                                         }, this),
                                         sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
+                                                className: "min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "max-w-[120px] text-center text-xs font-semibold text-zinc-900",
+                                                        className: "max-w-[160px] text-center text-xs font-semibold text-zinc-900",
                                                         style: {
                                                             display: "-webkit-box",
                                                             WebkitLineClamp: 2,
@@ -234,10 +234,10 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: sortedDecks.map((rowDeck, rowIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
+                                                className: "min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "max-w-[140px]",
+                                                        className: "max-w-[200px]",
                                                         style: {
                                                             display: "-webkit-box",
                                                             WebkitLineClamp: 2,
@@ -250,7 +250,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
                                                         lineNumber: 218,
-                                                        columnNumber: 19
+                                                        columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "text-xs font-normal text-zinc-700",
@@ -262,13 +262,13 @@ function StatsTable({ decks, matchups, embedded }) {
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
                                                         lineNumber: 231,
-                                                        columnNumber: 19
+                                                        columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/StatsTable.tsx",
                                                 lineNumber: 217,
-                                                columnNumber: 17
+                                                columnNumber: 15
                                             }, this),
                                             sortedDecks.map((colDeck, colIndex)=>{
                                                 const value = overallMatrix[rowIndex]?.[colIndex];
