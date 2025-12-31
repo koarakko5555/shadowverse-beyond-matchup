@@ -55,9 +55,9 @@ export async function PUT(request: Request, { params }: Params) {
   const cardPackId =
     typeof body?.cardPackId === "number" ? body.cardPackId : null;
 
-  if (name.length < 1 || name.length > 100) {
+  if (name.length < 1 || name.length > 10) {
     return NextResponse.json(
-      { error: "デッキ名は1〜100文字で入力してください。" },
+      { error: "デッキ名は1〜10文字で入力してください。" },
       { status: 400 }
     );
   }

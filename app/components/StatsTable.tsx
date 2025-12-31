@@ -191,7 +191,19 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
                   key={deck.id}
                   className="min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
                 >
-                  <div className="font-semibold text-zinc-900">{deck.name}</div>
+                  <div
+                    className="max-w-[120px] text-center text-xs font-semibold text-zinc-900"
+                    style={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      lineHeight: "1.2",
+                      minHeight: "2.4em",
+                    }}
+                  >
+                    {deck.name}
+                  </div>
                   <div className="text-[10px] text-zinc-400">
                     {deckClassLabels[deck.deckClass] ?? deck.deckClass}
                   </div>
@@ -203,7 +215,19 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
             {sortedDecks.map((rowDeck, rowIndex) => (
               <tr key={rowDeck.id}>
                 <th className="border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
-                  {rowDeck.name}
+                  <div
+                    className="max-w-[140px]"
+                    style={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      lineHeight: "1.2",
+                      minHeight: "2.4em",
+                    }}
+                  >
+                    {rowDeck.name}
+                  </div>
                   <div className="text-xs font-normal text-zinc-700">
                     {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
                     {" / "}

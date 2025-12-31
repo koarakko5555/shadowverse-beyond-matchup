@@ -44,8 +44,8 @@ export default function DeckManager({ cardPacks, decks }: Props) {
     event.preventDefault();
     setError(null);
 
-    if (name.trim().length < 1 || name.trim().length > 100) {
-      setError("デッキ名は1〜100文字で入力してください。");
+    if (name.trim().length < 1 || name.trim().length > 10) {
+      setError("デッキ名は1〜10文字で入力してください。");
       return;
     }
 
@@ -131,6 +131,7 @@ export default function DeckManager({ cardPacks, decks }: Props) {
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="例: 回復ビショップ"
+              maxLength={10}
             />
           </label>
           <label className="flex flex-col gap-2 text-sm text-zinc-700">

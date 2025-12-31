@@ -158,6 +158,7 @@ export default function MatchupManager({
   const [activeTab, setActiveTab] = useState<"input" | "stats">("input");
   const [isPublicMatchup, setIsPublicMatchup] = useState(isPublic);
   const deckFormRef = useRef<HTMLDivElement | null>(null);
+  const matrixEditRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (activePackId !== null || cardPacks.length === 0) return;
@@ -276,6 +277,17 @@ export default function MatchupManager({
       reversed: cell.type === "value" ? cell.reversed : undefined,
     });
     setMatrixWinRate(cell.type === "value" ? String(cell.value) : "");
+    if (typeof window !== "undefined") {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        setTimeout(() => {
+          matrixEditRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 0);
+      }
+    }
   };
 
   const onMatrixSave = async () => {
@@ -345,8 +357,8 @@ export default function MatchupManager({
     event.preventDefault();
     setError(null);
 
-    if (deckName.trim().length < 1 || deckName.trim().length > 100) {
-      setError("デッキ名は1〜100文字で入力してください。");
+    if (deckName.trim().length < 1 || deckName.trim().length > 10) {
+      setError("デッキ名は1〜10文字で入力してください。");
       return;
     }
     if (!deckClass) {
@@ -493,9 +505,19 @@ export default function MatchupManager({
                     {sortedDecks.map((deck) => (
                       <th
                         key={deck.id}
-                        className="min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
+                        className="min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
                       >
-                        <div className="font-semibold text-zinc-900">
+                        <div
+                          className="max-w-[160px] text-center text-xs font-semibold text-zinc-900"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            lineHeight: "1.2",
+                            minHeight: "2.4em",
+                          }}
+                        >
                           {deck.name}
                         </div>
                       </th>
@@ -505,8 +527,20 @@ export default function MatchupManager({
                 <tbody>
                   {sortedDecks.map((rowDeck, rowIndex) => (
                     <tr key={rowDeck.id}>
-                      <th className="border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
-                        {rowDeck.name}
+                      <th className="min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                        <div
+                          className="max-w-[200px]"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            lineHeight: "1.2",
+                            minHeight: "2.4em",
+                          }}
+                        >
+                          {rowDeck.name}
+                        </div>
                       </th>
                       {sortedDecks.map((colDeck, colIndex) => {
                         const cell = matchupMatrix[rowIndex]?.[colIndex];
@@ -605,7 +639,10 @@ export default function MatchupManager({
           )}
 
           {activeTab === "input" && matrixEdit && (
-            <div className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
+            <div
+              ref={matrixEditRef}
+              className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4"
+            >
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold text-zinc-900">
@@ -705,6 +742,7 @@ export default function MatchupManager({
                     value={deckName}
                     onChange={(event) => setDeckName(event.target.value)}
                     placeholder="デッキ名を入力"
+                    maxLength={10}
                   />
                 </label>
                 <div className="flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2">

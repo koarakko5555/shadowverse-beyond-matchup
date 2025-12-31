@@ -212,7 +212,15 @@ function StatsTable({ decks, matchups, embedded }) {
                                                 className: "min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "font-semibold text-zinc-900",
+                                                        className: "max-w-[120px] text-center text-xs font-semibold text-zinc-900",
+                                                        style: {
+                                                            display: "-webkit-box",
+                                                            WebkitLineClamp: 2,
+                                                            WebkitBoxOrient: "vertical",
+                                                            overflow: "hidden",
+                                                            lineHeight: "1.2",
+                                                            minHeight: "2.4em"
+                                                        },
                                                         children: deck.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
@@ -224,7 +232,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                                         children: deckClassLabels[deck.deckClass] ?? deck.deckClass
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 195,
+                                                        lineNumber: 207,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
@@ -250,7 +258,22 @@ function StatsTable({ decks, matchups, embedded }) {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 className: "border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
                                                 children: [
-                                                    rowDeck.name,
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "max-w-[140px]",
+                                                        style: {
+                                                            display: "-webkit-box",
+                                                            WebkitLineClamp: 2,
+                                                            WebkitBoxOrient: "vertical",
+                                                            overflow: "hidden",
+                                                            lineHeight: "1.2",
+                                                            minHeight: "2.4em"
+                                                        },
+                                                        children: rowDeck.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/StatsTable.tsx",
+                                                        lineNumber: 218,
+                                                        columnNumber: 19
+                                                    }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "text-xs font-normal text-zinc-700",
                                                         children: [
@@ -260,13 +283,13 @@ function StatsTable({ decks, matchups, embedded }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 231,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                lineNumber: 205,
+                                                lineNumber: 217,
                                                 columnNumber: 17
                                             }, this),
                                             sortedDecks.map((colDeck, colIndex)=>{
@@ -279,38 +302,38 @@ function StatsTable({ decks, matchups, embedded }) {
                                                         children: "*"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 222,
+                                                        lineNumber: 246,
                                                         columnNumber: 25
                                                     }, this) : value === undefined ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "text-zinc-400",
                                                         children: "—"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 226,
+                                                        lineNumber: 250,
                                                         columnNumber: 25
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "font-semibold text-zinc-900",
                                                         children: formatRate(value)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 228,
+                                                        lineNumber: 252,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, colDeck.id, false, {
                                                     fileName: "[project]/app/components/StatsTable.tsx",
-                                                    lineNumber: 217,
+                                                    lineNumber: 241,
                                                     columnNumber: 21
                                                 }, this);
                                             })
                                         ]
                                     }, rowDeck.id, true, {
                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 216,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 202,
+                                lineNumber: 214,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -324,7 +347,7 @@ function StatsTable({ decks, matchups, embedded }) {
                         children: "デッキが登録されていません。"
                     }, void 0, false, {
                         fileName: "[project]/app/components/StatsTable.tsx",
-                        lineNumber: 240,
+                        lineNumber: 264,
                         columnNumber: 11
                     }, this)
                 ]
@@ -344,7 +367,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "みんなの相性表"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 248,
+                                lineNumber: 272,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -356,18 +379,18 @@ function StatsTable({ decks, matchups, embedded }) {
                                         children: user.name
                                     }, user.id, false, {
                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                        lineNumber: 253,
+                                        lineNumber: 277,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 251,
+                                lineNumber: 275,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/StatsTable.tsx",
-                        lineNumber: 247,
+                        lineNumber: 271,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -385,7 +408,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                                     children: "デッキ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/StatsTable.tsx",
-                                                    lineNumber: 273,
+                                                    lineNumber: 297,
                                                     columnNumber: 15
                                                 }, this),
                                                 sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -396,7 +419,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                                                 children: deck.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 281,
+                                                                lineNumber: 305,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -404,24 +427,24 @@ function StatsTable({ decks, matchups, embedded }) {
                                                                 children: deckClassLabels[deck.deckClass] ?? deck.deckClass
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 282,
+                                                                lineNumber: 306,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, deck.id, true, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 277,
+                                                        lineNumber: 301,
                                                         columnNumber: 17
                                                     }, this))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/StatsTable.tsx",
-                                            lineNumber: 272,
+                                            lineNumber: 296,
                                             columnNumber: 13
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                        lineNumber: 271,
+                                        lineNumber: 295,
                                         columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -440,13 +463,13 @@ function StatsTable({ decks, matchups, embedded }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 294,
+                                                                lineNumber: 318,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 292,
+                                                        lineNumber: 316,
                                                         columnNumber: 17
                                                     }, this),
                                                     sortedDecks.map((colDeck, colIndex)=>{
@@ -459,44 +482,44 @@ function StatsTable({ decks, matchups, embedded }) {
                                                                 children: "*"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 309,
+                                                                lineNumber: 333,
                                                                 columnNumber: 27
                                                             }, this) : value === undefined ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "text-zinc-400",
                                                                 children: "—"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 313,
+                                                                lineNumber: 337,
                                                                 columnNumber: 27
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "font-semibold text-zinc-900",
                                                                 children: formatRate(value)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 315,
+                                                                lineNumber: 339,
                                                                 columnNumber: 27
                                                             }, this)
                                                         }, colDeck.id, false, {
                                                             fileName: "[project]/app/components/StatsTable.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 328,
                                                             columnNumber: 23
                                                         }, this);
                                                     })
                                                 ]
                                             }, rowDeck.id, true, {
                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                lineNumber: 291,
+                                                lineNumber: 315,
                                                 columnNumber: 15
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                        lineNumber: 289,
+                                        lineNumber: 313,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 270,
+                                lineNumber: 294,
                                 columnNumber: 9
                             }, this),
                             users.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -504,7 +527,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "相性評価が登録されていません。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 327,
+                                lineNumber: 351,
                                 columnNumber: 13
                             }, this),
                             activeTab && activeMatchups.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -512,7 +535,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "選択したメンバーの相性評価がありません。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 332,
+                                lineNumber: 356,
                                 columnNumber: 13
                             }, this),
                             !activeTab && users.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -520,19 +543,19 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "メンバーを選択してください。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 337,
+                                lineNumber: 361,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/StatsTable.tsx",
-                        lineNumber: 269,
+                        lineNumber: 293,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/StatsTable.tsx",
-                lineNumber: 246,
+                lineNumber: 270,
                 columnNumber: 7
             }, this)
         ]
@@ -655,6 +678,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("input");
     const [isPublicMatchup, setIsPublicMatchup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(isPublic);
     const deckFormRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const matrixEditRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "MatchupManager.useEffect": ()=>{
             if (activePackId !== null || cardPacks.length === 0) return;
@@ -824,6 +848,17 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
             reversed: cell.type === "value" ? cell.reversed : undefined
         });
         setMatrixWinRate(cell.type === "value" ? String(cell.value) : "");
+        if ("TURBOPACK compile-time truthy", 1) {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            if (isMobile) {
+                setTimeout(()=>{
+                    matrixEditRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }, 0);
+            }
+        }
     };
     const onMatrixSave = async ()=>{
         if (!matrixEdit) return;
@@ -884,8 +919,8 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
     const onDeckSubmit = async (event)=>{
         event.preventDefault();
         setError(null);
-        if (deckName.trim().length < 1 || deckName.trim().length > 100) {
-            setError("デッキ名は1〜100文字で入力してください。");
+        if (deckName.trim().length < 1 || deckName.trim().length > 10) {
+            setError("デッキ名は1〜10文字で入力してください。");
             return;
         }
         if (!deckClass) {
@@ -962,12 +997,12 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                             children: pack.name
                         }, pack.id, false, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 416,
+                            lineNumber: 428,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/components/MatchupManager.tsx",
-                    lineNumber: 414,
+                    lineNumber: 426,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -980,7 +1015,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                     children: "Matchups"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 432,
+                                    lineNumber: 444,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -988,13 +1023,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                     children: "相性登録"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 435,
+                                    lineNumber: 447,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 431,
+                            lineNumber: 443,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1007,7 +1042,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                     children: "相性入力"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 440,
+                                    lineNumber: 452,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1017,13 +1052,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                     children: "統計"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 451,
+                                    lineNumber: 463,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 439,
+                            lineNumber: 451,
                             columnNumber: 11
                         }, this),
                         activeTab === "stats" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1034,12 +1069,12 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                 embedded: true
                             }, void 0, false, {
                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                lineNumber: 466,
+                                lineNumber: 478,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 465,
+                            lineNumber: 477,
                             columnNumber: 13
                         }, this),
                         flashMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1047,7 +1082,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                             children: flashMessage
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 475,
+                            lineNumber: 487,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && matrixMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1055,7 +1090,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                             children: matrixMessage
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 480,
+                            lineNumber: 492,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1073,44 +1108,67 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                         children: "デッキ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/MatchupManager.tsx",
-                                                        lineNumber: 490,
+                                                        lineNumber: 502,
                                                         columnNumber: 21
                                                     }, this),
                                                     sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                            className: "min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
+                                                            className: "min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "font-semibold text-zinc-900",
+                                                                className: "max-w-[160px] text-center text-xs font-semibold text-zinc-900",
+                                                                style: {
+                                                                    display: "-webkit-box",
+                                                                    WebkitLineClamp: 2,
+                                                                    WebkitBoxOrient: "vertical",
+                                                                    overflow: "hidden",
+                                                                    lineHeight: "1.2",
+                                                                    minHeight: "2.4em"
+                                                                },
                                                                 children: deck.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 498,
+                                                                lineNumber: 510,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, deck.id, false, {
                                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                                            lineNumber: 494,
+                                                            lineNumber: 506,
                                                             columnNumber: 23
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 489,
+                                                lineNumber: 501,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 488,
+                                            lineNumber: 500,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                             children: sortedDecks.map((rowDeck, rowIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                            className: "border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
-                                                            children: rowDeck.name
+                                                            className: "min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "max-w-[200px]",
+                                                                style: {
+                                                                    display: "-webkit-box",
+                                                                    WebkitLineClamp: 2,
+                                                                    WebkitBoxOrient: "vertical",
+                                                                    overflow: "hidden",
+                                                                    lineHeight: "1.2",
+                                                                    minHeight: "2.4em"
+                                                                },
+                                                                children: rowDeck.name
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchupManager.tsx",
+                                                                lineNumber: 531,
+                                                                columnNumber: 25
+                                                            }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                                            lineNumber: 508,
+                                                            lineNumber: 530,
                                                             columnNumber: 23
                                                         }, this),
                                                         sortedDecks.map((colDeck, colIndex)=>{
@@ -1125,7 +1183,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                     children: "*"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                    lineNumber: 527,
+                                                                    lineNumber: 561,
                                                                     columnNumber: 31
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                     type: "button",
@@ -1134,30 +1192,30 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                     children: override !== null ? override : display === undefined ? "—" : display
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                    lineNumber: 531,
+                                                                    lineNumber: 565,
                                                                     columnNumber: 31
                                                                 }, this)
                                                             }, colDeck.id, false, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 520,
+                                                                lineNumber: 554,
                                                                 columnNumber: 27
                                                             }, this);
                                                         })
                                                     ]
                                                 }, rowDeck.id, true, {
                                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                                    lineNumber: 507,
+                                                    lineNumber: 529,
                                                     columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 505,
+                                            lineNumber: 527,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 487,
+                                    lineNumber: 499,
                                     columnNumber: 15
                                 }, this),
                                 sortedDecks.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1165,13 +1223,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                     children: "このカードパックのデッキがありません。"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 551,
+                                    lineNumber: 585,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 486,
+                            lineNumber: 498,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1184,7 +1242,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "相性表の公開設定"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 560,
+                                            lineNumber: 594,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1192,13 +1250,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "公開にすると、統計タブであなたの相性表が集計されます。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 561,
+                                            lineNumber: 595,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 559,
+                                    lineNumber: 593,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1208,7 +1266,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: isPublicMatchup ? "公開" : "非公開"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 566,
+                                            lineNumber: 600,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1242,7 +1300,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 567,
+                                            lineNumber: 601,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1251,27 +1309,28 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 className: "absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition peer-checked:translate-x-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 601,
+                                                lineNumber: 635,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 600,
+                                            lineNumber: 634,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 565,
+                                    lineNumber: 599,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 558,
+                            lineNumber: 592,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && matrixEdit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            ref: matrixEditRef,
                             className: "mt-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex flex-wrap items-center justify-between gap-4",
@@ -1283,7 +1342,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 children: "相性の編集"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 611,
+                                                lineNumber: 648,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1297,13 +1356,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 614,
+                                                lineNumber: 651,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/MatchupManager.tsx",
-                                        lineNumber: 610,
+                                        lineNumber: 647,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1319,7 +1378,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                         children: "選択してください"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/MatchupManager.tsx",
-                                                        lineNumber: 628,
+                                                        lineNumber: 665,
                                                         columnNumber: 21
                                                     }, this),
                                                     winRateOptions.map((value)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1327,13 +1386,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                             children: value
                                                         }, value, false, {
                                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                                            lineNumber: 630,
+                                                            lineNumber: 667,
                                                             columnNumber: 23
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 623,
+                                                lineNumber: 660,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1343,7 +1402,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 children: "保存"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 635,
+                                                lineNumber: 672,
                                                 columnNumber: 19
                                             }, this),
                                             matrixEdit.recordId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1353,7 +1412,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 children: "削除"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 643,
+                                                lineNumber: 680,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1363,24 +1422,24 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 children: "閉じる"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 651,
+                                                lineNumber: 688,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/MatchupManager.tsx",
-                                        lineNumber: 622,
+                                        lineNumber: 659,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                lineNumber: 609,
+                                lineNumber: 646,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 608,
+                            lineNumber: 642,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1394,7 +1453,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "Decks"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 669,
+                                            lineNumber: 706,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1402,7 +1461,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: editingDeckId ? "デッキの編集" : "デッキ追加"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 672,
+                                            lineNumber: 709,
                                             columnNumber: 17
                                         }, this),
                                         editingDeckId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1410,13 +1469,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "編集中のデッキが選択されています。内容を更新して保存してください。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 676,
+                                            lineNumber: 713,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 668,
+                                    lineNumber: 705,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1437,7 +1496,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                             children: "選択してください"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                                            lineNumber: 693,
+                                                            lineNumber: 730,
                                                             columnNumber: 21
                                                         }, this),
                                                         Object.entries(deckClassLabels).map(([value, label])=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1445,19 +1504,19 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                 children: label
                                                             }, value, false, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 695,
+                                                                lineNumber: 732,
                                                                 columnNumber: 23
                                                             }, this))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                                    lineNumber: 688,
+                                                    lineNumber: 725,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 686,
+                                            lineNumber: 723,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1468,16 +1527,17 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                     className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
                                                     value: deckName,
                                                     onChange: (event)=>setDeckName(event.target.value),
-                                                    placeholder: "デッキ名を入力"
+                                                    placeholder: "デッキ名を入力",
+                                                    maxLength: 10
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                                    lineNumber: 703,
+                                                    lineNumber: 740,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 701,
+                                            lineNumber: 738,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1489,13 +1549,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                     children: cardPacks.find((pack)=>pack.id === activePackId)?.name ?? "未選択"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                                    lineNumber: 712,
+                                                    lineNumber: 750,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 710,
+                                            lineNumber: 748,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1507,12 +1567,12 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                 children: editingDeckId ? "更新する" : "追加する"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 718,
+                                                lineNumber: 756,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 717,
+                                            lineNumber: 755,
                                             columnNumber: 15
                                         }, this),
                                         editingDeckId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1527,13 +1587,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "編集をやめる"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 727,
+                                            lineNumber: 765,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 682,
+                                    lineNumber: 719,
                                     columnNumber: 15
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1541,13 +1601,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 741,
+                                    lineNumber: 779,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 664,
+                            lineNumber: 701,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1561,7 +1621,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "登録済みデッキ"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 748,
+                                            lineNumber: 786,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1572,13 +1632,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 751,
+                                            lineNumber: 789,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 747,
+                                    lineNumber: 785,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1589,7 +1649,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: "まだ登録がありません。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 757,
+                                            lineNumber: 795,
                                             columnNumber: 19
                                         }, this),
                                         sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1602,7 +1662,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                 children: deck.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 765,
+                                                                lineNumber: 803,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1615,13 +1675,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 768,
+                                                                lineNumber: 806,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchupManager.tsx",
-                                                        lineNumber: 764,
+                                                        lineNumber: 802,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1634,7 +1694,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                 children: "編集"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 774,
+                                                                lineNumber: 812,
                                                                 columnNumber: 23
                                                             }, this),
                                                             isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1644,52 +1704,52 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                                 children: "削除"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                                lineNumber: 782,
+                                                                lineNumber: 820,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchupManager.tsx",
-                                                        lineNumber: 773,
+                                                        lineNumber: 811,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, deck.id, true, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 760,
+                                                lineNumber: 798,
                                                 columnNumber: 19
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 755,
+                                    lineNumber: 793,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 746,
+                            lineNumber: 784,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/MatchupManager.tsx",
-                    lineNumber: 430,
+                    lineNumber: 442,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/MatchupManager.tsx",
-            lineNumber: 413,
+            lineNumber: 425,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/MatchupManager.tsx",
-        lineNumber: 412,
+        lineNumber: 424,
         columnNumber: 5
     }, this);
 }
-_s(MatchupManager, "Tx1C4G+EYKfmgolVXt2EPJQIy2E=", false, function() {
+_s(MatchupManager, "aF1Zkg+zHiL8hJNZWueG9iBit3U=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"]
