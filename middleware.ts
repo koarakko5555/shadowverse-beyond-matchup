@@ -29,8 +29,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/decks") ||
     pathname.startsWith("/matchups") ||
     pathname.startsWith("/records") ||
-    pathname.startsWith("/users") ||
-    pathname.startsWith("/stats");
+    pathname.startsWith("/settings") ||
+    pathname.startsWith("/users");
 
   if (isProtected && !session) {
     const loginUrl = new URL("/login", request.url);
@@ -50,8 +50,8 @@ export const config = {
     "/decks/:path*",
     "/matchups/:path*",
     "/records/:path*",
+    "/settings/:path*",
     "/users/:path*",
-    "/stats/:path*",
     "/login",
     "/signup",
   ],

@@ -13,12 +13,14 @@ type Props = {
   users: UserRow[];
   isAdmin: boolean;
   currentUserId?: number;
+  embedded?: boolean;
 };
 
 export default function AuthUserManager({
   users,
   isAdmin,
   currentUserId,
+  embedded,
 }: Props) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -45,8 +47,8 @@ export default function AuthUserManager({
     });
   };
 
-  return (
-    <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+  const content = (
+    <>
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
           Users
@@ -58,58 +60,70 @@ export default function AuthUserManager({
 
       {!isAdmin && (
         <p className="mt-4 text-sm text-red-600">
-          管理者権限がないため、ロール変更はできません。
+          管理者のみ閲覧できます。
         </p>
       )}
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
-      <div className="mt-6 overflow-x-auto">
-        <table className="min-w-full text-left text-sm text-zinc-700">
-          <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400">
-            <tr>
-              <th className="px-3 py-2">表示名</th>
-              <th className="px-3 py-2">ロール</th>
-              <th className="px-3 py-2">登録日</th>
-              <th className="px-3 py-2 text-center">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((user) => (
-              <tr key={user.id} className="border-b border-zinc-100">
-                <td className="px-3 py-3 font-semibold text-zinc-900">
-                  {user.name}
-                </td>
-                <td className="px-3 py-3">
-                  <select
-                    className="rounded-lg border border-zinc-200 px-2 py-1 text-sm text-zinc-900"
-                    value={user.role}
-                    onChange={(event) =>
-                      updateRole(
-                        user.id,
-                        event.target.value === "ADMIN" ? "ADMIN" : "MEMBER"
-                      )
-                    }
-                    disabled={
-                      !isAdmin ||
-                      isPending ||
-                      (currentUserId && user.id === currentUserId)
-                    }
-                  >
-                    <option value="ADMIN">admin</option>
-                    <option value="MEMBER">member</option>
-                  </select>
-                </td>
-                <td className="px-3 py-3 text-xs text-zinc-500">
-                  {new Date(user.createdAt).toLocaleDateString("ja-JP")}
-                </td>
-                <td className="px-3 py-3 text-center text-xs text-zinc-500">
-                  {currentUserId === user.id ? "現在のユーザー" : "—"}
-                </td>
+      {isAdmin && (
+        <div className="mt-6 overflow-x-auto">
+          <table className="min-w-full text-left text-sm text-zinc-700">
+            <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400">
+              <tr>
+                <th className="px-3 py-2">表示名</th>
+                <th className="px-3 py-2">ロール</th>
+                <th className="px-3 py-2">登録日</th>
+                <th className="px-3 py-2 text-center">操作</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {rows.map((user) => (
+                <tr key={user.id} className="border-b border-zinc-100">
+                  <td className="px-3 py-3 font-semibold text-zinc-900">
+                    {user.name}
+                  </td>
+                  <td className="px-3 py-3">
+                    <select
+                      className="rounded-lg border border-zinc-200 px-2 py-1 text-sm text-zinc-900"
+                      value={user.role}
+                      onChange={(event) =>
+                        updateRole(
+                          user.id,
+                          event.target.value === "ADMIN" ? "ADMIN" : "MEMBER"
+                        )
+                      }
+                      disabled={
+                        !isAdmin ||
+                        isPending ||
+                        (currentUserId && user.id === currentUserId)
+                      }
+                    >
+                      <option value="ADMIN">admin</option>
+                      <option value="MEMBER">member</option>
+                    </select>
+                  </td>
+                  <td className="px-3 py-3 text-xs text-zinc-500">
+                    {new Date(user.createdAt).toLocaleDateString("ja-JP")}
+                  </td>
+                  <td className="px-3 py-3 text-center text-xs text-zinc-500">
+                    {currentUserId === user.id ? "現在のユーザー" : "—"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
+  );
+
+  if (embedded) {
+    return <div className="space-y-6">{content}</div>;
+  }
+
+  return (
+    <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      {content}
     </section>
   );
 }

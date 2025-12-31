@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 type CardPack = {
@@ -34,6 +34,7 @@ type MatchRecord = {
 
 type Props = {
   decks: Deck[];
+  cardPacks: CardPack[];
   records: MatchRecord[];
 };
 
@@ -57,60 +58,10 @@ const resultLabels: Record<MatchRecord["result"], string> = {
   LOSS: "負け",
 };
 
-type DeckStats = {
-  deckId: number;
-  name: string;
-  deckClass: string;
-  cardPack: string;
-  total: number;
-  wins: number;
-  firstTotal: number;
-  firstWins: number;
-  secondTotal: number;
-  secondWins: number;
-};
-
 const formatRate = (value: number | null) =>
   value === null ? "-" : Number.isInteger(value) ? `${value}` : value.toFixed(1);
 
-const buildDeckStats = (decks: Deck[], records: MatchRecord[]) => {
-  const byDeck = new Map<number, DeckStats>();
-
-  for (const deck of decks) {
-    byDeck.set(deck.id, {
-      deckId: deck.id,
-      name: deck.name,
-      deckClass: deck.deckClass,
-      cardPack: deck.cardPack.name,
-      total: 0,
-      wins: 0,
-      firstTotal: 0,
-      firstWins: 0,
-      secondTotal: 0,
-      secondWins: 0,
-    });
-  }
-
-  for (const record of records) {
-    const entry = byDeck.get(record.deck.id);
-    if (!entry) continue;
-    entry.total += 1;
-    if (record.result === "WIN") entry.wins += 1;
-    if (record.turn === "FIRST") {
-      entry.firstTotal += 1;
-      if (record.result === "WIN") entry.firstWins += 1;
-    } else {
-      entry.secondTotal += 1;
-      if (record.result === "WIN") entry.secondWins += 1;
-    }
-  }
-
-  return Array.from(byDeck.values())
-    .filter((stat) => stat.total > 0)
-    .sort((a, b) => b.total - a.total);
-};
-
-export default function MatchRecordManager({ decks, records }: Props) {
+export default function MatchRecordManager({ decks, cardPacks, records }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [deckId, setDeckId] = useState("");
@@ -120,57 +71,86 @@ export default function MatchRecordManager({ decks, records }: Props) {
   const [note, setNote] = useState("");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"overall" | number>("overall");
+  const [flashMessage, setFlashMessage] = useState<string | null>(null);
+  const [activePackId, setActivePackId] = useState<number | null>(null);
+  const [page, setPage] = useState(1);
 
-  const users = useMemo(() => {
-    const seen = new Map<number, string>();
-    for (const record of records) {
-      if (!seen.has(record.user.id)) {
-        seen.set(record.user.id, record.user.name);
-      }
+  const pageSize = 10;
+
+  useEffect(() => {
+    if (activePackId !== null || cardPacks.length === 0) return;
+    setActivePackId(cardPacks[0].id);
+  }, [activePackId, cardPacks]);
+
+  const filteredDecks = useMemo(() => {
+    if (!activePackId) return [];
+    return decks.filter((deck) => deck.cardPack.id === activePackId);
+  }, [activePackId, decks]);
+
+  const filteredRecords = useMemo(() => {
+    if (!activePackId) return [];
+    return records.filter((record) => record.deck.cardPack.id === activePackId);
+  }, [activePackId, records]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [activePackId]);
+
+  const lastUsedDeckId = useMemo(() => {
+    for (const record of filteredRecords) {
+      if (record.deck?.id) return record.deck.id;
     }
-    return Array.from(seen.entries()).map(([id, name]) => ({ id, name }));
-  }, [records]);
+    return null;
+  }, [filteredRecords]);
+
+  useEffect(() => {
+    if (deckId || !lastUsedDeckId) return;
+    setDeckId(String(lastUsedDeckId));
+  }, [deckId, lastUsedDeckId]);
 
   const selectedDeck = useMemo(
-    () => decks.find((deck) => deck.id === Number(deckId)),
-    [deckId, decks]
+    () => filteredDecks.find((deck) => deck.id === Number(deckId)),
+    [deckId, filteredDecks]
   );
 
   const opponentOptions = useMemo(() => {
-    if (!selectedDeck) return decks;
-    return decks.filter((deck) => deck.cardPack.id === selectedDeck.cardPack.id);
-  }, [decks, selectedDeck]);
+    if (!selectedDeck) return filteredDecks;
+    return filteredDecks.filter(
+      (deck) => deck.cardPack.id === selectedDeck.cardPack.id
+    );
+  }, [filteredDecks, selectedDeck]);
 
   const deckOptions = useMemo(
     () =>
-      decks.map((deck) => ({
+      filteredDecks.map((deck) => ({
         id: deck.id,
         label: `${deck.name} (${deckClassLabels[deck.deckClass] ?? deck.deckClass})`,
         cardPack: deck.cardPack.name,
         cardPackId: deck.cardPack.id,
       })),
-    [decks]
+    [filteredDecks]
   );
 
-  const activeRecords = useMemo(() => {
-    if (activeTab === "overall") return records;
-    return records.filter((record) => record.user.id === activeTab);
-  }, [activeTab, records]);
+  const summaryRecords = useMemo(() => {
+    if (!deckId) return [];
+    return filteredRecords.filter(
+      (record) => record.deck.id === Number(deckId)
+    );
+  }, [deckId, filteredRecords]);
 
   const summary = useMemo(() => {
-    const total = activeRecords.length;
-    const wins = activeRecords.filter((record) => record.result === "WIN").length;
-    const firstTotal = activeRecords.filter(
+    const total = summaryRecords.length;
+    const wins = summaryRecords.filter((record) => record.result === "WIN").length;
+    const firstTotal = summaryRecords.filter(
       (record) => record.turn === "FIRST"
     ).length;
-    const firstWins = activeRecords.filter(
+    const firstWins = summaryRecords.filter(
       (record) => record.turn === "FIRST" && record.result === "WIN"
     ).length;
-    const secondTotal = activeRecords.filter(
+    const secondTotal = summaryRecords.filter(
       (record) => record.turn === "SECOND"
     ).length;
-    const secondWins = activeRecords.filter(
+    const secondWins = summaryRecords.filter(
       (record) => record.turn === "SECOND" && record.result === "WIN"
     ).length;
     return {
@@ -182,11 +162,13 @@ export default function MatchRecordManager({ decks, records }: Props) {
       firstTotal,
       secondTotal,
     };
-  }, [activeRecords]);
+  }, [filteredRecords, summaryRecords]);
 
-  const deckStats = useMemo(
-    () => buildDeckStats(decks, activeRecords),
-    [decks, activeRecords]
+  const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const pagedRecords = summaryRecords.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
   );
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -223,7 +205,6 @@ export default function MatchRecordManager({ decks, records }: Props) {
       return;
     }
 
-    setDeckId("");
     setOpponentDeckId("");
     setTurn("FIRST");
     setResult("WIN");
@@ -242,7 +223,6 @@ export default function MatchRecordManager({ decks, records }: Props) {
   };
 
   const onCancelEdit = () => {
-    setDeckId("");
     setOpponentDeckId("");
     setTurn("FIRST");
     setResult("WIN");
@@ -263,40 +243,61 @@ export default function MatchRecordManager({ decks, records }: Props) {
       return;
     }
 
+    setFlashMessage("削除しました！");
     startTransition(() => router.refresh());
   };
 
   return (
     <div className="space-y-8">
-      <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
-            Records
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-            {editingId ? "戦績の編集" : "戦績の登録"}
-          </h2>
-        </div>
-
-        <form className="mt-6 grid gap-4 md:grid-cols-4" onSubmit={onSubmit}>
-          <label className="flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2">
-            自分のデッキ
-            <select
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
-              value={deckId}
-              onChange={(event) => {
-                setDeckId(event.target.value);
-                setOpponentDeckId("");
-              }}
+      <section className="rounded-2xl bg-transparent">
+        <div className="flex flex-wrap gap-2 px-4 pt-3">
+          {cardPacks.map((pack) => (
+            <button
+              key={pack.id}
+              type="button"
+              className={`relative -mb-px rounded-t-xl border border-b-0 px-5 py-2 text-xs font-semibold transition ${
+                activePackId === pack.id
+                  ? "border-zinc-900 bg-white text-zinc-900"
+                  : "border-zinc-200 bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              }`}
+              onClick={() => setActivePackId(pack.id)}
             >
-              <option value="">選択してください</option>
-              {deckOptions.map((deck) => (
-                <option key={deck.id} value={deck.id}>
-                  {deck.label} / {deck.cardPack}
-                </option>
-              ))}
-            </select>
-          </label>
+              {pack.name}
+            </button>
+          ))}
+        </div>
+        <div className="-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
+              Records
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
+              {editingId ? "戦績の編集" : "戦績の登録"}
+            </h2>
+          </div>
+
+          <div className="mt-6">
+            <label className="flex flex-col gap-2 text-sm text-zinc-700 md:max-w-sm">
+              使用デッキ
+              <select
+                className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
+                value={deckId}
+                onChange={(event) => {
+                  setDeckId(event.target.value);
+                  setOpponentDeckId("");
+                }}
+              >
+                <option value="">選択してください</option>
+                {deckOptions.map((deck) => (
+                  <option key={deck.id} value={deck.id}>
+                    {deck.label} / {deck.cardPack}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <form className="mt-6 grid gap-4 md:grid-cols-4" onSubmit={onSubmit}>
           <label className="flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2">
             対戦デッキ
             <select
@@ -365,183 +366,146 @@ export default function MatchRecordManager({ decks, records }: Props) {
               </button>
             )}
           </div>
-        </form>
-        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-      </section>
-
-      <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
-            Summary
-          </p>
-          <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-            勝率サマリー
-          </h3>
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            type="button"
-            className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
-              activeTab === "overall"
-                ? "border-zinc-900 bg-zinc-900 text-white"
-                : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
-            }`}
-            onClick={() => setActiveTab("overall")}
-          >
-            全体
-          </button>
-          {users.map((user) => (
-            <button
-              key={user.id}
-              type="button"
-              className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
-                activeTab === user.id
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
-              }`}
-              onClick={() => setActiveTab(user.id)}
-            >
-              {user.name}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-            <p className="text-xs text-zinc-500">全体勝率</p>
-            <p className="mt-2 text-2xl font-semibold text-zinc-900">
-              {formatRate(summary.rate)}
-              <span className="ml-2 text-sm text-zinc-500">
-                {summary.wins}/{summary.total}
-              </span>
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-            <p className="text-xs text-zinc-500">先攻勝率</p>
-            <p className="mt-2 text-2xl font-semibold text-zinc-900">
-              {formatRate(summary.firstRate)}
-              <span className="ml-2 text-sm text-zinc-500">
-                {summary.firstTotal}
-              </span>
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-            <p className="text-xs text-zinc-500">後攻勝率</p>
-            <p className="mt-2 text-2xl font-semibold text-zinc-900">
-              {formatRate(summary.secondRate)}
-              <span className="ml-2 text-sm text-zinc-500">
-                {summary.secondTotal}
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 overflow-x-auto">
-          <table className="min-w-full text-left text-sm text-zinc-700">
-            <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400">
-              <tr>
-                <th className="px-3 py-2">デッキ</th>
-                <th className="px-3 py-2 text-center">全体勝率</th>
-                <th className="px-3 py-2 text-center">先攻勝率</th>
-                <th className="px-3 py-2 text-center">後攻勝率</th>
-                <th className="px-3 py-2 text-center">試合数</th>
-              </tr>
-            </thead>
-            <tbody>
-              {deckStats.map((stat) => (
-                <tr key={stat.deckId} className="border-b border-zinc-100">
-                  <td className="px-3 py-3 font-semibold text-zinc-900">
-                    {stat.name}
-                    <div className="text-xs font-normal text-zinc-500">
-                      {deckClassLabels[stat.deckClass] ?? stat.deckClass}
-                      {" / "}
-                      {stat.cardPack}
-                    </div>
-                  </td>
-                  <td className="px-3 py-3 text-center font-semibold text-zinc-900">
-                    {formatRate(stat.total ? (stat.wins / stat.total) * 100 : null)}
-                  </td>
-                  <td className="px-3 py-3 text-center">
-                    {formatRate(
-                      stat.firstTotal
-                        ? (stat.firstWins / stat.firstTotal) * 100
-                        : null
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-center">
-                    {formatRate(
-                      stat.secondTotal
-                        ? (stat.secondWins / stat.secondTotal) * 100
-                        : null
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-center">{stat.total}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {deckStats.length === 0 && (
-            <p className="mt-4 text-sm text-zinc-500">
-              戦績が登録されていません。
+          </form>
+          {flashMessage && (
+            <p className="mt-3 text-sm font-semibold text-emerald-600">
+              {flashMessage}
             </p>
           )}
-        </div>
-      </section>
+          {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
-      <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-zinc-900">戦績一覧</h3>
-          <span className="text-sm text-zinc-500">{records.length}件</span>
-        </div>
-        <div className="mt-4 space-y-3">
-          {records.length === 0 && (
-            <p className="text-sm text-zinc-500">まだ登録がありません。</p>
-          )}
-          {records.map((record) => (
-            <div
-              key={record.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3"
-            >
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-zinc-900">
-                  {record.deck.name} vs {record.opponentDeck.name}
+          <div className="mt-8 border-t border-zinc-100 pt-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
+                Summary
+              </p>
+              <h3 className="mt-2 text-lg font-semibold text-zinc-900">
+                戦績サマリー
+              </h3>
+            </div>
+
+            <div className="mt-6 overflow-x-auto">
+              <table className="min-w-full text-left text-sm text-zinc-700">
+                <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400">
+                  <tr>
+                    <th className="px-3 py-2 text-center">全体勝率</th>
+                    <th className="px-3 py-2 text-center">先攻勝率</th>
+                    <th className="px-3 py-2 text-center">後攻勝率</th>
+                    <th className="px-3 py-2 text-center">試合数</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-zinc-100">
+                    <td className="px-3 py-3 text-center font-semibold text-zinc-900">
+                      {formatRate(summary.rate)}
+                    </td>
+                    <td className="px-3 py-3 text-center">
+                      {formatRate(summary.firstRate)}
+                    </td>
+                    <td className="px-3 py-3 text-center">
+                      {formatRate(summary.secondRate)}
+                    </td>
+                    <td className="px-3 py-3 text-center">{summary.total}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {!deckId && (
+                <p className="mt-4 text-sm text-zinc-500">
+                  デッキを選択してください。
                 </p>
-                <p className="text-xs text-zinc-500">
-                  登録: {record.user.name} ・{turnLabels[record.turn]} ・
-                  {resultLabels[record.result]}
+              )}
+              {deckId && summary.total === 0 && (
+                <p className="mt-4 text-sm text-zinc-500">
+                  選択したデッキの戦績がありません。
                 </p>
-                {record.note && (
-                  <p className="mt-2 text-xs text-zinc-600">{record.note}</p>
-                )}
-              </div>
-              <div className="flex items-center gap-4">
-                <span
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              )}
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-zinc-100 pt-8">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-zinc-900">戦績一覧</h3>
+              <span className="text-sm text-zinc-500">{summaryRecords.length}件</span>
+            </div>
+            <div className="mt-4 space-y-3">
+              {summaryRecords.length === 0 && (
+                <p className="text-sm text-zinc-500">まだ登録がありません。</p>
+              )}
+              {pagedRecords.map((record) => (
+                <div
+                  key={record.id}
+                  className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${
                     record.result === "WIN"
-                      ? "bg-emerald-500 text-white"
-                      : "bg-rose-500 text-white"
+                      ? "border-emerald-100 bg-emerald-50"
+                      : "border-rose-100 bg-rose-50"
                   }`}
                 >
-                  {resultLabels[record.result]}
-                </span>
-                <button
-                  className="text-sm font-semibold text-zinc-700 hover:text-zinc-900"
-                  onClick={() => onEdit(record)}
-                  type="button"
-                >
-                  編集
-                </button>
-                <button
-                  className="text-sm font-semibold text-red-600 hover:text-red-700"
-                  onClick={() => onDelete(record.id)}
-                  type="button"
-                >
-                  削除
-                </button>
-              </div>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-sm font-semibold text-zinc-900">
+                        {record.deck.name} vs {record.opponentDeck.name}
+                      </p>
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                          record.result === "WIN"
+                            ? "bg-emerald-500 text-white"
+                            : "bg-rose-500 text-white"
+                        }`}
+                      >
+                        {resultLabels[record.result]}
+                      </span>
+                    </div>
+                    {record.note && (
+                      <p className="mt-2 text-xs text-zinc-600">{record.note}</p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <button
+                      className="text-sm font-semibold text-zinc-700 hover:text-zinc-900"
+                      onClick={() => onEdit(record)}
+                      type="button"
+                    >
+                      編集
+                    </button>
+                    <button
+                      className="text-sm font-semibold text-red-600 hover:text-red-700"
+                      onClick={() => onDelete(record.id)}
+                      type="button"
+                    >
+                      削除
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+            {summaryRecords.length > pageSize && (
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-xs text-zinc-500">
+                  {currentPage}/{totalPages}ページ
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    className="rounded-full border border-zinc-200 px-3 py-1 text-xs font-semibold text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="button"
+                    onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                  >
+                    前へ
+                  </button>
+                  <button
+                    className="rounded-full border border-zinc-200 px-3 py-1 text-xs font-semibold text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="button"
+                    onClick={() =>
+                      setPage((prev) => Math.min(totalPages, prev + 1))
+                    }
+                    disabled={currentPage === totalPages}
+                  >
+                    次へ
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
     </div>

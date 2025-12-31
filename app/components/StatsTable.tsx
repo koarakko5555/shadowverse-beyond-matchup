@@ -1,6 +1,6 @@
  "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type CardPack = {
   id: number;
@@ -25,6 +25,7 @@ type Matchup = {
 type Props = {
   decks: Deck[];
   matchups: Matchup[];
+  embedded?: boolean;
 };
 
 type User = {
@@ -41,6 +42,17 @@ const deckClassLabels: Record<string, string> = {
   BISHOP: "ビショップ",
   NEMESIS: "ネメシス",
 };
+
+const deckClassOrder = [
+  "ELF",
+  "ROYAL",
+  "WITCH",
+  "DRAGON",
+  "NIGHTMARE",
+  "BISHOP",
+  "NEMESIS",
+] as const;
+const deckClassRank = new Map(deckClassOrder.map((value, index) => [value, index]));
 
 const buildAverageStats = (decks: Deck[], matchups: Matchup[]) =>
   decks
@@ -73,28 +85,6 @@ const buildAverageStats = (decks: Deck[], matchups: Matchup[]) =>
       return b.average - a.average;
     });
 
-const buildMemberStats = (matchups: Matchup[]) => {
-  const totals = new Map<number, { name: string; total: number; count: number }>();
-
-  for (const matchup of matchups) {
-    const entry = totals.get(matchup.user.id) ?? {
-      name: matchup.user.name,
-      total: 0,
-      count: 0,
-    };
-    entry.total += matchup.winRate;
-    entry.count += 1;
-    totals.set(matchup.user.id, entry);
-  }
-
-  return Array.from(totals.entries()).map(([userId, value]) => ({
-    userId,
-    name: value.name,
-    average: value.count ? value.total / value.count : null,
-    count: value.count,
-  }));
-};
-
 const buildMatchupMatrix = (decks: Deck[], matchups: Matchup[]) => {
   const totals = new Map<string, { sum: number; count: number }>();
   for (const matchup of matchups) {
@@ -122,8 +112,16 @@ const buildMatchupMatrix = (decks: Deck[], matchups: Matchup[]) => {
   );
 };
 
-export default function StatsTable({ decks, matchups }: Props) {
-  const [activeTab, setActiveTab] = useState<"overall" | number>("overall");
+export default function StatsTable({ decks, matchups, embedded }: Props) {
+  const [activeTab, setActiveTab] = useState<number | null>(null);
+  const sortedDecks = useMemo(() => {
+    return decks.slice().sort((a, b) => {
+      const rankA = deckClassRank.get(a.deckClass) ?? 999;
+      const rankB = deckClassRank.get(b.deckClass) ?? 999;
+      if (rankA !== rankB) return rankA - rankB;
+      return a.id - b.id;
+    });
+  }, [decks]);
 
   const users = useMemo(() => {
     const seen = new Map<number, string>();
@@ -135,29 +133,39 @@ export default function StatsTable({ decks, matchups }: Props) {
     return Array.from(seen.entries()).map(([id, name]) => ({ id, name }));
   }, [matchups]);
 
+  useEffect(() => {
+    if (activeTab !== null || users.length === 0) return;
+    setActiveTab(users[0].id);
+  }, [activeTab, users]);
+
   const formatRate = (value: number) =>
     Number.isInteger(value) ? value.toString() : value.toFixed(1);
 
   const stats = useMemo(
-    () => buildAverageStats(decks, matchups),
-    [decks, matchups]
+    () => buildAverageStats(sortedDecks, matchups),
+    [sortedDecks, matchups]
   );
-  const memberStats = useMemo(() => buildMemberStats(matchups), [matchups]);
   const overallMatrix = useMemo(
-    () => buildMatchupMatrix(decks, matchups),
-    [decks, matchups]
+    () => buildMatchupMatrix(sortedDecks, matchups),
+    [sortedDecks, matchups]
   );
   const activeMatchups = useMemo(() => {
-    if (activeTab === "overall") return matchups;
+    if (!activeTab) return [];
     return matchups.filter((matchup) => matchup.user.id === activeTab);
   }, [activeTab, matchups]);
   const activeMatrix = useMemo(
-    () => buildMatchupMatrix(decks, activeMatchups),
-    [decks, activeMatchups]
+    () => buildMatchupMatrix(sortedDecks, activeMatchups),
+    [sortedDecks, activeMatchups]
   );
 
   return (
-    <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+    <section
+      className={
+        embedded
+          ? "bg-transparent"
+          : "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
+      }
+    >
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
           Stats
@@ -167,34 +175,6 @@ export default function StatsTable({ decks, matchups }: Props) {
         </h2>
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        <button
-          type="button"
-          className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
-            activeTab === "overall"
-              ? "border-zinc-900 bg-zinc-900 text-white"
-              : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
-          }`}
-          onClick={() => setActiveTab("overall")}
-        >
-          統計
-        </button>
-        {users.map((user) => (
-          <button
-            key={user.id}
-            type="button"
-            className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
-              activeTab === user.id
-                ? "border-zinc-900 bg-zinc-900 text-white"
-                : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
-            }`}
-            onClick={() => setActiveTab(user.id)}
-          >
-            {user.name}
-          </button>
-        ))}
-      </div>
-
       <div className="mt-6 overflow-x-auto">
         <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
           <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
@@ -202,7 +182,7 @@ export default function StatsTable({ decks, matchups }: Props) {
               <th className="w-44 border border-zinc-300 bg-white px-3 py-2 text-left text-zinc-500">
                 デッキ
               </th>
-              {decks.map((deck) => (
+              {sortedDecks.map((deck) => (
                 <th
                   key={deck.id}
                   className="min-w-[110px] border border-zinc-300 bg-white px-2 py-2 text-xs text-zinc-500"
@@ -216,7 +196,7 @@ export default function StatsTable({ decks, matchups }: Props) {
             </tr>
           </thead>
           <tbody>
-            {decks.map((rowDeck, rowIndex) => (
+            {sortedDecks.map((rowDeck, rowIndex) => (
               <tr key={rowDeck.id}>
                 <th className="border border-zinc-300 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
                   {rowDeck.name}
@@ -226,10 +206,8 @@ export default function StatsTable({ decks, matchups }: Props) {
                     {rowDeck.cardPack.name}
                   </div>
                 </th>
-                {decks.map((colDeck, colIndex) => {
-                  const matrix =
-                    activeTab === "overall" ? overallMatrix : activeMatrix;
-                  const value = matrix[rowIndex]?.[colIndex];
+                {sortedDecks.map((colDeck, colIndex) => {
+                  const value = overallMatrix[rowIndex]?.[colIndex];
                   const isSame = rowDeck.id === colDeck.id;
                   return (
                     <td
@@ -259,56 +237,105 @@ export default function StatsTable({ decks, matchups }: Props) {
             デッキが登録されていません。
           </p>
         )}
-        {activeTab !== "overall" && activeMatchups.length === 0 && (
-          <p className="mt-4 text-sm text-zinc-500">
-            選択したメンバーの相性評価がありません。
-          </p>
-        )}
       </div>
 
-      {activeTab === "overall" && (
-        <div className="mt-8">
-        <h3 className="text-lg font-semibold text-zinc-900">
-          メンバー別の平均相性
-        </h3>
+      <div className="mt-10">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h3 className="text-lg font-semibold text-zinc-900">
+            みんなの相性表
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {users.map((user) => (
+              <button
+                key={user.id}
+                type="button"
+                className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
+                  activeTab === user.id
+                    ? "border-zinc-900 bg-zinc-900 text-white"
+                    : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                }`}
+                onClick={() => setActiveTab(user.id)}
+              >
+                {user.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-4 overflow-x-auto">
-          <table className="min-w-full text-left text-sm text-zinc-700">
-            <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400">
-              <tr>
-                <th className="px-3 py-2">メンバー</th>
-                <th className="px-3 py-2 text-center">平均相性</th>
-                <th className="px-3 py-2 text-center">評価数</th>
+        <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
+          <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
+            <tr>
+              <th className="w-44 border border-zinc-300 bg-white px-3 py-2 text-left text-zinc-500">
+                デッキ
+              </th>
+              {sortedDecks.map((deck) => (
+                <th
+                  key={deck.id}
+                  className="min-w-[110px] border border-zinc-300 bg-white px-2 py-2 text-xs text-zinc-500"
+                >
+                    <div className="font-semibold text-zinc-900">{deck.name}</div>
+                    <div className="text-[10px] text-zinc-400">
+                      {deckClassLabels[deck.deckClass] ?? deck.deckClass}
+                    </div>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {memberStats
-                .sort((a, b) => {
-                  if (a.average === null && b.average === null) return 0;
-                  if (a.average === null) return 1;
-                  if (b.average === null) return -1;
-                  return b.average - a.average;
-                })
-                .map((stat) => (
-                <tr key={stat.userId} className="border-b border-zinc-100">
-                  <td className="px-3 py-3 font-semibold text-zinc-900">
-                    {stat.name}
-                  </td>
-                  <td className="px-3 py-3 text-center font-semibold text-zinc-900">
-                    {stat.average === null ? "-" : stat.average.toFixed(1)}
-                  </td>
-                  <td className="px-3 py-3 text-center">{stat.count}</td>
+            {sortedDecks.map((rowDeck, rowIndex) => (
+              <tr key={rowDeck.id}>
+                <th className="border border-zinc-300 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                  {rowDeck.name}
+                    <div className="text-xs font-normal text-zinc-500">
+                      {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
+                      {" / "}
+                      {rowDeck.cardPack.name}
+                    </div>
+                  </th>
+                {sortedDecks.map((colDeck, colIndex) => {
+                  const value = activeMatrix[rowIndex]?.[colIndex];
+                  const isSame = rowDeck.id === colDeck.id;
+                  return (
+                      <td
+                        key={colDeck.id}
+                        className="border border-zinc-300 px-2 py-3 text-sm"
+                      >
+                        {isSame ? (
+                          <span className="text-base font-semibold text-zinc-400">
+                            *
+                          </span>
+                        ) : value === undefined ? (
+                          <span className="text-zinc-400">—</span>
+                        ) : (
+                          <span className="font-semibold text-zinc-900">
+                            {formatRate(value)}
+                          </span>
+                        )}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
           </table>
-          {memberStats.length === 0 && (
+          {users.length === 0 && (
             <p className="mt-4 text-sm text-zinc-500">
               相性評価が登録されていません。
             </p>
           )}
+          {activeTab && activeMatchups.length === 0 && (
+            <p className="mt-4 text-sm text-zinc-500">
+              選択したメンバーの相性評価がありません。
+            </p>
+          )}
+          {!activeTab && users.length > 0 && (
+            <p className="mt-4 text-sm text-zinc-500">
+              メンバーを選択してください。
+            </p>
+          )}
         </div>
       </div>
-      )}
     </section>
   );
 }

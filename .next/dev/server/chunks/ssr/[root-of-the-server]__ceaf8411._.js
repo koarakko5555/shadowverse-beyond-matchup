@@ -193,19 +193,63 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 const runtime = "nodejs";
 async function UsersPage() {
     const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSession"])();
-    const users = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].user.findMany({
-        orderBy: {
-            createdAt: "asc"
-        }
-    });
-    const current = session ? await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].user.findUnique({
+    const currentUserId = session ? Number(session.sub) : null;
+    const current = currentUserId ? await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].user.findUnique({
         where: {
-            id: Number(session.sub)
+            id: currentUserId
         },
         select: {
             role: true
         }
     }) : null;
+    if (current?.role !== "ADMIN") {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+            className: "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
+                            children: "Users"
+                        }, void 0, false, {
+                            fileName: "[project]/app/(dashboard)/users/page.tsx",
+                            lineNumber: 21,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "mt-2 text-2xl font-semibold text-zinc-900",
+                            children: "認証ユーザー管理"
+                        }, void 0, false, {
+                            fileName: "[project]/app/(dashboard)/users/page.tsx",
+                            lineNumber: 24,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/(dashboard)/users/page.tsx",
+                    lineNumber: 20,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "mt-4 text-sm text-red-600",
+                    children: "管理者のみ閲覧できます。"
+                }, void 0, false, {
+                    fileName: "[project]/app/(dashboard)/users/page.tsx",
+                    lineNumber: 28,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/(dashboard)/users/page.tsx",
+            lineNumber: 19,
+            columnNumber: 7
+        }, this);
+    }
+    const users = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].user.findMany({
+        orderBy: {
+            createdAt: "asc"
+        }
+    });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$AuthUserManager$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
         users: users.map((row)=>({
                 id: row.id,
@@ -213,11 +257,11 @@ async function UsersPage() {
                 role: row.role,
                 createdAt: row.createdAt.toISOString()
             })),
-        isAdmin: current?.role === "ADMIN",
-        currentUserId: session ? Number(session.sub) : undefined
+        isAdmin: true,
+        currentUserId: currentUserId ?? undefined
     }, void 0, false, {
         fileName: "[project]/app/(dashboard)/users/page.tsx",
-        lineNumber: 20,
+        lineNumber: 40,
         columnNumber: 5
     }, this);
 }

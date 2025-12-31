@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/app/%28dashboard%29/layout.tsx"],"sourcesContent":["export const dynamic = \"force-dynamic\";\n\nexport default function DashboardLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <div className=\"min-h-screen bg-zinc-100 text-zinc-900\">\n      <div className=\"mx-auto min-h-screen w-full max-w-6xl px-6 py-10\">\n        {children}\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;;;AAAO,MAAM,UAAU;AAER,SAAS,gBAAgB,EACtC,QAAQ,EAGR;IACA,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;sBACZ;;;;;;;;;;;AAIT"}}]
+}

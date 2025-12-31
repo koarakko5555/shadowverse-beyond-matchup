@@ -4,3 +4,539 @@
 [00:01:27.216] Server  LOG      ✓ Compiled in 19ms
 [00:01:45.716] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:11:13.569] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:46:19.186] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[20:04:21.879] Server  LOG      ✓ Compiled in 26ms
+[20:04:59.974] Server  LOG      ✓ Compiled in 17ms
+[20:05:18.514] Server  LOG      ✓ Compiled in 10ms
+[20:19:10.096] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[20:36:23.839] Server  LOG      ✓ Compiled in 41ms
+[20:36:37.664] Server  LOG      ✓ Compiled in 0ms
+[20:36:38.975] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[20:37:12.275] Server  LOG      ✓ Compiled in 17ms
+[20:38:11.172] Server  LOG      ✓ Compiled in 23ms
+[20:38:49.080] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[20:43:27.940] Server  LOG      ✓ Compiled in 19ms
+[20:43:41.966] Server  LOG      ✓ Compiled in 12ms
+[20:44:18.638] Server  LOG      ✓ Compiled in 18ms
+[20:44:45.028] Server  LOG      ✓ Compiled in 10ms
+[20:45:11.656] Server  LOG      ✓ Compiled in 12ms
+[20:51:48.254] Server  LOG      ✓ Compiled in 70ms
+[20:52:08.207] Server  LOG      ✓ Compiled in 12ms
+[20:52:36.637] Server  LOG      ✓ Compiled in 31ms
+[20:54:25.315] Server  LOG      ✓ Compiled in 20ms
+[20:55:11.134] Server  LOG      ✓ Compiled in 24ms
+[20:55:50.796] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[20:56:51.605] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[20:58:05.637] Server  LOG      ✓ Compiled in 14ms
+[20:58:53.019] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:00:49.490] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:00:49.777] Server  LOG      ✓ Compiled in 34ms
+[21:01:05.382] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:01:16.720] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:01:38.603] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:01:41.331] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:02:39.734] Server  LOG      ✓ Compiled in 30ms
+[21:04:57.300] Server  LOG      ✓ Compiled in 34ms
+[21:07:11.958] Server  LOG      ✓ Compiled in 18ms
+[21:08:12.987] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:08:29.542] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:10:51.366] Server  LOG      ✓ Compiled in 28ms
+[21:11:36.724] Server  LOG      ✓ Compiled in 17ms
+[21:12:03.261] Server  LOG      ✓ Compiled in 14ms
+[21:13:14.633] Server  LOG      ✓ Compiled in 54ms
+[21:14:49.118] Server  LOG      ✓ Compiled in 40ms
+[21:16:26.611] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:18:21.684] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:21:41.627] Server  LOG      ✓ Compiled in 33ms
+[21:22:32.256] Server  LOG      ✓ Compiled in 21ms
+[21:22:34.907] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:23:47.904] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:24:05.299] Server  LOG      ✓ Compiled in 20ms
+[21:25:17.638] Server  LOG      ✓ Compiled in 23ms
+[21:26:17.222] Server  LOG      ✓ Compiled in 21ms
+[21:26:17.990] Browser ERROR   uncaughtError: ReferenceError: useEffect is not defined
+[21:26:42.885] Server  ERROR    ⨯ ReferenceError: useEffect is not defined
+[21:26:43.001] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:26:43.126] Browser ERROR   uncaughtError: ReferenceError: useEffect is not defined
+[21:27:08.543] Server  ERROR    ⨯ ReferenceError: useEffect is not defined
+[21:27:08.639] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:27:08.760] Browser ERROR   uncaughtError: ReferenceError: useEffect is not defined
+[21:27:13.311] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[21:27:13.413] Server  LOG      ✓ Compiled in 57ms
+[21:27:14.102] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:28:38.656] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:29:46.721] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:30:12.857] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:31:22.336] Server  LOG      ✓ Compiled in 28ms
+[21:35:32.602] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:37:47.308] Server  LOG      ✓ Compiled in 23ms
+[21:37:47.723] Browser ERROR   uncaughtError: ReferenceError: cardPacks is not defined
+[21:38:47.212] Server  ERROR    ⨯ ReferenceError: cardPacks is not defined
+[21:38:47.305] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:38:47.989] Browser ERROR   uncaughtError: ReferenceError: cardPacks is not defined
+[21:39:46.776] Server  ERROR    ⨯ ReferenceError: cardPacks is not defined
+[21:39:46.862] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:39:46.981] Browser ERROR   uncaughtError: ReferenceError: cardPacks is not defined
+[21:40:27.500] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[21:40:27.634] Server  LOG      ✓ Compiled in 18ms
+[21:40:29.292] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:43:27.792] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:45:39.296] Server  LOG      ✓ Compiled in 27ms
+[21:46:41.356] Server  LOG      ✓ Compiled in 10ms
+[21:47:26.560] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:49:23.917] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:51:34.095] Server  LOG      ✓ Compiled in 26ms
+[21:51:59.248] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:55:40.274] Browser ERROR   uncaughtError: ReferenceError: cardPacks is not defined
+[21:55:48.586] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:55:50.336] Browser ERROR   uncaughtError: ReferenceError: cardPacks is not defined
+[21:56:00.712] Server  ERROR    ⨯ ReferenceError: cardPacks is not defined
+[21:56:00.793] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:56:00.910] Browser ERROR   uncaughtError: ReferenceError: cardPacks is not defined
+[21:56:38.651] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[21:56:38.785] Server  LOG      ✓ Compiled in 27ms
+[21:56:43.218] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:58:50.346] Server  LOG      ✓ Compiled in 16ms
+[21:59:49.530] Server  LOG      ✓ Compiled in 19ms
+[25:06:24.223] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:07:47.055] Server  LOG      ✓ Compiled in 41ms
+[25:08:11.424] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:09:09.951] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:13:48.302] Server  LOG      ✓ Compiled in 17ms
+[25:16:00.057] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:43:06.264] Server  LOG      ✓ Compiled in 69ms
+[25:44:36.677] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:46:34.603] Server  LOG      ✓ Compiled in 57ms
+[25:49:37.759] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:50:24.743] Server  LOG      ✓ Compiled in 33ms
+[25:50:34.883] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:55:24.030] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:56:46.876] Server  LOG      ✓ Compiled in 35ms
+[25:57:40.028] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[25:58:29.192] Server  LOG      ✓ Compiled in 58ms
+[26:03:52.796] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:04:56.736] Server  LOG      ✓ Compiled in 148ms
+[26:05:41.356] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:06:34.192] Server  LOG      ✓ Compiled in 41ms
+[26:06:53.414] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:07:29.654] Server  LOG      ✓ Compiled in 32ms
+[26:08:09.292] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:09:19.611] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:09:39.312] Server  LOG      ✓ Compiled in 40ms
+[26:10:42.744] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:11:37.063] Server  LOG      ✓ Compiled in 44ms
+[26:12:03.141] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:23:12.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:23:15.067] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:23:22.636] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:25:18.862] Server  LOG      ✓ Compiled in 33ms
+[26:27:55.917] Server  LOG      ✓ Compiled in 25ms
+[26:29:11.455] Server  LOG      ✓ Compiled in 15ms
+[26:30:11.712] Server  LOG      ✓ Compiled in 22ms
+[26:31:40.248] Server  LOG      ✓ Compiled in 21ms
+[26:38:44.430] Server  LOG      ✓ Compiled in 49ms
+[26:39:03.865] Server  LOG      ✓ Compiled in 149ms
+[26:39:04.667] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:39:17.686] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:42:26.926] Server  LOG      ✓ Compiled in 23ms
+[26:43:20.672] Server  LOG      ✓ Compiled in 24ms
+[26:43:42.953] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:43:53.607] Server  LOG      ✓ Compiled in 15ms
+[26:45:06.861] Server  LOG      ✓ Compiled in 16ms
+[26:46:24.063] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:47:11.694] Server  LOG      ✓ Compiled in 16ms
+[26:47:17.050] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[26:47:38.985] Server  LOG      ✓ Compiled in 13ms
+[27:01:25.638] Server  LOG      ✓ Compiled in 26ms
+[27:01:55.613] Server  LOG      ✓ Compiled in 11ms
+[27:02:10.173] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[27:02:29.497] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[27:02:34.213] Server  LOG      ✓ Compiled in 14ms
+[27:04:21.444] Server  LOG      ✓ Compiled in 21ms
+[27:06:54.252] Server  LOG      ✓ Compiled in 42ms
+[27:10:19.589] Server  LOG      ✓ Compiled in 23ms
+[27:14:21.553] Server  LOG      ✓ Compiled in 32ms
+[27:14:21.659] Browser ERROR   ./app/components/MatchRecordManager.tsx:234:9
+Ecmascript file had an error
+  232 |   const currentPage = Math.min(page, totalPages);
+  233 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 234 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  235 |   const pagedRecords = summaryRecords.slice(
+  236 |     (currentPage - 1) * pageSize,
+  237 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:14:21.659] Browser ERROR   ./app/components/MatchRecordManager.tsx:233:9
+Ecmascript file had an error
+  231 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  232 |   const currentPage = Math.min(page, totalPages);
+> 233 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  234 |   const currentPage = Math.min(page, totalPages);
+  235 |   const pagedRecords = summaryRecords.slice(
+  236 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:14:52.188] Server  LOG      ✓ Compiled in 51ms
+[27:14:52.290] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:14:52.290] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:12.288] Server  LOG      ✓ Compiled in 17ms
+[27:15:12.391] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:12.391] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:19.849] Server  ERROR    ⨯ ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+
+
+
+./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+
+
+[27:15:19.969] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:19.969] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.263] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.263] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.263] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.263] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.516] Browser ERROR   uncaughtError: Error: ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+
+
+[27:15:20.675] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.675] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.675] Browser ERROR   ./app/components/MatchRecordManager.tsx:184:9
+Ecmascript file had an error
+  182 |   const currentPage = Math.min(page, totalPages);
+  183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+> 184 |   const currentPage = Math.min(page, totalPages);
+      |         ^^^^^^^^^^^
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+  187 |     currentPage * pageSize
+
+the name `currentPage` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:20.675] Browser ERROR   ./app/components/MatchRecordManager.tsx:183:9
+Ecmascript file had an error
+  181 |   const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  182 |   const currentPage = Math.min(page, totalPages);
+> 183 |   const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+      |         ^^^^^^^^^^
+  184 |   const currentPage = Math.min(page, totalPages);
+  185 |   const pagedRecords = summaryRecords.slice(
+  186 |     (currentPage - 1) * pageSize,
+
+the name `totalPages` is defined multiple times
+
+Import trace:
+  Server Component:
+    ./app/components/MatchRecordManager.tsx
+    ./app/(dashboard)/records/page.tsx
+[27:15:47.724] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[27:17:56.450] Server  LOG      ✓ Compiled in 18ms
+[27:18:46.496] Server  LOG     prisma:error "\nInvalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].cardPack.delete()` invocation in\n/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__c8809c8c._.js:127:155\n\n  124         status: 400\n  125     });\n  126 }\n→ 127 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].cardPack.delete(\nForeign key constraint violated on the constraint: `Deck_cardPackId_fkey`"
+[27:18:46.607] Server  ERROR   PrismaClientKnownRequestError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].cardPack.delete()` invocation in
+/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__c8809c8c._.js:127:155
+
+  124         status: 400
+  125     });
+  126 }
+→ 127 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].cardPack.delete(
+Foreign key constraint violated on the constraint: `Deck_cardPackId_fkey`
+[27:18:56.471] Server  LOG      ✓ Compiled in 32ms
+[27:19:46.502] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[27:20:25.349] Server  LOG     prisma:error "\nInvalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].cardPack.delete()` invocation in\n/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__c8809c8c._.js:127:155\n\n  124         status: 400\n  125     });\n  126 }\n→ 127 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].cardPack.delete(\nForeign key constraint violated on the constraint: `Deck_cardPackId_fkey`"
+[27:20:25.411] Server  ERROR   PrismaClientKnownRequestError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].cardPack.delete()` invocation in
+/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__c8809c8c._.js:127:155
+
+  124         status: 400
+  125     });
+  126 }
+→ 127 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].cardPack.delete(
+Foreign key constraint violated on the constraint: `Deck_cardPackId_fkey`
+[29:30:50.238] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[29:36:02.346] Server  LOG      ✓ Compiled in 95ms
+[29:36:26.618] Server  LOG      ✓ Compiled in 26ms
+[29:37:09.798] Server  LOG      ✓ Compiled in 107ms
+[29:38:14.612] Server  LOG      ✓ Compiled in 19ms
+[29:38:52.560] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[29:39:26.790] Server  LOG     prisma:error "\nInvalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].deck.delete()` invocation in\n/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__ba1fb107._.js:129:151\n\n  126         status: 400\n  127     });\n  128 }\n→ 129 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].deck.delete(\nForeign key constraint violated on the constraint: `Matchup_deck2Id_fkey`"
+[29:39:26.870] Server  ERROR   PrismaClientKnownRequestError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.delete()` invocation in
+/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__ba1fb107._.js:129:151
+
+  126         status: 400
+  127     });
+  128 }
+→ 129 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.delete(
+Foreign key constraint violated on the constraint: `Matchup_deck2Id_fkey`
+[29:39:46.147] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[29:43:43.079] Server  LOG      ✓ Compiled in 27ms
+[29:45:33.644] Server  LOG      ✓ Compiled in 51ms
+[29:46:08.507] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[29:48:09.882] Server  LOG      ✓ Compiled in 49ms
+[29:49:24.908] Server  LOG     prisma:error "\nInvalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].deck.delete()` invocation in\n/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__ba1fb107._.js:129:151\n\n  126         status: 400\n  127     });\n  128 }\n→ 129 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"prisma\"].deck.delete(\nForeign key constraint violated on the constraint: `Matchup_deck2Id_fkey`"
+[29:49:24.991] Server  ERROR   PrismaClientKnownRequestError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.delete()` invocation in
+/Users/k-hosaka/Project/private-dev/shadowverse-beyond-matchup/.next/dev/server/chunks/[root-of-the-server]__ba1fb107._.js:129:151
+
+  126         status: 400
+  127     });
+  128 }
+→ 129 await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.delete(
+Foreign key constraint violated on the constraint: `Matchup_deck2Id_fkey`
+[29:52:54.735] Server  LOG      ✓ Compiled in 60ms
+[29:54:07.515] Server  LOG      ✓ Compiled in 17ms
+[29:54:24.494] Server  LOG      ✓ Compiled in 13ms
+[29:54:42.005] Server  LOG      ✓ Compiled in 19ms
+[29:55:04.011] Server  LOG      ✓ Compiled in 15ms
+[29:55:22.143] Server  LOG      ✓ Compiled in 21ms
+[29:56:01.107] Server  LOG      ✓ Compiled in 14ms
+[29:56:33.052] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[29:59:24.110] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[29:59:40.883] Server  LOG      ✓ Compiled in 24ms
+[30:00:05.905] Server  LOG      ✓ Compiled in 28ms
+[30:00:30.674] Server  LOG      ✓ Compiled in 18ms
+[30:01:12.109] Server  LOG      ✓ Compiled in 46ms
+[30:04:42.382] Server  LOG      ✓ Compiled in 60ms
+[30:04:59.378] Server  LOG      ✓ Compiled in 20ms
+[30:05:17.750] Server  LOG      ✓ Compiled in 108ms

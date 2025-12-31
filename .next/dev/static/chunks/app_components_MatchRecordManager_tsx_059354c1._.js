@@ -32,38 +32,7 @@ const resultLabels = {
     LOSS: "負け"
 };
 const formatRate = (value)=>value === null ? "-" : Number.isInteger(value) ? `${value}` : value.toFixed(1);
-const buildDeckStats = (decks, records)=>{
-    const byDeck = new Map();
-    for (const deck of decks){
-        byDeck.set(deck.id, {
-            deckId: deck.id,
-            name: deck.name,
-            deckClass: deck.deckClass,
-            cardPack: deck.cardPack.name,
-            total: 0,
-            wins: 0,
-            firstTotal: 0,
-            firstWins: 0,
-            secondTotal: 0,
-            secondWins: 0
-        });
-    }
-    for (const record of records){
-        const entry = byDeck.get(record.deck.id);
-        if (!entry) continue;
-        entry.total += 1;
-        if (record.result === "WIN") entry.wins += 1;
-        if (record.turn === "FIRST") {
-            entry.firstTotal += 1;
-            if (record.result === "WIN") entry.firstWins += 1;
-        } else {
-            entry.secondTotal += 1;
-            if (record.result === "WIN") entry.secondWins += 1;
-        }
-    }
-    return Array.from(byDeck.values()).filter((stat)=>stat.total > 0).sort((a, b)=>b.total - a.total);
-};
-function MatchRecordManager({ decks, records }) {
+function MatchRecordManager({ decks, cardPacks, records }) {
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isPending, startTransition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"])();
@@ -74,46 +43,88 @@ function MatchRecordManager({ decks, records }) {
     const [note, setNote] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [editingId, setEditingId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("overall");
-    const users = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "MatchRecordManager.useMemo[users]": ()=>{
-            const seen = new Map();
-            for (const record of records){
-                if (!seen.has(record.user.id)) {
-                    seen.set(record.user.id, record.user.name);
-                }
-            }
-            return Array.from(seen.entries()).map({
-                "MatchRecordManager.useMemo[users]": ([id, name])=>({
-                        id,
-                        name
-                    })
-            }["MatchRecordManager.useMemo[users]"]);
+    const [flashMessage, setFlashMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [activePackId, setActivePackId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [page, setPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
+    const pageSize = 10;
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "MatchRecordManager.useEffect": ()=>{
+            if (activePackId !== null || cardPacks.length === 0) return;
+            setActivePackId(cardPacks[0].id);
         }
-    }["MatchRecordManager.useMemo[users]"], [
+    }["MatchRecordManager.useEffect"], [
+        activePackId,
+        cardPacks
+    ]);
+    const filteredDecks = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "MatchRecordManager.useMemo[filteredDecks]": ()=>{
+            if (!activePackId) return [];
+            return decks.filter({
+                "MatchRecordManager.useMemo[filteredDecks]": (deck)=>deck.cardPack.id === activePackId
+            }["MatchRecordManager.useMemo[filteredDecks]"]);
+        }
+    }["MatchRecordManager.useMemo[filteredDecks]"], [
+        activePackId,
+        decks
+    ]);
+    const filteredRecords = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "MatchRecordManager.useMemo[filteredRecords]": ()=>{
+            if (!activePackId) return [];
+            return records.filter({
+                "MatchRecordManager.useMemo[filteredRecords]": (record)=>record.deck.cardPack.id === activePackId
+            }["MatchRecordManager.useMemo[filteredRecords]"]);
+        }
+    }["MatchRecordManager.useMemo[filteredRecords]"], [
+        activePackId,
         records
     ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "MatchRecordManager.useEffect": ()=>{
+            setPage(1);
+        }
+    }["MatchRecordManager.useEffect"], [
+        activePackId
+    ]);
+    const lastUsedDeckId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "MatchRecordManager.useMemo[lastUsedDeckId]": ()=>{
+            for (const record of filteredRecords){
+                if (record.deck?.id) return record.deck.id;
+            }
+            return null;
+        }
+    }["MatchRecordManager.useMemo[lastUsedDeckId]"], [
+        filteredRecords
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "MatchRecordManager.useEffect": ()=>{
+            if (deckId || !lastUsedDeckId) return;
+            setDeckId(String(lastUsedDeckId));
+        }
+    }["MatchRecordManager.useEffect"], [
+        deckId,
+        lastUsedDeckId
+    ]);
     const selectedDeck = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "MatchRecordManager.useMemo[selectedDeck]": ()=>decks.find({
+        "MatchRecordManager.useMemo[selectedDeck]": ()=>filteredDecks.find({
                 "MatchRecordManager.useMemo[selectedDeck]": (deck)=>deck.id === Number(deckId)
             }["MatchRecordManager.useMemo[selectedDeck]"])
     }["MatchRecordManager.useMemo[selectedDeck]"], [
         deckId,
-        decks
+        filteredDecks
     ]);
     const opponentOptions = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "MatchRecordManager.useMemo[opponentOptions]": ()=>{
-            if (!selectedDeck) return decks;
-            return decks.filter({
+            if (!selectedDeck) return filteredDecks;
+            return filteredDecks.filter({
                 "MatchRecordManager.useMemo[opponentOptions]": (deck)=>deck.cardPack.id === selectedDeck.cardPack.id
             }["MatchRecordManager.useMemo[opponentOptions]"]);
         }
     }["MatchRecordManager.useMemo[opponentOptions]"], [
-        decks,
+        filteredDecks,
         selectedDeck
     ]);
     const deckOptions = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "MatchRecordManager.useMemo[deckOptions]": ()=>decks.map({
+        "MatchRecordManager.useMemo[deckOptions]": ()=>filteredDecks.map({
                 "MatchRecordManager.useMemo[deckOptions]": (deck)=>({
                         id: deck.id,
                         label: `${deck.name} (${deckClassLabels[deck.deckClass] ?? deck.deckClass})`,
@@ -122,35 +133,35 @@ function MatchRecordManager({ decks, records }) {
                     })
             }["MatchRecordManager.useMemo[deckOptions]"])
     }["MatchRecordManager.useMemo[deckOptions]"], [
-        decks
+        filteredDecks
     ]);
-    const activeRecords = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "MatchRecordManager.useMemo[activeRecords]": ()=>{
-            if (activeTab === "overall") return records;
-            return records.filter({
-                "MatchRecordManager.useMemo[activeRecords]": (record)=>record.user.id === activeTab
-            }["MatchRecordManager.useMemo[activeRecords]"]);
+    const summaryRecords = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "MatchRecordManager.useMemo[summaryRecords]": ()=>{
+            if (!deckId) return [];
+            return filteredRecords.filter({
+                "MatchRecordManager.useMemo[summaryRecords]": (record)=>record.deck.id === Number(deckId)
+            }["MatchRecordManager.useMemo[summaryRecords]"]);
         }
-    }["MatchRecordManager.useMemo[activeRecords]"], [
-        activeTab,
-        records
+    }["MatchRecordManager.useMemo[summaryRecords]"], [
+        deckId,
+        filteredRecords
     ]);
     const summary = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "MatchRecordManager.useMemo[summary]": ()=>{
-            const total = activeRecords.length;
-            const wins = activeRecords.filter({
+            const total = summaryRecords.length;
+            const wins = summaryRecords.filter({
                 "MatchRecordManager.useMemo[summary]": (record)=>record.result === "WIN"
             }["MatchRecordManager.useMemo[summary]"]).length;
-            const firstTotal = activeRecords.filter({
+            const firstTotal = summaryRecords.filter({
                 "MatchRecordManager.useMemo[summary]": (record)=>record.turn === "FIRST"
             }["MatchRecordManager.useMemo[summary]"]).length;
-            const firstWins = activeRecords.filter({
+            const firstWins = summaryRecords.filter({
                 "MatchRecordManager.useMemo[summary]": (record)=>record.turn === "FIRST" && record.result === "WIN"
             }["MatchRecordManager.useMemo[summary]"]).length;
-            const secondTotal = activeRecords.filter({
+            const secondTotal = summaryRecords.filter({
                 "MatchRecordManager.useMemo[summary]": (record)=>record.turn === "SECOND"
             }["MatchRecordManager.useMemo[summary]"]).length;
-            const secondWins = activeRecords.filter({
+            const secondWins = summaryRecords.filter({
                 "MatchRecordManager.useMemo[summary]": (record)=>record.turn === "SECOND" && record.result === "WIN"
             }["MatchRecordManager.useMemo[summary]"]).length;
             return {
@@ -164,14 +175,12 @@ function MatchRecordManager({ decks, records }) {
             };
         }
     }["MatchRecordManager.useMemo[summary]"], [
-        activeRecords
+        filteredRecords,
+        summaryRecords
     ]);
-    const deckStats = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "MatchRecordManager.useMemo[deckStats]": ()=>buildDeckStats(decks, activeRecords)
-    }["MatchRecordManager.useMemo[deckStats]"], [
-        decks,
-        activeRecords
-    ]);
+    const totalPages = Math.max(1, Math.ceil(summaryRecords.length / pageSize));
+    const currentPage = Math.min(page, totalPages);
+    const pagedRecords = summaryRecords.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     const onSubmit = async (event)=>{
         event.preventDefault();
         setError(null);
@@ -200,7 +209,6 @@ function MatchRecordManager({ decks, records }) {
             setError(data?.error ?? "登録に失敗しました。");
             return;
         }
-        setDeckId("");
         setOpponentDeckId("");
         setTurn("FIRST");
         setResult("WIN");
@@ -217,7 +225,6 @@ function MatchRecordManager({ decks, records }) {
         setEditingId(record.id);
     };
     const onCancelEdit = ()=>{
-        setDeckId("");
         setOpponentDeckId("");
         setTurn("FIRST");
         setResult("WIN");
@@ -235,46 +242,64 @@ function MatchRecordManager({ decks, records }) {
             setError(data?.error ?? "削除に失敗しました。");
             return;
         }
+        setFlashMessage("削除しました！");
         startTransition(()=>router.refresh());
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-8",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
-                                children: "Records"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 273,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "mt-2 text-2xl font-semibold text-zinc-900",
-                                children: editingId ? "戦績の編集" : "戦績の登録"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 276,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 272,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                        className: "mt-6 grid gap-4 md:grid-cols-4",
-                        onSubmit: onSubmit,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+            className: "rounded-2xl bg-transparent",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex flex-wrap gap-2 px-4 pt-3",
+                    children: cardPacks.map((pack)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            type: "button",
+                            className: `relative -mb-px rounded-t-xl border border-b-0 px-5 py-2 text-xs font-semibold transition ${activePackId === pack.id ? "border-zinc-900 bg-white text-zinc-900" : "border-zinc-200 bg-zinc-100 text-zinc-600 hover:bg-zinc-200"}`,
+                            onClick: ()=>setActivePackId(pack.id),
+                            children: pack.name
+                        }, pack.id, false, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 255,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                    lineNumber: 253,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
+                                    children: "Records"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 271,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "mt-2 text-2xl font-semibold text-zinc-900",
+                                    children: editingId ? "戦績の編集" : "戦績の登録"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 274,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 270,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mt-6",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                className: "flex flex-col gap-2 text-sm text-zinc-700 md:max-w-sm",
                                 children: [
-                                    "自分のデッキ",
+                                    "使用デッキ",
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                         className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
                                         value: deckId,
@@ -288,8 +313,8 @@ function MatchRecordManager({ decks, records }) {
                                                 children: "選択してください"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 292,
-                                                columnNumber: 15
+                                                lineNumber: 290,
+                                                columnNumber: 17
                                             }, this),
                                             deckOptions.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: deck.id,
@@ -300,687 +325,587 @@ function MatchRecordManager({ decks, records }) {
                                                     ]
                                                 }, deck.id, true, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 294,
-                                                    columnNumber: 17
+                                                    lineNumber: 292,
+                                                    columnNumber: 19
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 284,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 282,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2",
-                                children: [
-                                    "対戦デッキ",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
-                                        value: opponentDeckId,
-                                        onChange: (event)=>setOpponentDeckId(event.target.value),
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "",
-                                                children: "選択してください"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 307,
-                                                columnNumber: 15
-                                            }, this),
-                                            opponentOptions.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: deck.id,
-                                                    children: [
-                                                        deck.name,
-                                                        " / ",
-                                                        deck.cardPack.name
-                                                    ]
-                                                }, deck.id, true, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 309,
-                                                    columnNumber: 17
-                                                }, this))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 302,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 300,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "flex flex-col gap-2 text-sm text-zinc-700",
-                                children: [
-                                    "先攻/後攻",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
-                                        value: turn,
-                                        onChange: (event)=>setTurn(event.target.value),
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "FIRST",
-                                                children: "先攻"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 324,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "SECOND",
-                                                children: "後攻"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 325,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 317,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 315,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "flex flex-col gap-2 text-sm text-zinc-700",
-                                children: [
-                                    "勝敗",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
-                                        value: result,
-                                        onChange: (event)=>setResult(event.target.value),
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "WIN",
-                                                children: "勝ち"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 337,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "LOSS",
-                                                children: "負け"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 338,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 330,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 328,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "flex flex-col gap-2 text-sm text-zinc-700 md:col-span-4",
-                                children: [
-                                    "備考",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                        className: "min-h-[110px] rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
-                                        value: note,
-                                        onChange: (event)=>setNote(event.target.value),
-                                        placeholder: "任意でメモを入力してください"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 343,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 341,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex flex-col gap-3 md:col-span-4 md:flex-row md:items-end md:justify-start",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-400 md:w-auto md:min-w-[160px]",
-                                        type: "submit",
-                                        disabled: isPending,
-                                        children: editingId ? "更新する" : "登録する"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 351,
-                                        columnNumber: 13
-                                    }, this),
-                                    editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "w-full rounded-lg border border-zinc-200 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-100 md:w-auto md:min-w-[160px]",
-                                        type: "button",
-                                        onClick: onCancelEdit,
-                                        children: "編集をやめる"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 359,
+                                        lineNumber: 282,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 350,
-                                columnNumber: 11
+                                lineNumber: 280,
+                                columnNumber: 13
                             }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 281,
-                        columnNumber: 9
-                    }, this),
-                    error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "mt-3 text-sm text-red-600",
-                        children: error
-                    }, void 0, false, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 369,
-                        columnNumber: 19
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                lineNumber: 271,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
-                                children: "Summary"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 374,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "mt-2 text-lg font-semibold text-zinc-900",
-                                children: "勝率サマリー"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 377,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 373,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-4 flex flex-wrap gap-2",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                type: "button",
-                                className: `rounded-full border px-4 py-2 text-xs font-semibold transition ${activeTab === "overall" ? "border-zinc-900 bg-zinc-900 text-white" : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"}`,
-                                onClick: ()=>setActiveTab("overall"),
-                                children: "全体"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 383,
-                                columnNumber: 11
-                            }, this),
-                            users.map((user)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    type: "button",
-                                    className: `rounded-full border px-4 py-2 text-xs font-semibold transition ${activeTab === user.id ? "border-zinc-900 bg-zinc-900 text-white" : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"}`,
-                                    onClick: ()=>setActiveTab(user.id),
-                                    children: user.name
-                                }, user.id, false, {
-                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 395,
-                                    columnNumber: 13
-                                }, this))
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 382,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-6 grid gap-4 md:grid-cols-3",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xs text-zinc-500",
-                                        children: "全体勝率"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 412,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "mt-2 text-2xl font-semibold text-zinc-900",
-                                        children: [
-                                            formatRate(summary.rate),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "ml-2 text-sm text-zinc-500",
-                                                children: [
-                                                    summary.wins,
-                                                    "/",
-                                                    summary.total
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 415,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 413,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 411,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xs text-zinc-500",
-                                        children: "先攻勝率"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 421,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "mt-2 text-2xl font-semibold text-zinc-900",
-                                        children: [
-                                            formatRate(summary.firstRate),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "ml-2 text-sm text-zinc-500",
-                                                children: summary.firstTotal
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 424,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 422,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 420,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xs text-zinc-500",
-                                        children: "後攻勝率"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 430,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "mt-2 text-2xl font-semibold text-zinc-900",
-                                        children: [
-                                            formatRate(summary.secondRate),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "ml-2 text-sm text-zinc-500",
-                                                children: summary.secondTotal
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 433,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 431,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 429,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 410,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-6 overflow-x-auto",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                className: "min-w-full text-left text-sm text-zinc-700",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                        className: "border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 279,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                            className: "mt-6 grid gap-4 md:grid-cols-4",
+                            onSubmit: onSubmit,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2",
+                                    children: [
+                                        "対戦デッキ",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                            className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
+                                            value: opponentDeckId,
+                                            onChange: (event)=>setOpponentDeckId(event.target.value),
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "px-3 py-2",
-                                                    children: "デッキ"
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: "",
+                                                    children: "選択してください"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 444,
-                                                    columnNumber: 17
+                                                    lineNumber: 308,
+                                                    columnNumber: 15
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "px-3 py-2 text-center",
-                                                    children: "全体勝率"
+                                                opponentOptions.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: deck.id,
+                                                        children: [
+                                                            deck.name,
+                                                            " / ",
+                                                            deck.cardPack.name
+                                                        ]
+                                                    }, deck.id, true, {
+                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                        lineNumber: 310,
+                                                        columnNumber: 17
+                                                    }, this))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 303,
+                                            columnNumber: 13
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 301,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "flex flex-col gap-2 text-sm text-zinc-700",
+                                    children: [
+                                        "先攻/後攻",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                            className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
+                                            value: turn,
+                                            onChange: (event)=>setTurn(event.target.value),
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: "FIRST",
+                                                    children: "先攻"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 445,
-                                                    columnNumber: 17
+                                                    lineNumber: 325,
+                                                    columnNumber: 15
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "px-3 py-2 text-center",
-                                                    children: "先攻勝率"
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: "SECOND",
+                                                    children: "後攻"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 446,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "px-3 py-2 text-center",
-                                                    children: "後攻勝率"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 447,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "px-3 py-2 text-center",
-                                                    children: "試合数"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 448,
-                                                    columnNumber: 17
+                                                    lineNumber: 326,
+                                                    columnNumber: 15
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 443,
+                                            lineNumber: 318,
+                                            columnNumber: 13
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 316,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "flex flex-col gap-2 text-sm text-zinc-700",
+                                    children: [
+                                        "勝敗",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                            className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
+                                            value: result,
+                                            onChange: (event)=>setResult(event.target.value),
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: "WIN",
+                                                    children: "勝ち"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                    lineNumber: 338,
+                                                    columnNumber: 15
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: "LOSS",
+                                                    children: "負け"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                    lineNumber: 339,
+                                                    columnNumber: 15
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 331,
+                                            columnNumber: 13
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 329,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "flex flex-col gap-2 text-sm text-zinc-700 md:col-span-4",
+                                    children: [
+                                        "備考",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                            className: "min-h-[110px] rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
+                                            value: note,
+                                            onChange: (event)=>setNote(event.target.value),
+                                            placeholder: "任意でメモを入力してください"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 344,
+                                            columnNumber: 13
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 342,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex flex-col gap-3 md:col-span-4 md:flex-row md:items-end md:justify-start",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            className: "w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-400 md:w-auto md:min-w-[160px]",
+                                            type: "submit",
+                                            disabled: isPending,
+                                            children: editingId ? "更新する" : "登録する"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 352,
+                                            columnNumber: 13
+                                        }, this),
+                                        editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            className: "w-full rounded-lg border border-zinc-200 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-100 md:w-auto md:min-w-[160px]",
+                                            type: "button",
+                                            onClick: onCancelEdit,
+                                            children: "編集をやめる"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 360,
                                             columnNumber: 15
                                         }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 442,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                        children: deckStats.map((stat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "border-b border-zinc-100",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-3 py-3 font-semibold text-zinc-900",
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 351,
+                                    columnNumber: 11
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 300,
+                            columnNumber: 11
+                        }, this),
+                        flashMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-3 text-sm font-semibold text-emerald-600",
+                            children: flashMessage
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 371,
+                            columnNumber: 13
+                        }, this),
+                        error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-3 text-sm text-red-600",
+                            children: error
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 375,
+                            columnNumber: 21
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mt-8 border-t border-zinc-100 pt-8",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
+                                            children: "Summary"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 379,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "mt-2 text-lg font-semibold text-zinc-900",
+                                            children: "戦績サマリー"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 382,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 378,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mt-6 overflow-x-auto",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                            className: "min-w-full text-left text-sm text-zinc-700",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                    className: "border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wider text-zinc-400",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                         children: [
-                                                            stat.name,
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "text-xs font-normal text-zinc-500",
-                                                                children: [
-                                                                    deckClassLabels[stat.deckClass] ?? stat.deckClass,
-                                                                    " / ",
-                                                                    stat.cardPack
-                                                                ]
-                                                            }, void 0, true, {
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                className: "px-3 py-2 text-center",
+                                                                children: "全体勝率"
+                                                            }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 456,
+                                                                lineNumber: 391,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                className: "px-3 py-2 text-center",
+                                                                children: "先攻勝率"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 392,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                className: "px-3 py-2 text-center",
+                                                                children: "後攻勝率"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 393,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                className: "px-3 py-2 text-center",
+                                                                children: "試合数"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 394,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 454,
+                                                        lineNumber: 390,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                    lineNumber: 389,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                        className: "border-b border-zinc-100",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                className: "px-3 py-3 text-center font-semibold text-zinc-900",
+                                                                children: formatRate(summary.rate)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 399,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                className: "px-3 py-3 text-center",
+                                                                children: formatRate(summary.firstRate)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 402,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                className: "px-3 py-3 text-center",
+                                                                children: formatRate(summary.secondRate)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 405,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                className: "px-3 py-3 text-center",
+                                                                children: summary.total
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 408,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                        lineNumber: 398,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                    lineNumber: 397,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 388,
+                                            columnNumber: 15
+                                        }, this),
+                                        !deckId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "mt-4 text-sm text-zinc-500",
+                                            children: "デッキを選択してください。"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 413,
+                                            columnNumber: 17
+                                        }, this),
+                                        deckId && summary.total === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "mt-4 text-sm text-zinc-500",
+                                            children: "選択したデッキの戦績がありません。"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 418,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 387,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 377,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mt-8 border-t border-zinc-100 pt-8",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center justify-between",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "text-lg font-semibold text-zinc-900",
+                                            children: "戦績一覧"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 427,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-sm text-zinc-500",
+                                            children: [
+                                                summaryRecords.length,
+                                                "件"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 428,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 426,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mt-4 space-y-3",
+                                    children: [
+                                        summaryRecords.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-sm text-zinc-500",
+                                            children: "まだ登録がありません。"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 432,
+                                            columnNumber: 17
+                                        }, this),
+                                        pagedRecords.map((record)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: `flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${record.result === "WIN" ? "border-emerald-100 bg-emerald-50" : "border-rose-100 bg-rose-50"}`,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "min-w-0",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex flex-wrap items-center gap-2",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                        className: "text-sm font-semibold text-zinc-900",
+                                                                        children: [
+                                                                            record.deck.name,
+                                                                            " vs ",
+                                                                            record.opponentDeck.name
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                        lineNumber: 445,
+                                                                        columnNumber: 23
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: `rounded-full px-3 py-1 text-xs font-semibold ${record.result === "WIN" ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"}`,
+                                                                        children: resultLabels[record.result]
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                        lineNumber: 448,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 444,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            record.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                className: "mt-2 text-xs text-zinc-600",
+                                                                children: record.note
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 459,
+                                                                columnNumber: 23
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                        lineNumber: 443,
                                                         columnNumber: 19
                                                     }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-3 py-3 text-center font-semibold text-zinc-900",
-                                                        children: formatRate(stat.total ? stat.wins / stat.total * 100 : null)
-                                                    }, void 0, false, {
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "flex items-center gap-4",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                className: "text-sm font-semibold text-zinc-700 hover:text-zinc-900",
+                                                                onClick: ()=>onEdit(record),
+                                                                type: "button",
+                                                                children: "編集"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 463,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                className: "text-sm font-semibold text-red-600 hover:text-red-700",
+                                                                onClick: ()=>onDelete(record.id),
+                                                                type: "button",
+                                                                children: "削除"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                                lineNumber: 470,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
                                                         lineNumber: 462,
                                                         columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-3 py-3 text-center",
-                                                        children: formatRate(stat.firstTotal ? stat.firstWins / stat.firstTotal * 100 : null)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 465,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-3 py-3 text-center",
-                                                        children: formatRate(stat.secondTotal ? stat.secondWins / stat.secondTotal * 100 : null)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 472,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-3 py-3 text-center",
-                                                        children: stat.total
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 479,
-                                                        columnNumber: 19
                                                     }, this)
                                                 ]
-                                            }, stat.deckId, true, {
+                                            }, record.id, true, {
                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 453,
+                                                lineNumber: 435,
                                                 columnNumber: 17
                                             }, this))
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 451,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 441,
-                                columnNumber: 11
-                            }, this),
-                            deckStats.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "mt-4 text-sm text-zinc-500",
-                                children: "戦績が登録されていません。"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 485,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 440,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                lineNumber: 372,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center justify-between",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-lg font-semibold text-zinc-900",
-                                children: "戦績一覧"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 494,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-sm text-zinc-500",
-                                children: [
-                                    records.length,
-                                    "件"
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 495,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 493,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-4 space-y-3",
-                        children: [
-                            records.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-zinc-500",
-                                children: "まだ登録がありません。"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 499,
-                                columnNumber: 13
-                            }, this),
-                            records.map((record)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3",
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                    lineNumber: 430,
+                                    columnNumber: 13
+                                }, this),
+                                summaryRecords.length > pageSize && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mt-6 flex flex-wrap items-center justify-between gap-3",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "min-w-0",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-xs text-zinc-500",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-sm font-semibold text-zinc-900",
-                                                    children: [
-                                                        record.deck.name,
-                                                        " vs ",
-                                                        record.opponentDeck.name
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 507,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-xs text-zinc-500",
-                                                    children: [
-                                                        "登録: ",
-                                                        record.user.name,
-                                                        " ・",
-                                                        turnLabels[record.turn],
-                                                        " ・",
-                                                        resultLabels[record.result]
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 510,
-                                                    columnNumber: 17
-                                                }, this),
-                                                record.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "mt-2 text-xs text-zinc-600",
-                                                    children: record.note
+                                                currentPage,
+                                                "/",
+                                                totalPages,
+                                                "ページ"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 483,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-2",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    className: "rounded-full border border-zinc-200 px-3 py-1 text-xs font-semibold text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50",
+                                                    type: "button",
+                                                    onClick: ()=>setPage((prev)=>Math.max(1, prev - 1)),
+                                                    disabled: currentPage === 1,
+                                                    children: "前へ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 515,
+                                                    lineNumber: 487,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    className: "rounded-full border border-zinc-200 px-3 py-1 text-xs font-semibold text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50",
+                                                    type: "button",
+                                                    onClick: ()=>setPage((prev)=>Math.min(totalPages, prev + 1)),
+                                                    disabled: currentPage === totalPages,
+                                                    children: "次へ"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                                    lineNumber: 495,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 506,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex items-center gap-4",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: `rounded-full px-3 py-1 text-xs font-semibold ${record.result === "WIN" ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"}`,
-                                                    children: resultLabels[record.result]
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 519,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "text-sm font-semibold text-zinc-700 hover:text-zinc-900",
-                                                    onClick: ()=>onEdit(record),
-                                                    type: "button",
-                                                    children: "編集"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 528,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "text-sm font-semibold text-red-600 hover:text-red-700",
-                                                    onClick: ()=>onDelete(record.id),
-                                                    type: "button",
-                                                    children: "削除"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 535,
-                                                    columnNumber: 17
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 518,
-                                            columnNumber: 15
+                                            lineNumber: 486,
+                                            columnNumber: 17
                                         }, this)
                                     ]
-                                }, record.id, true, {
+                                }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 502,
-                                    columnNumber: 13
-                                }, this))
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                        lineNumber: 497,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/MatchRecordManager.tsx",
-                lineNumber: 492,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+                                    lineNumber: 482,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                            lineNumber: 425,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/components/MatchRecordManager.tsx",
+                    lineNumber: 269,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/components/MatchRecordManager.tsx",
+            lineNumber: 252,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/app/components/MatchRecordManager.tsx",
-        lineNumber: 270,
+        lineNumber: 251,
         columnNumber: 5
     }, this);
 }
-_s(MatchRecordManager, "hEoV0XRgRQiaWRqVV68CrIGjYQs=", false, function() {
+_s(MatchRecordManager, "S6ONhkc2kj9tgKFfA34A9u8pMz8=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"]

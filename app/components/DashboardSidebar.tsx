@@ -5,12 +5,9 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 const navItems = [
-  { href: "/packs", label: "カードパック" },
-  { href: "/decks", label: "デッキ" },
-  { href: "/matchups", label: "相性評価" },
   { href: "/records", label: "戦績" },
-  { href: "/users", label: "ユーザー" },
-  { href: "/stats", label: "統計" },
+  { href: "/matchups", label: "相性" },
+  { href: "/settings", label: "設定" },
 ];
 
 export default function DashboardSidebar() {
@@ -24,16 +21,7 @@ export default function DashboardSidebar() {
 
   return (
     <aside className="flex h-full flex-col border-r border-zinc-200 bg-white px-4 py-6">
-      <div className="px-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
-          Shadowverse
-        </p>
-        <h1 className="mt-2 text-lg font-semibold text-zinc-900">
-          Beyond Matchup
-        </h1>
-      </div>
-
-      <nav className="mt-8 flex flex-col gap-2">
+      <nav className="flex flex-col gap-2">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (

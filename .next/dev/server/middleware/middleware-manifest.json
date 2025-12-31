@@ -27,12 +27,12 @@
           "originalSource": "/records/:path*"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/users/:path*{(\\\\.json)}?",
-          "originalSource": "/users/:path*"
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/settings/:path*{(\\\\.json)}?",
+          "originalSource": "/settings/:path*"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/stats/:path*{(\\\\.json)}?",
-          "originalSource": "/stats/:path*"
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/users/:path*{(\\\\.json)}?",
+          "originalSource": "/users/:path*"
         },
         {
           "regexp": "/:nextData(_next/data/[^/]{1,})?/login{(\\\\.json)}?",

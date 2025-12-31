@@ -1,0 +1,3 @@
+{
+  "/api/matchups/[id]/route": "app/api/matchups/[id]/route.js"
+}

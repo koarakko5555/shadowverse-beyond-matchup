@@ -8,10 +8,13 @@ export default async function RecordsPage() {
   const session = await getSession();
   const userId = Number(session?.sub);
 
-  const decks = await prisma.deck.findMany({
-    orderBy: { id: "desc" },
-    include: { cardPack: true },
-  });
+  const [cardPacks, decks] = await Promise.all([
+    prisma.cardPack.findMany({ orderBy: { releaseDate: "desc" } }),
+    prisma.deck.findMany({
+      orderBy: { id: "desc" },
+      include: { cardPack: true },
+    }),
+  ]);
   const records = await prisma.matchRecord.findMany({
     where: Number.isInteger(userId) ? { userId } : undefined,
     orderBy: { id: "desc" },
@@ -24,6 +27,10 @@ export default async function RecordsPage() {
 
   return (
     <MatchRecordManager
+      cardPacks={cardPacks.map((pack) => ({
+        ...pack,
+        releaseDate: pack.releaseDate.toISOString(),
+      }))}
       decks={decks.map((deck) => ({
         ...deck,
         cardPack: {

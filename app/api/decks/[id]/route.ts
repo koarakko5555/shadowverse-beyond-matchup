@@ -16,9 +16,19 @@ export async function DELETE(_: Request, { params }: Params) {
     return NextResponse.json({ error: "IDが不正です。" }, { status: 400 });
   }
 
-  await prisma.deck.delete({
-    where: { id },
-  });
+  await prisma.$transaction([
+    prisma.matchRecord.deleteMany({
+      where: {
+        OR: [{ deckId: id }, { opponentDeckId: id }],
+      },
+    }),
+    prisma.matchup.deleteMany({
+      where: {
+        OR: [{ deck1Id: id }, { deck2Id: id }],
+      },
+    }),
+    prisma.deck.delete({ where: { id } }),
+  ]);
 
   return NextResponse.json({ ok: true });
 }

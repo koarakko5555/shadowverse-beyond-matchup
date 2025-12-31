@@ -6,15 +6,35 @@ export const runtime = "nodejs";
 
 export default async function UsersPage() {
   const session = await getSession();
-  const users = await prisma.user.findMany({
-    orderBy: { createdAt: "asc" },
-  });
-  const current = session
+  const currentUserId = session ? Number(session.sub) : null;
+  const current = currentUserId
     ? await prisma.user.findUnique({
-        where: { id: Number(session.sub) },
+        where: { id: currentUserId },
         select: { role: true },
       })
     : null;
+
+  if (current?.role !== "ADMIN") {
+    return (
+      <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
+            Users
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
+            認証ユーザー管理
+          </h2>
+        </div>
+        <p className="mt-4 text-sm text-red-600">
+          管理者のみ閲覧できます。
+        </p>
+      </section>
+    );
+  }
+
+  const users = await prisma.user.findMany({
+    orderBy: { createdAt: "asc" },
+  });
 
   return (
     <AuthUserManager
@@ -24,8 +44,8 @@ export default async function UsersPage() {
         role: row.role,
         createdAt: row.createdAt.toISOString(),
       }))}
-      isAdmin={current?.role === "ADMIN"}
-      currentUserId={session ? Number(session.sub) : undefined}
+      isAdmin={true}
+      currentUserId={currentUserId ?? undefined}
     />
   );
 }
