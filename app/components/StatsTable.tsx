@@ -140,8 +140,10 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
     setActiveTab(users[0].id);
   }, [activeTab, users]);
 
-  const formatRate = (value: number) =>
-    Number.isInteger(value) ? value.toString() : value.toFixed(1);
+  const formatRate = (value: number | null | undefined) => {
+    if (value === null || value === undefined) return "-";
+    return Number.isInteger(value) ? value.toString() : value.toFixed(1);
+  };
 
   const stats = useMemo(
     () => buildAverageStats(sortedDecks, matchups),
