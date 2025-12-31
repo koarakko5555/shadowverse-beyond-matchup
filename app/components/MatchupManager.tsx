@@ -59,7 +59,9 @@ const deckClassOrder = [
   "BISHOP",
   "NEMESIS",
 ] as const;
-const deckClassRank = new Map(deckClassOrder.map((value, index) => [value, index]));
+const deckClassRank = new Map<string, number>(
+  deckClassOrder.map((value, index) => [value, index])
+);
 
 const winRateOptions = Array.from({ length: 21 }, (_, index) => index * 5);
 
