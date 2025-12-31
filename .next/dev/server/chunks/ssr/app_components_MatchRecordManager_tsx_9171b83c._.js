@@ -700,7 +700,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             columnNumber: 17
                                         }, this),
                                         pagedRecords.map((record)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: `flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${record.result === "WIN" ? "border-emerald-100 bg-zinc-100" : "border-rose-100 bg-rose-50"}`,
+                                                className: `flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${record.result === "WIN" ? "border-emerald-100 bg-emerald-50" : "border-rose-100 bg-rose-50"}`,
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "min-w-0",
@@ -721,7 +721,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: `rounded-full px-3 py-1 text-xs font-semibold ${record.result === "WIN" ? "bg-zinc-1000 text-zinc-900" : "bg-rose-500 text-white"}`,
+                                                                        className: `rounded-full px-3 py-1 text-xs font-semibold ${record.result === "WIN" ? "bg-emerald-600 text-white" : "bg-rose-500 text-white"}`,
                                                                         children: resultLabels[record.result]
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",

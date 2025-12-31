@@ -779,6 +779,10 @@
     background-color: var(--color-emerald-50);
   }
 
+  .bg-emerald-600 {
+    background-color: var(--color-emerald-600);
+  }
+
   .bg-rose-50 {
     background-color: var(--color-rose-50);
   }

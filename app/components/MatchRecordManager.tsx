@@ -442,7 +442,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
                   key={record.id}
                   className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${
                     record.result === "WIN"
-                      ? "border-emerald-100 bg-zinc-100"
+                      ? "border-emerald-100 bg-emerald-50"
                       : "border-rose-100 bg-rose-50"
                   }`}
                 >
@@ -454,7 +454,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
                       <span
                         className={`rounded-full px-3 py-1 text-xs font-semibold ${
                           record.result === "WIN"
-                            ? "bg-zinc-1000 text-zinc-900"
+                            ? "bg-emerald-600 text-white"
                             : "bg-rose-500 text-white"
                         }`}
                       >
