@@ -13,19 +13,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => null);
-  const name = typeof body?.name === "string" ? body.name.trim() : "";
-
-  if (name.length < 1 || name.length > 100) {
-    return NextResponse.json(
-      { error: "ユーザー名は1〜100文字で入力してください。" },
-      { status: 400 }
-    );
-  }
-
-  const user = await prisma.user.create({
-    data: { name },
-  });
-
-  return NextResponse.json(user, { status: 201 });
+  return NextResponse.json(
+    { error: "このエンドポイントは使用していません。" },
+    { status: 405 }
+  );
 }
