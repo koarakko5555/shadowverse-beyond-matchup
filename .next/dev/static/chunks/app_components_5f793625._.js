@@ -14,7 +14,7 @@ var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
-function CardPackManager({ cardPacks, embedded }) {
+function CardPackManager({ cardPacks, embedded, isAdmin = false }) {
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isPending, startTransition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"])();
@@ -22,6 +22,19 @@ function CardPackManager({ cardPacks, embedded }) {
     const [releaseDate, setReleaseDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [flashMessage, setFlashMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "CardPackManager.useEffect": ()=>{
+            if (!flashMessage) return;
+            const timer = setTimeout({
+                "CardPackManager.useEffect.timer": ()=>setFlashMessage(null)
+            }["CardPackManager.useEffect.timer"], 3000);
+            return ({
+                "CardPackManager.useEffect": ()=>clearTimeout(timer)
+            })["CardPackManager.useEffect"];
+        }
+    }["CardPackManager.useEffect"], [
+        flashMessage
+    ]);
     const onSubmit = async (event)=>{
         event.preventDefault();
         setError(null);
@@ -77,7 +90,7 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "Card Packs"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 79,
+                                lineNumber: 90,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -85,27 +98,27 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "カードパック管理"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 82,
+                                lineNumber: 93,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 78,
+                        lineNumber: 89,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-500",
+                        className: "rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-700",
                         children: "最新のカードパックがデフォルト"
                     }, void 0, false, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 86,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 77,
+                lineNumber: 88,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -123,13 +136,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                 placeholder: "例: Dawn of Heroes"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 94,
+                                lineNumber: 105,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 92,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -143,13 +156,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                 onChange: (event)=>setReleaseDate(event.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 103,
+                                lineNumber: 114,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 101,
+                        lineNumber: 112,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -161,26 +174,26 @@ function CardPackManager({ cardPacks, embedded }) {
                             children: "追加する"
                         }, void 0, false, {
                             fileName: "[project]/app/components/CardPackManager.tsx",
-                            lineNumber: 111,
+                            lineNumber: 122,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 110,
+                        lineNumber: 121,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 91,
+                lineNumber: 102,
                 columnNumber: 7
             }, this),
-            flashMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "mt-3 text-sm font-semibold text-emerald-600",
+            flashMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flash-in fixed left-1/2 top-4 z-50 w-[min(90vw,420px)] -translate-x-1/2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-center text-sm font-semibold text-emerald-700 shadow-sm",
                 children: flashMessage
             }, void 0, false, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 121,
+                lineNumber: 132,
                 columnNumber: 9
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -188,11 +201,11 @@ function CardPackManager({ cardPacks, embedded }) {
                 children: error
             }, void 0, false, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 125,
+                lineNumber: 136,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-8 border-t border-zinc-100 pt-8",
+                className: "mt-8 border-t border-zinc-200 pt-8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center justify-between",
@@ -202,39 +215,39 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "登録済みカードパック"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 129,
+                                lineNumber: 140,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-sm text-zinc-500",
+                                className: "text-sm text-zinc-700",
                                 children: [
                                     cardPacks.length,
                                     "件"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 132,
+                                lineNumber: 143,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 128,
+                        lineNumber: 139,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 space-y-3",
                         children: [
                             cardPacks.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-zinc-500",
+                                className: "text-sm text-zinc-700",
                                 children: "まだ登録がありません。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 138,
+                                lineNumber: 149,
                                 columnNumber: 13
                             }, this),
                             cardPacks.map((pack, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3",
+                                    className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             children: [
@@ -246,63 +259,63 @@ function CardPackManager({ cardPacks, embedded }) {
                                                             children: pack.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                                            lineNumber: 147,
+                                                            lineNumber: 158,
                                                             columnNumber: 19
                                                         }, this),
                                                         index === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "rounded-full bg-zinc-900 px-2 py-0.5 text-xs text-white",
+                                                            className: "rounded-full bg-white px-2 py-0.5 text-xs text-zinc-900",
                                                             children: "最新"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                                            lineNumber: 151,
+                                                            lineNumber: 162,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/CardPackManager.tsx",
-                                                    lineNumber: 146,
+                                                    lineNumber: 157,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-xs text-zinc-500",
+                                                    className: "text-xs text-zinc-700",
                                                     children: new Date(pack.releaseDate).toLocaleDateString("ja-JP")
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/CardPackManager.tsx",
-                                                    lineNumber: 156,
+                                                    lineNumber: 167,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                            lineNumber: 145,
+                                            lineNumber: 156,
                                             columnNumber: 15
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             className: "text-sm font-semibold text-red-600 hover:text-red-700",
                                             onClick: ()=>onDelete(pack.id),
                                             type: "button",
                                             children: "削除"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                            lineNumber: 160,
-                                            columnNumber: 15
+                                            lineNumber: 172,
+                                            columnNumber: 17
                                         }, this)
                                     ]
                                 }, pack.id, true, {
                                     fileName: "[project]/app/components/CardPackManager.tsx",
-                                    lineNumber: 141,
+                                    lineNumber: 152,
                                     columnNumber: 13
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 136,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 127,
+                lineNumber: 138,
                 columnNumber: 7
             }, this)
         ]
@@ -313,7 +326,7 @@ function CardPackManager({ cardPacks, embedded }) {
             children: content
         }, void 0, false, {
             fileName: "[project]/app/components/CardPackManager.tsx",
-            lineNumber: 175,
+            lineNumber: 188,
             columnNumber: 12
         }, this);
     }
@@ -324,16 +337,16 @@ function CardPackManager({ cardPacks, embedded }) {
             children: content
         }, void 0, false, {
             fileName: "[project]/app/components/CardPackManager.tsx",
-            lineNumber: 180,
+            lineNumber: 193,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/CardPackManager.tsx",
-        lineNumber: 179,
+        lineNumber: 192,
         columnNumber: 5
     }, this);
 }
-_s(CardPackManager, "6tdDnVfsmTLcNLBONwURSZ8jcQM=", false, function() {
+_s(CardPackManager, "MfQJ4fHNMukRaYxy413BW5Vy6zs=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"]
@@ -484,7 +497,7 @@ function AuthUserManager({ users, isAdmin, currentUserId, embedded }) {
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                             children: rows.map((user)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                    className: "border-b border-zinc-100",
+                                    className: "border-b border-zinc-200",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-3 py-3 font-semibold text-zinc-900",
@@ -530,7 +543,7 @@ function AuthUserManager({ users, isAdmin, currentUserId, embedded }) {
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                            className: "px-3 py-3 text-xs text-zinc-500",
+                                            className: "px-3 py-3 text-xs text-zinc-700",
                                             children: new Date(user.createdAt).toLocaleDateString("ja-JP")
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/AuthUserManager.tsx",
@@ -538,7 +551,7 @@ function AuthUserManager({ users, isAdmin, currentUserId, embedded }) {
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                            className: "px-3 py-3 text-center text-xs text-zinc-500",
+                                            className: "px-3 py-3 text-center text-xs text-zinc-700",
                                             children: currentUserId === user.id ? "現在のユーザー" : "—"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/AuthUserManager.tsx",
@@ -622,6 +635,20 @@ function SettingsProfileForm({ initialName, embedded }) {
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isPending, startTransition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"])();
+    const [isDeleting, startTransitionDelete] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"])();
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "SettingsProfileForm.useEffect": ()=>{
+            if (!message) return;
+            const timer = setTimeout({
+                "SettingsProfileForm.useEffect.timer": ()=>setMessage(null)
+            }["SettingsProfileForm.useEffect.timer"], 3000);
+            return ({
+                "SettingsProfileForm.useEffect": ()=>clearTimeout(timer)
+            })["SettingsProfileForm.useEffect"];
+        }
+    }["SettingsProfileForm.useEffect"], [
+        message
+    ]);
     const onSubmit = async (event)=>{
         event.preventDefault();
         setError(null);
@@ -648,6 +675,23 @@ function SettingsProfileForm({ initialName, embedded }) {
         setMessage("表示名を更新しました。");
         startTransition(()=>router.refresh());
     };
+    const onDeleteAccount = async ()=>{
+        setError(null);
+        setMessage(null);
+        if (!window.confirm("アカウントを削除します。よろしいですか？")) {
+            return;
+        }
+        const res = await fetch("/api/settings/account", {
+            method: "DELETE"
+        });
+        if (!res.ok) {
+            const data = await res.json().catch(()=>({}));
+            setError(data?.error ?? "削除に失敗しました。");
+            return;
+        }
+        setMessage("アカウントを削除しました。");
+        startTransitionDelete(()=>router.push("/signup"));
+    };
     const content = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -657,21 +701,21 @@ function SettingsProfileForm({ initialName, embedded }) {
                         children: "Settings"
                     }, void 0, false, {
                         fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                        lineNumber: 48,
+                        lineNumber: 76,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                         className: "mt-2 text-2xl font-semibold text-zinc-900",
-                        children: "表示名の変更"
+                        children: "アカウント管理"
                     }, void 0, false, {
                         fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                        lineNumber: 51,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                lineNumber: 47,
+                lineNumber: 75,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -689,13 +733,13 @@ function SettingsProfileForm({ initialName, embedded }) {
                                 placeholder: "表示名を入力"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                                lineNumber: 59,
+                                lineNumber: 87,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                        lineNumber: 57,
+                        lineNumber: 85,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -708,7 +752,7 @@ function SettingsProfileForm({ initialName, embedded }) {
                                 children: "変更する"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                                lineNumber: 67,
+                                lineNumber: 95,
                                 columnNumber: 11
                             }, this),
                             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -716,27 +760,71 @@ function SettingsProfileForm({ initialName, embedded }) {
                                 children: message
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                                lineNumber: 74,
+                                lineNumber: 102,
                                 columnNumber: 23
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                        lineNumber: 66,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                lineNumber: 56,
+                lineNumber: 84,
                 columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-8 border-t border-zinc-200 pt-6",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        className: "text-sm font-semibold text-zinc-900",
+                        children: "アカウント削除"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/SettingsProfileForm.tsx",
+                        lineNumber: 107,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "mt-2 text-xs text-zinc-700",
+                        children: "登録した戦績・相性などのデータも削除されます。"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/SettingsProfileForm.tsx",
+                        lineNumber: 108,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: "mt-4 rounded-lg border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50",
+                        type: "button",
+                        onClick: onDeleteAccount,
+                        disabled: isDeleting,
+                        children: "アカウントを削除する"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/SettingsProfileForm.tsx",
+                        lineNumber: 111,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/SettingsProfileForm.tsx",
+                lineNumber: 106,
+                columnNumber: 7
+            }, this),
+            message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flash-in fixed left-1/2 top-4 z-50 w-[min(90vw,420px)] -translate-x-1/2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-center text-sm font-semibold text-emerald-700 shadow-sm",
+                children: message
+            }, void 0, false, {
+                fileName: "[project]/app/components/SettingsProfileForm.tsx",
+                lineNumber: 122,
+                columnNumber: 9
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "mt-3 text-sm text-red-600",
                 children: error
             }, void 0, false, {
                 fileName: "[project]/app/components/SettingsProfileForm.tsx",
-                lineNumber: 78,
+                lineNumber: 126,
                 columnNumber: 17
             }, this)
         ]
@@ -747,7 +835,7 @@ function SettingsProfileForm({ initialName, embedded }) {
             children: content
         }, void 0, false, {
             fileName: "[project]/app/components/SettingsProfileForm.tsx",
-            lineNumber: 83,
+            lineNumber: 131,
             columnNumber: 12
         }, this);
     }
@@ -756,13 +844,14 @@ function SettingsProfileForm({ initialName, embedded }) {
         children: content
     }, void 0, false, {
         fileName: "[project]/app/components/SettingsProfileForm.tsx",
-        lineNumber: 87,
+        lineNumber: 135,
         columnNumber: 5
     }, this);
 }
-_s(SettingsProfileForm, "PlPXp91vbHzTBiHb1cz1CWUhHOI=", false, function() {
+_s(SettingsProfileForm, "tm5yUXRGnvx6r1JczDWuFF/gNWE=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"]
     ];
 });
@@ -855,7 +944,7 @@ function SettingsHub({ profileName, cardPacks, decks, users, isAdmin, currentUse
                     children: tabs.map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             type: "button",
                             onClick: ()=>setActiveTab(tab.id),
-                            className: `rounded-full border px-4 py-2 text-xs font-semibold transition ${activeTab === tab.id ? "border-zinc-900 bg-zinc-900 text-white" : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"}`,
+                            className: `rounded-full border px-4 py-2 text-xs font-semibold transition ${activeTab === tab.id ? "border-zinc-900 bg-white text-zinc-900" : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"}`,
                             children: tab.label
                         }, tab.id, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
@@ -868,11 +957,12 @@ function SettingsHub({ profileName, cardPacks, decks, users, isAdmin, currentUse
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mt-8 border-t border-zinc-100 pt-8",
+                    className: "mt-8 border-t border-zinc-200 pt-8",
                     children: [
                         activeTab === "cardPacks" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$CardPackManager$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             cardPacks: cardPacks,
-                            embedded: true
+                            embedded: true,
+                            isAdmin: isAdmin
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
                             lineNumber: 88,

@@ -25,8 +25,8 @@ export default function SignupPage() {
       setError("IDは英数字と記号(_ . -)のみ、3〜30文字で入力してください。");
       return;
     }
-    if (password.length < 6) {
-      setError("パスワードは6文字以上で入力してください。");
+    if (password.length < 1) {
+      setError("パスワードを入力してください。");
       return;
     }
 
@@ -46,7 +46,7 @@ export default function SignupPage() {
       return;
     }
 
-    startTransition(() => router.push("/packs"));
+    startTransition(() => router.push("/records"));
   };
 
   return (
@@ -98,7 +98,7 @@ export default function SignupPage() {
         </button>
       </form>
 
-      <div className="text-sm text-zinc-500">
+      <div className="text-sm text-zinc-700">
         既にアカウントがある場合は{" "}
         <Link className="font-semibold text-zinc-900" href="/login">
           ログイン

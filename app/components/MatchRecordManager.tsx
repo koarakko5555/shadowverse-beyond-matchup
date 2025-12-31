@@ -78,6 +78,12 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
   const pageSize = 10;
 
   useEffect(() => {
+    if (!flashMessage) return;
+    const timer = setTimeout(() => setFlashMessage(null), 3000);
+    return () => clearTimeout(timer);
+  }, [flashMessage]);
+
+  useEffect(() => {
     if (activePackId !== null || cardPacks.length === 0) return;
     setActivePackId(cardPacks[0].id);
   }, [activePackId, cardPacks]);
@@ -258,7 +264,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
               className={`relative -mb-px rounded-t-xl border border-b-0 px-5 py-2 text-xs font-semibold transition ${
                 activePackId === pack.id
                   ? "border-zinc-900 bg-white text-zinc-900"
-                  : "border-zinc-200 bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                  : "border-zinc-200 bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActivePackId(pack.id)}
             >
@@ -368,13 +374,13 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
           </div>
           </form>
           {flashMessage && (
-            <p className="mt-3 text-sm font-semibold text-emerald-600">
+            <div className="flash-in fixed left-1/2 top-4 z-50 w-[min(90vw,420px)] -translate-x-1/2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-center text-sm font-semibold text-emerald-700 shadow-sm">
               {flashMessage}
-            </p>
+            </div>
           )}
           {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
-          <div className="mt-8 border-t border-zinc-100 pt-8">
+          <div className="mt-8 border-t border-zinc-200 pt-8">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
                 Summary
@@ -395,7 +401,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-zinc-100">
+                  <tr className="border-b border-zinc-200">
                     <td className="px-3 py-3 text-center font-semibold text-zinc-900">
                       {formatRate(summary.rate)}
                     </td>
@@ -410,33 +416,33 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
                 </tbody>
               </table>
               {!deckId && (
-                <p className="mt-4 text-sm text-zinc-500">
+                <p className="mt-4 text-sm text-zinc-700">
                   デッキを選択してください。
                 </p>
               )}
               {deckId && summary.total === 0 && (
-                <p className="mt-4 text-sm text-zinc-500">
+                <p className="mt-4 text-sm text-zinc-700">
                   選択したデッキの戦績がありません。
                 </p>
               )}
             </div>
           </div>
 
-          <div className="mt-8 border-t border-zinc-100 pt-8">
+          <div className="mt-8 border-t border-zinc-200 pt-8">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-zinc-900">戦績一覧</h3>
-              <span className="text-sm text-zinc-500">{summaryRecords.length}件</span>
+              <span className="text-sm text-zinc-700">{summaryRecords.length}件</span>
             </div>
             <div className="mt-4 space-y-3">
               {summaryRecords.length === 0 && (
-                <p className="text-sm text-zinc-500">まだ登録がありません。</p>
+                <p className="text-sm text-zinc-700">まだ登録がありません。</p>
               )}
               {pagedRecords.map((record) => (
                 <div
                   key={record.id}
                   className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${
                     record.result === "WIN"
-                      ? "border-emerald-100 bg-emerald-50"
+                      ? "border-emerald-100 bg-zinc-100"
                       : "border-rose-100 bg-rose-50"
                   }`}
                 >
@@ -448,7 +454,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
                       <span
                         className={`rounded-full px-3 py-1 text-xs font-semibold ${
                           record.result === "WIN"
-                            ? "bg-emerald-500 text-white"
+                            ? "bg-zinc-1000 text-zinc-900"
                             : "bg-rose-500 text-white"
                         }`}
                       >
@@ -456,7 +462,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
                       </span>
                     </div>
                     {record.note && (
-                      <p className="mt-2 text-xs text-zinc-600">{record.note}</p>
+                      <p className="mt-2 text-xs text-zinc-700">{record.note}</p>
                     )}
                   </div>
                   <div className="flex items-center gap-4">
@@ -480,7 +486,7 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
             </div>
             {summaryRecords.length > pageSize && (
               <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-700">
                   {currentPage}/{totalPages}ページ
                 </p>
                 <div className="flex items-center gap-2">

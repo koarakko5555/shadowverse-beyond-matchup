@@ -179,13 +179,13 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
         <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
           <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
             <tr>
-              <th className="w-44 border border-zinc-300 bg-white px-3 py-2 text-left text-zinc-500">
+              <th className="w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700">
                 デッキ
               </th>
               {sortedDecks.map((deck) => (
                 <th
                   key={deck.id}
-                  className="min-w-[110px] border border-zinc-300 bg-white px-2 py-2 text-xs text-zinc-500"
+                  className="min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
                 >
                   <div className="font-semibold text-zinc-900">{deck.name}</div>
                   <div className="text-[10px] text-zinc-400">
@@ -198,9 +198,9 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
           <tbody>
             {sortedDecks.map((rowDeck, rowIndex) => (
               <tr key={rowDeck.id}>
-                <th className="border border-zinc-300 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                <th className="border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
                   {rowDeck.name}
-                  <div className="text-xs font-normal text-zinc-500">
+                  <div className="text-xs font-normal text-zinc-700">
                     {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
                     {" / "}
                     {rowDeck.cardPack.name}
@@ -212,7 +212,7 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
                   return (
                     <td
                       key={colDeck.id}
-                      className="border border-zinc-300 px-2 py-3 text-sm"
+                      className="border border-zinc-200 px-2 py-3 text-sm"
                     >
                       {isSame ? (
                         <span className="text-base font-semibold text-zinc-400">
@@ -233,7 +233,7 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
           </tbody>
         </table>
         {stats.length === 0 && (
-          <p className="mt-4 text-sm text-zinc-500">
+          <p className="mt-4 text-sm text-zinc-700">
             デッキが登録されていません。
           </p>
         )}
@@ -251,8 +251,8 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
                 type="button"
                 className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
                   activeTab === user.id
-                    ? "border-zinc-900 bg-zinc-900 text-white"
-                    : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                    ? "border-zinc-900 bg-white text-zinc-900"
+                    : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"
                 }`}
                 onClick={() => setActiveTab(user.id)}
               >
@@ -266,13 +266,13 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
         <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
           <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
             <tr>
-              <th className="w-44 border border-zinc-300 bg-white px-3 py-2 text-left text-zinc-500">
+              <th className="w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700">
                 デッキ
               </th>
               {sortedDecks.map((deck) => (
                 <th
                   key={deck.id}
-                  className="min-w-[110px] border border-zinc-300 bg-white px-2 py-2 text-xs text-zinc-500"
+                  className="min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
                 >
                     <div className="font-semibold text-zinc-900">{deck.name}</div>
                     <div className="text-[10px] text-zinc-400">
@@ -285,9 +285,9 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
             <tbody>
             {sortedDecks.map((rowDeck, rowIndex) => (
               <tr key={rowDeck.id}>
-                <th className="border border-zinc-300 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                <th className="border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
                   {rowDeck.name}
-                    <div className="text-xs font-normal text-zinc-500">
+                    <div className="text-xs font-normal text-zinc-700">
                       {deckClassLabels[rowDeck.deckClass] ?? rowDeck.deckClass}
                       {" / "}
                       {rowDeck.cardPack.name}
@@ -299,7 +299,7 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
                   return (
                       <td
                         key={colDeck.id}
-                        className="border border-zinc-300 px-2 py-3 text-sm"
+                        className="border border-zinc-200 px-2 py-3 text-sm"
                       >
                         {isSame ? (
                           <span className="text-base font-semibold text-zinc-400">
@@ -320,17 +320,17 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
             </tbody>
           </table>
           {users.length === 0 && (
-            <p className="mt-4 text-sm text-zinc-500">
+            <p className="mt-4 text-sm text-zinc-700">
               相性評価が登録されていません。
             </p>
           )}
           {activeTab && activeMatchups.length === 0 && (
-            <p className="mt-4 text-sm text-zinc-500">
+            <p className="mt-4 text-sm text-zinc-700">
               選択したメンバーの相性評価がありません。
             </p>
           )}
           {!activeTab && users.length > 0 && (
-            <p className="mt-4 text-sm text-zinc-500">
+            <p className="mt-4 text-sm text-zinc-700">
               メンバーを選択してください。
             </p>
           )}

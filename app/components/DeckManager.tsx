@@ -190,27 +190,27 @@ export default function DeckManager({ cardPacks, decks }: Props) {
           <h3 className="text-lg font-semibold text-zinc-900">
             登録済みデッキ
           </h3>
-          <span className="text-sm text-zinc-500">{decks.length}件</span>
+          <span className="text-sm text-zinc-700">{decks.length}件</span>
         </div>
         <div className="mt-4 space-y-3">
           {decks.length === 0 && (
-            <p className="text-sm text-zinc-500">まだ登録がありません。</p>
+            <p className="text-sm text-zinc-700">まだ登録がありません。</p>
           )}
           {decks.map((deck) => (
             <div
               key={deck.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3"
             >
               <div>
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-semibold text-zinc-900">
                     {deck.name}
                   </p>
-                  <span className="rounded-full bg-zinc-900 px-2 py-0.5 text-xs text-white">
+                  <span className="rounded-full bg-white px-2 py-0.5 text-xs text-zinc-900">
                     {deckClassLabels[deck.deckClass] ?? deck.deckClass}
                   </span>
                 </div>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-700">
                   カードパック: {deck.cardPack.name}
                 </p>
               </div>

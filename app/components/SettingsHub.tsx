@@ -75,17 +75,17 @@ export default function SettingsHub({
               onClick={() => setActiveTab(tab.id)}
               className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
                 activeTab === tab.id
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                  ? "border-zinc-900 bg-white text-zinc-900"
+                  : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"
               }`}
             >
               {tab.label}
             </button>
           ))}
         </div>
-        <div className="mt-8 border-t border-zinc-100 pt-8">
+        <div className="mt-8 border-t border-zinc-200 pt-8">
           {activeTab === "cardPacks" && (
-            <CardPackManager cardPacks={cardPacks} embedded />
+            <CardPackManager cardPacks={cardPacks} embedded isAdmin={isAdmin} />
           )}
           {activeTab === "users" && (
             <AuthUserManager

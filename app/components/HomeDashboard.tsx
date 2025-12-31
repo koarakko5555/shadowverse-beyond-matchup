@@ -178,7 +178,7 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
               className={`relative -mb-px rounded-t-xl border border-b-0 px-5 py-2 text-xs font-semibold transition ${
                 activePackId === pack.id
                   ? "border-zinc-900 bg-white text-zinc-900"
-                  : "border-zinc-200 bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                  : "border-zinc-200 bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActivePackId(pack.id)}
             >
@@ -198,8 +198,8 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
               type="button"
               className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
                 activeTab === "records"
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                  ? "border-zinc-900 bg-white text-zinc-900"
+                  : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActiveTab("records")}
             >
@@ -209,8 +209,8 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
               type="button"
               className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
                 activeTab === "matchups"
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                  ? "border-zinc-900 bg-white text-zinc-900"
+                  : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActiveTab("matchups")}
             >
@@ -218,7 +218,7 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
             </button>
           </div>
           {activeTab === "records" && (
-            <div className="mt-8 border-t border-zinc-100 pt-8">
+            <div className="mt-8 border-t border-zinc-200 pt-8">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
                   Records
@@ -230,28 +230,28 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
 
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-                  <p className="text-xs text-zinc-500">全体勝率</p>
+                  <p className="text-xs text-zinc-700">全体勝率</p>
                   <p className="mt-2 text-2xl font-semibold text-zinc-900">
                     {formatRate(summary.rate)}
-                    <span className="ml-2 text-sm text-zinc-500">
+                    <span className="ml-2 text-sm text-zinc-700">
                       {summary.wins}/{summary.total}
                     </span>
                   </p>
                 </div>
                 <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-                  <p className="text-xs text-zinc-500">先攻勝率</p>
+                  <p className="text-xs text-zinc-700">先攻勝率</p>
                   <p className="mt-2 text-2xl font-semibold text-zinc-900">
                     {formatRate(summary.firstRate)}
-                    <span className="ml-2 text-sm text-zinc-500">
+                    <span className="ml-2 text-sm text-zinc-700">
                       {summary.firstTotal}
                     </span>
                   </p>
                 </div>
                 <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-                  <p className="text-xs text-zinc-500">後攻勝率</p>
+                  <p className="text-xs text-zinc-700">後攻勝率</p>
                   <p className="mt-2 text-2xl font-semibold text-zinc-900">
                     {formatRate(summary.secondRate)}
-                    <span className="ml-2 text-sm text-zinc-500">
+                    <span className="ml-2 text-sm text-zinc-700">
                       {summary.secondTotal}
                     </span>
                   </p>
@@ -271,10 +271,10 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
                   </thead>
                   <tbody>
                     {deckStats.map((stat) => (
-                      <tr key={stat.deckId} className="border-b border-zinc-100">
+                      <tr key={stat.deckId} className="border-b border-zinc-200">
                         <td className="px-3 py-3 font-semibold text-zinc-900">
                           {stat.name}
-                          <div className="text-xs font-normal text-zinc-500">
+                          <div className="text-xs font-normal text-zinc-700">
                             {deckClassLabels[stat.deckClass] ?? stat.deckClass}
                             {" / "}
                             {stat.cardPack}
@@ -305,7 +305,7 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
                   </tbody>
                 </table>
                 {deckStats.length === 0 && (
-                  <p className="mt-4 text-sm text-zinc-500">
+                  <p className="mt-4 text-sm text-zinc-700">
                     戦績が登録されていません。
                   </p>
                 )}
@@ -314,7 +314,7 @@ export default function HomeDashboard({ decks, cardPacks, matchups, records }: P
           )}
 
           {activeTab === "matchups" && (
-            <div className="mt-8 border-t border-zinc-100 pt-8">
+            <div className="mt-8 border-t border-zinc-200 pt-8">
               <StatsTable
                 decks={filteredDecks}
                 matchups={filteredMatchups}

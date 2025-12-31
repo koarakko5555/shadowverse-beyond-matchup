@@ -13,7 +13,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 ;
-function CardPackManager({ cardPacks, embedded }) {
+function CardPackManager({ cardPacks, embedded, isAdmin = false }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isPending, startTransition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useTransition"])();
     const [name, setName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
@@ -75,7 +75,7 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "Card Packs"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 79,
+                                lineNumber: 84,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -83,13 +83,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "カードパック管理"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 82,
+                                lineNumber: 87,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 78,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -97,13 +97,13 @@ function CardPackManager({ cardPacks, embedded }) {
                         children: "最新のカードパックがデフォルト"
                     }, void 0, false, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 86,
+                        lineNumber: 91,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 77,
+                lineNumber: 82,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -121,13 +121,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                 placeholder: "例: Dawn of Heroes"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 94,
+                                lineNumber: 99,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 92,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -141,13 +141,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                 onChange: (event)=>setReleaseDate(event.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 103,
+                                lineNumber: 108,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 101,
+                        lineNumber: 106,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -159,26 +159,26 @@ function CardPackManager({ cardPacks, embedded }) {
                             children: "追加する"
                         }, void 0, false, {
                             fileName: "[project]/app/components/CardPackManager.tsx",
-                            lineNumber: 111,
+                            lineNumber: 116,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 110,
+                        lineNumber: 115,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 91,
+                lineNumber: 96,
                 columnNumber: 7
             }, this),
             flashMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "mt-3 text-sm font-semibold text-emerald-600",
+                className: "flash-in mt-3 text-sm font-semibold text-emerald-600",
                 children: flashMessage
             }, void 0, false, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 121,
+                lineNumber: 126,
                 columnNumber: 9
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -186,7 +186,7 @@ function CardPackManager({ cardPacks, embedded }) {
                 children: error
             }, void 0, false, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 125,
+                lineNumber: 130,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -200,7 +200,7 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "登録済みカードパック"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 129,
+                                lineNumber: 134,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -211,13 +211,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 132,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 128,
+                        lineNumber: 133,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -228,7 +228,7 @@ function CardPackManager({ cardPacks, embedded }) {
                                 children: "まだ登録がありません。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/CardPackManager.tsx",
-                                lineNumber: 138,
+                                lineNumber: 143,
                                 columnNumber: 13
                             }, this),
                             cardPacks.map((pack, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -244,7 +244,7 @@ function CardPackManager({ cardPacks, embedded }) {
                                                             children: pack.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                                            lineNumber: 147,
+                                                            lineNumber: 152,
                                                             columnNumber: 19
                                                         }, this),
                                                         index === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -252,13 +252,13 @@ function CardPackManager({ cardPacks, embedded }) {
                                                             children: "最新"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                                            lineNumber: 151,
+                                                            lineNumber: 156,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/CardPackManager.tsx",
-                                                    lineNumber: 146,
+                                                    lineNumber: 151,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -266,41 +266,41 @@ function CardPackManager({ cardPacks, embedded }) {
                                                     children: new Date(pack.releaseDate).toLocaleDateString("ja-JP")
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/CardPackManager.tsx",
-                                                    lineNumber: 156,
+                                                    lineNumber: 161,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                            lineNumber: 145,
+                                            lineNumber: 150,
                                             columnNumber: 15
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             className: "text-sm font-semibold text-red-600 hover:text-red-700",
                                             onClick: ()=>onDelete(pack.id),
                                             type: "button",
                                             children: "削除"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/CardPackManager.tsx",
-                                            lineNumber: 160,
-                                            columnNumber: 15
+                                            lineNumber: 166,
+                                            columnNumber: 17
                                         }, this)
                                     ]
                                 }, pack.id, true, {
                                     fileName: "[project]/app/components/CardPackManager.tsx",
-                                    lineNumber: 141,
+                                    lineNumber: 146,
                                     columnNumber: 13
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/CardPackManager.tsx",
-                        lineNumber: 136,
+                        lineNumber: 141,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CardPackManager.tsx",
-                lineNumber: 127,
+                lineNumber: 132,
                 columnNumber: 7
             }, this)
         ]
@@ -311,7 +311,7 @@ function CardPackManager({ cardPacks, embedded }) {
             children: content
         }, void 0, false, {
             fileName: "[project]/app/components/CardPackManager.tsx",
-            lineNumber: 175,
+            lineNumber: 182,
             columnNumber: 12
         }, this);
     }
@@ -322,12 +322,12 @@ function CardPackManager({ cardPacks, embedded }) {
             children: content
         }, void 0, false, {
             fileName: "[project]/app/components/CardPackManager.tsx",
-            lineNumber: 180,
+            lineNumber: 187,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/CardPackManager.tsx",
-        lineNumber: 179,
+        lineNumber: 186,
         columnNumber: 5
     }, this);
 }

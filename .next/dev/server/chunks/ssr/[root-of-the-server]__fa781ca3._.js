@@ -120,6 +120,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$MatchupManager$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/MatchupManager.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/prisma.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/session.ts [app-rsc] (ecmascript)");
 var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
     __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__
 ]);
@@ -127,8 +128,20 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
+;
 const runtime = "nodejs";
 async function MatchupsPage() {
+    const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSession"])();
+    const userId = session ? Number(session.sub) : null;
+    const isAdmin = session?.role === "ADMIN";
+    const currentUser = Number.isInteger(userId) ? await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].user.findUnique({
+        where: {
+            id: userId
+        },
+        select: {
+            isPublic: true
+        }
+    }) : null;
     const decks = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].deck.findMany({
         orderBy: {
             id: "desc"
@@ -137,7 +150,38 @@ async function MatchupsPage() {
             cardPack: true
         }
     });
+    const cardPacks = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].cardPack.findMany({
+        orderBy: {
+            releaseDate: "desc"
+        }
+    });
     const matchups = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].matchup.findMany({
+        where: Number.isInteger(userId) ? {
+            userId: userId
+        } : undefined,
+        orderBy: {
+            id: "desc"
+        },
+        include: {
+            deck1: {
+                include: {
+                    cardPack: true
+                }
+            },
+            deck2: {
+                include: {
+                    cardPack: true
+                }
+            },
+            user: true
+        }
+    });
+    const statsMatchups = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].matchup.findMany({
+        where: {
+            user: {
+                isPublic: true
+            }
+        },
         orderBy: {
             id: "desc"
         },
@@ -163,6 +207,10 @@ async function MatchupsPage() {
                     releaseDate: deck.cardPack.releaseDate.toISOString()
                 }
             })),
+        cardPacks: cardPacks.map((pack)=>({
+                ...pack,
+                releaseDate: pack.releaseDate.toISOString()
+            })),
         matchups: matchups.map((matchup)=>({
                 ...matchup,
                 deck1: {
@@ -179,10 +227,29 @@ async function MatchupsPage() {
                         releaseDate: matchup.deck2.cardPack.releaseDate.toISOString()
                     }
                 }
-            }))
+            })),
+        statsMatchups: statsMatchups.map((matchup)=>({
+                ...matchup,
+                deck1: {
+                    ...matchup.deck1,
+                    cardPack: {
+                        ...matchup.deck1.cardPack,
+                        releaseDate: matchup.deck1.cardPack.releaseDate.toISOString()
+                    }
+                },
+                deck2: {
+                    ...matchup.deck2,
+                    cardPack: {
+                        ...matchup.deck2.cardPack,
+                        releaseDate: matchup.deck2.cardPack.releaseDate.toISOString()
+                    }
+                }
+            })),
+        isAdmin: isAdmin,
+        isPublic: currentUser?.isPublic ?? false
     }, void 0, false, {
         fileName: "[project]/app/(dashboard)/matchups/page.tsx",
-        lineNumber: 21,
+        lineNumber: 45,
         columnNumber: 5
     }, this);
 }

@@ -33,7 +33,7 @@ export default function LoginPage() {
       return;
     }
 
-    startTransition(() => router.push("/packs"));
+    startTransition(() => router.push("/records"));
   };
 
   return (
@@ -76,7 +76,7 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <div className="text-sm text-zinc-500">
+      <div className="text-sm text-zinc-700">
         アカウント未作成の場合は{" "}
         <Link className="font-semibold text-zinc-900" href="/signup">
           新規登録

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AppHeader from "@/app/components/AppHeader";
+import { getSession } from "@/app/lib/session";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,19 +17,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Beyond Matchup",
   description: "Shadowverse Beyond matchup tracker",
+  icons: {
+    icon: "/cthulhu_deep_ones.png",
+    shortcut: "/cthulhu_deep_ones.png",
+    apple: "/cthulhu_deep_ones.png",
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppHeader />
+        <AppHeader isAuthenticated={Boolean(session)} />
         {children}
       </body>
     </html>

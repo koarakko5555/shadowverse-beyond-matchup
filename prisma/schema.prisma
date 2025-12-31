@@ -79,6 +79,7 @@ model User {
   name         String
   passwordHash String
   role         UserRole  @default(MEMBER)
+  isPublic     Boolean   @default(false)
   createdAt    DateTime  @default(now())
   matchups     Matchup[]
   matchRecords MatchRecord[]

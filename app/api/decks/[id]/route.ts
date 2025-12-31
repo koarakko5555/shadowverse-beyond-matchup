@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/app/lib/prisma";
+import { getSession } from "@/app/lib/session";
 
 export const runtime = "nodejs";
 
@@ -9,6 +10,13 @@ type Params = {
 };
 
 export async function DELETE(_: Request, { params }: Params) {
+  const session = await getSession();
+  if (session?.role !== "ADMIN") {
+    return NextResponse.json(
+      { error: "管理者のみ削除できます。" },
+      { status: 403 }
+    );
+  }
   const { id: idParam } = await params;
   const id = Number(idParam);
 

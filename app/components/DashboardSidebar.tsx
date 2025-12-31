@@ -30,8 +30,8 @@ export default function DashboardSidebar() {
               href={item.href}
               className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
                 isActive
-                  ? "bg-zinc-900 text-white"
-                  : "text-zinc-600 hover:bg-zinc-100"
+                  ? "bg-white text-zinc-900"
+                  : "text-zinc-700 hover:bg-zinc-100"
               }`}
             >
               {item.label}

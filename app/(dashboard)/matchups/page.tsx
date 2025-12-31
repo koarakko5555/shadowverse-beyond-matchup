@@ -7,6 +7,13 @@ export const runtime = "nodejs";
 export default async function MatchupsPage() {
   const session = await getSession();
   const userId = session ? Number(session.sub) : null;
+  const isAdmin = session?.role === "ADMIN";
+  const currentUser = Number.isInteger(userId)
+    ? await prisma.user.findUnique({
+        where: { id: userId as number },
+        select: { isPublic: true },
+      })
+    : null;
 
   const decks = await prisma.deck.findMany({
     orderBy: { id: "desc" },
@@ -25,6 +32,7 @@ export default async function MatchupsPage() {
     },
   });
   const statsMatchups = await prisma.matchup.findMany({
+    where: { user: { isPublic: true } },
     orderBy: { id: "desc" },
     include: {
       deck1: { include: { cardPack: true } },
@@ -80,6 +88,8 @@ export default async function MatchupsPage() {
           },
         },
       }))}
+      isAdmin={isAdmin}
+      isPublic={currentUser?.isPublic ?? false}
     />
   );
 }

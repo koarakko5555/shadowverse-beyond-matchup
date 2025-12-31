@@ -31,6 +31,8 @@ type Props = {
   cardPacks: CardPack[];
   matchups: Matchup[];
   statsMatchups: Matchup[];
+  isAdmin: boolean;
+  isPublic: boolean;
 };
 
 type User = {
@@ -124,6 +126,8 @@ export default function MatchupManager({
   cardPacks,
   matchups,
   statsMatchups,
+  isAdmin,
+  isPublic,
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -150,6 +154,7 @@ export default function MatchupManager({
   const [editingDeckId, setEditingDeckId] = useState<number | null>(null);
   const [activePackId, setActivePackId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"input" | "stats">("input");
+  const [isPublicMatchup, setIsPublicMatchup] = useState(isPublic);
   const deckFormRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -158,9 +163,25 @@ export default function MatchupManager({
   }, [activePackId, cardPacks]);
 
   useEffect(() => {
+    if (!flashMessage) return;
+    const timer = setTimeout(() => setFlashMessage(null), 3000);
+    return () => clearTimeout(timer);
+  }, [flashMessage]);
+
+  useEffect(() => {
+    if (!matrixMessage) return;
+    const timer = setTimeout(() => setMatrixMessage(null), 3000);
+    return () => clearTimeout(timer);
+  }, [matrixMessage]);
+
+  useEffect(() => {
     if (!activePackId) return;
     setCardPackId(String(activePackId));
   }, [activePackId]);
+
+  useEffect(() => {
+    setIsPublicMatchup(isPublic);
+  }, [isPublic]);
 
   const filteredDecks = useMemo(() => {
     if (!activePackId) return [];
@@ -396,7 +417,7 @@ export default function MatchupManager({
               className={`relative -mb-px rounded-t-xl border border-b-0 px-5 py-2 text-xs font-semibold transition ${
                 activePackId === pack.id
                   ? "border-zinc-900 bg-white text-zinc-900"
-                  : "border-zinc-200 bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                  : "border-zinc-200 bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActivePackId(pack.id)}
             >
@@ -418,8 +439,8 @@ export default function MatchupManager({
               type="button"
               className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
                 activeTab === "input"
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                  ? "border-zinc-900 bg-white text-zinc-900"
+                  : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActiveTab("input")}
             >
@@ -429,8 +450,8 @@ export default function MatchupManager({
               type="button"
               className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
                 activeTab === "stats"
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                  ? "border-zinc-900 bg-white text-zinc-900"
+                  : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"
               }`}
               onClick={() => setActiveTab("stats")}
             >
@@ -439,7 +460,7 @@ export default function MatchupManager({
           </div>
 
           {activeTab === "stats" && (
-            <div className="mt-8 border-t border-zinc-100 pt-8">
+            <div className="mt-8 border-t border-zinc-200 pt-8">
               <StatsTable
                 decks={sortedDecks}
                 matchups={filteredStatsMatchups}
@@ -449,14 +470,14 @@ export default function MatchupManager({
           )}
 
           {flashMessage && (
-            <p className="mt-4 text-sm font-semibold text-emerald-600">
+            <div className="flash-in fixed left-1/2 top-4 z-50 w-[min(90vw,420px)] -translate-x-1/2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-center text-sm font-semibold text-emerald-700 shadow-sm">
               {flashMessage}
-            </p>
+            </div>
           )}
           {activeTab === "input" && matrixMessage && (
-            <p className="mt-4 text-sm font-semibold text-emerald-600">
+            <div className="flash-in fixed left-1/2 top-4 z-50 w-[min(90vw,420px)] -translate-x-1/2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-center text-sm font-semibold text-emerald-700 shadow-sm">
               {matrixMessage}
-            </p>
+            </div>
           )}
 
           {activeTab === "input" && (
@@ -464,13 +485,13 @@ export default function MatchupManager({
               <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
                 <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
                   <tr>
-                    <th className="w-44 border border-zinc-300 bg-white px-3 py-2 text-left text-zinc-500">
+                    <th className="w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700">
                       デッキ
                     </th>
                     {sortedDecks.map((deck) => (
                       <th
                         key={deck.id}
-                        className="min-w-[110px] border border-zinc-300 bg-white px-2 py-2 text-xs text-zinc-500"
+                        className="min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
                       >
                         <div className="font-semibold text-zinc-900">
                           {deck.name}
@@ -482,7 +503,7 @@ export default function MatchupManager({
                 <tbody>
                   {sortedDecks.map((rowDeck, rowIndex) => (
                     <tr key={rowDeck.id}>
-                      <th className="border border-zinc-300 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                      <th className="border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
                         {rowDeck.name}
                       </th>
                       {sortedDecks.map((colDeck, colIndex) => {
@@ -496,7 +517,7 @@ export default function MatchupManager({
                         return (
                           <td
                             key={colDeck.id}
-                            className={`border border-zinc-300 px-2 py-3 text-sm ${
+                            className={`border border-zinc-200 px-2 py-3 text-sm ${
                               isSelf ? "bg-zinc-50" : "hover:bg-zinc-100"
                             }`}
                           >
@@ -525,10 +546,59 @@ export default function MatchupManager({
                 </tbody>
               </table>
               {sortedDecks.length === 0 && (
-                <p className="mt-4 text-sm text-zinc-500">
+                <p className="mt-4 text-sm text-zinc-700">
                   このカードパックのデッキがありません。
                 </p>
               )}
+            </div>
+          )}
+          {activeTab === "input" && (
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm">
+              <div>
+                <p className="font-semibold text-zinc-900">相性表の公開設定</p>
+                <p className="text-xs text-zinc-700">
+                  公開にすると、統計タブであなたの相性表が集計されます。
+                </p>
+              </div>
+              <label className="flex items-center gap-3 text-xs font-semibold text-zinc-700">
+                <span>{isPublicMatchup ? "公開" : "非公開"}</span>
+                <input
+                  type="checkbox"
+                  className="peer sr-only"
+                  checked={isPublicMatchup}
+                  onChange={async () => {
+                    const nextValue = !isPublicMatchup;
+                    setIsPublicMatchup(nextValue);
+                    setError(null);
+                    try {
+                      const res = await fetch(
+                        "/api/settings/matchup-visibility",
+                        {
+                          method: "PATCH",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ isPublic: nextValue }),
+                        }
+                      );
+                      if (!res.ok) {
+                        const data = await res.json().catch(() => null);
+                        throw new Error(data?.error ?? "更新に失敗しました。");
+                      }
+                      setFlashMessage("更新しました！");
+                      startTransition(() => router.refresh());
+                    } catch (err) {
+                      setIsPublicMatchup(!nextValue);
+                      setError(
+                        err instanceof Error
+                          ? err.message
+                          : "更新に失敗しました。"
+                      );
+                    }
+                  }}
+                />
+                <span className="relative inline-flex h-6 w-11 items-center rounded-full border border-zinc-200 bg-zinc-100 transition peer-checked:border-emerald-600 peer-checked:bg-emerald-600">
+                  <span className="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
+                </span>
+              </label>
             </div>
           )}
 
@@ -539,7 +609,7 @@ export default function MatchupManager({
                   <p className="text-sm font-semibold text-zinc-900">
                     相性の編集
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-zinc-700">
                     {filteredDecks.find((deck) => deck.id === matrixEdit.deck1Id)
                       ?.name}{" "}
                     vs{" "}
@@ -591,7 +661,7 @@ export default function MatchupManager({
           {activeTab === "input" && (
             <div
               ref={deckFormRef}
-              className="mt-10 border-t border-zinc-100 pt-8"
+              className="mt-10 border-t border-zinc-200 pt-8"
             >
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
@@ -671,29 +741,29 @@ export default function MatchupManager({
           )}
 
           {activeTab === "input" && (
-            <div className="mt-10 border-t border-zinc-100 pt-8">
+            <div className="mt-10 border-t border-zinc-200 pt-8">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-zinc-900">
                   登録済みデッキ
                 </h3>
-                <span className="text-sm text-zinc-500">
-                  {filteredDecks.length}件
+                <span className="text-sm text-zinc-700">
+                  {sortedDecks.length}件
                 </span>
               </div>
               <div className="mt-4 space-y-3">
-                {filteredDecks.length === 0 && (
-                  <p className="text-sm text-zinc-500">まだ登録がありません。</p>
+                {sortedDecks.length === 0 && (
+                  <p className="text-sm text-zinc-700">まだ登録がありません。</p>
                 )}
-                {filteredDecks.map((deck) => (
+                {sortedDecks.map((deck) => (
                   <div
                     key={deck.id}
-                    className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3"
+                    className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3"
                   >
                     <div>
                       <p className="text-sm font-semibold text-zinc-900">
                         {deck.name}
                       </p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-zinc-700">
                         {deckClassLabels[deck.deckClass] ?? deck.deckClass} /{" "}
                         {deck.cardPack.name}
                       </p>
@@ -706,13 +776,15 @@ export default function MatchupManager({
                       >
                         編集
                       </button>
-                      <button
-                        className="text-sm font-semibold text-red-600 hover:text-red-700"
-                        onClick={() => onDeckDelete(deck.id)}
-                        type="button"
-                      >
-                        削除
-                      </button>
+                      {isAdmin && (
+                        <button
+                          className="text-sm font-semibold text-red-600 hover:text-red-700"
+                          onClick={() => onDeckDelete(deck.id)}
+                          type="button"
+                        >
+                          削除
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}

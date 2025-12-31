@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 type CardPack = {
   id: number;
@@ -12,15 +12,26 @@ type CardPack = {
 type Props = {
   cardPacks: CardPack[];
   embedded?: boolean;
+  isAdmin?: boolean;
 };
 
-export default function CardPackManager({ cardPacks, embedded }: Props) {
+export default function CardPackManager({
+  cardPacks,
+  embedded,
+  isAdmin = false,
+}: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [name, setName] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [flashMessage, setFlashMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!flashMessage) return;
+    const timer = setTimeout(() => setFlashMessage(null), 3000);
+    return () => clearTimeout(timer);
+  }, [flashMessage]);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,7 +94,7 @@ export default function CardPackManager({ cardPacks, embedded }: Props) {
             カードパック管理
           </h1>
         </div>
-        <div className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-500">
+        <div className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-700">
           最新のカードパックがデフォルト
         </div>
       </div>
@@ -118,29 +129,29 @@ export default function CardPackManager({ cardPacks, embedded }: Props) {
         </div>
       </form>
       {flashMessage && (
-        <p className="mt-3 text-sm font-semibold text-emerald-600">
+        <div className="flash-in fixed left-1/2 top-4 z-50 w-[min(90vw,420px)] -translate-x-1/2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-center text-sm font-semibold text-emerald-700 shadow-sm">
           {flashMessage}
-        </p>
+        </div>
       )}
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
-      <div className="mt-8 border-t border-zinc-100 pt-8">
+      <div className="mt-8 border-t border-zinc-200 pt-8">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-zinc-900">
             登録済みカードパック
           </h2>
-          <span className="text-sm text-zinc-500">
+          <span className="text-sm text-zinc-700">
             {cardPacks.length}件
           </span>
         </div>
         <div className="mt-4 space-y-3">
           {cardPacks.length === 0 && (
-            <p className="text-sm text-zinc-500">まだ登録がありません。</p>
+            <p className="text-sm text-zinc-700">まだ登録がありません。</p>
           )}
           {cardPacks.map((pack, index) => (
             <div
               key={pack.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3"
             >
               <div>
                 <div className="flex items-center gap-2">
@@ -148,22 +159,24 @@ export default function CardPackManager({ cardPacks, embedded }: Props) {
                     {pack.name}
                   </p>
                   {index === 0 && (
-                    <span className="rounded-full bg-zinc-900 px-2 py-0.5 text-xs text-white">
+                    <span className="rounded-full bg-white px-2 py-0.5 text-xs text-zinc-900">
                       最新
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-700">
                   {new Date(pack.releaseDate).toLocaleDateString("ja-JP")}
                 </p>
               </div>
-              <button
-                className="text-sm font-semibold text-red-600 hover:text-red-700"
-                onClick={() => onDelete(pack.id)}
-                type="button"
-              >
-                削除
-              </button>
+              {isAdmin && (
+                <button
+                  className="text-sm font-semibold text-red-600 hover:text-red-700"
+                  onClick={() => onDelete(pack.id)}
+                  type="button"
+                >
+                  削除
+                </button>
+              )}
             </div>
           ))}
         </div>

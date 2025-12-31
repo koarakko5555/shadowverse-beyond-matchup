@@ -94,15 +94,15 @@ export default function UserManager({ users }: Props) {
       <div className="mt-6 space-y-3">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-zinc-900">登録済みユーザー</h3>
-          <span className="text-sm text-zinc-500">{users.length}件</span>
+          <span className="text-sm text-zinc-700">{users.length}件</span>
         </div>
         {users.length === 0 && (
-          <p className="text-sm text-zinc-500">まだ登録がありません。</p>
+          <p className="text-sm text-zinc-700">まだ登録がありません。</p>
         )}
         {users.map((user) => (
           <div
             key={user.id}
-            className="flex items-center justify-between rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3"
+            className="flex items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3"
           >
             <p className="text-sm font-semibold text-zinc-900">{user.name}</p>
             <button

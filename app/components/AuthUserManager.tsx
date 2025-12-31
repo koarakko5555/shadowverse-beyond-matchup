@@ -78,7 +78,7 @@ export default function AuthUserManager({
             </thead>
             <tbody>
               {rows.map((user) => (
-                <tr key={user.id} className="border-b border-zinc-100">
+                <tr key={user.id} className="border-b border-zinc-200">
                   <td className="px-3 py-3 font-semibold text-zinc-900">
                     {user.name}
                   </td>
@@ -102,10 +102,10 @@ export default function AuthUserManager({
                       <option value="MEMBER">member</option>
                     </select>
                   </td>
-                  <td className="px-3 py-3 text-xs text-zinc-500">
+                  <td className="px-3 py-3 text-xs text-zinc-700">
                     {new Date(user.createdAt).toLocaleDateString("ja-JP")}
                   </td>
-                  <td className="px-3 py-3 text-center text-xs text-zinc-500">
+                  <td className="px-3 py-3 text-center text-xs text-zinc-700">
                     {currentUserId === user.id ? "現在のユーザー" : "—"}
                   </td>
                 </tr>

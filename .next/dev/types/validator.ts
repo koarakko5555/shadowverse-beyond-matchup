@@ -236,6 +236,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/settings/account/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/settings/account">> = Specific
+  const handler = {} as typeof import("../../../app/api/settings/account/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/api/settings/matchup-visibility/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/settings/matchup-visibility">> = Specific
+  const handler = {} as typeof import("../../../app/api/settings/matchup-visibility/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/settings/profile/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/settings/profile">> = Specific
