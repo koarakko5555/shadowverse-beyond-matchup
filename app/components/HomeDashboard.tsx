@@ -29,7 +29,7 @@ type Matchup = {
   winRate: number;
 };
 
-type Record = {
+type MatchRecord = {
   id: number;
   deck: Deck;
   opponentDeck: Deck;
@@ -42,7 +42,7 @@ type Props = {
   decks: Deck[];
   cardPacks: CardPack[];
   matchups: Matchup[];
-  records: Record[];
+  records: MatchRecord[];
 };
 
 const deckClassLabels: Record<string, string> = {
@@ -71,7 +71,7 @@ type DeckStats = {
 const formatRate = (value: number | null) =>
   value === null ? "-" : Number.isInteger(value) ? `${value}` : value.toFixed(1);
 
-const buildDeckStats = (decks: Deck[], records: Record[]) => {
+const buildDeckStats = (decks: Deck[], records: MatchRecord[]) => {
   const byDeck = new Map<number, DeckStats>();
 
   for (const deck of decks) {
