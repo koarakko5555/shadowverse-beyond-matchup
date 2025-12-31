@@ -95,7 +95,7 @@ export default function AuthUserManager({
                       disabled={
                         !isAdmin ||
                         isPending ||
-                        (currentUserId && user.id === currentUserId)
+                        currentUserId === user.id
                       }
                     >
                       <option value="ADMIN">admin</option>
