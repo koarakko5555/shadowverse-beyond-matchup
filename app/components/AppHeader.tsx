@@ -27,9 +27,6 @@ export default function AppHeader({ isAuthenticated }: Props) {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
           <div className="flex items-baseline gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-700">
-              Shadowverse
-            </span>
             <span className="text-lg font-semibold text-zinc-900">
               Beyond Matchup
             </span>

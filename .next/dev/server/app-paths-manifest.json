@@ -6,5 +6,6 @@
   "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/auth/logout/route": "app/api/auth/logout/route.js",
   "/api/match-records/route": "app/api/match-records/route.js",
+  "/api/matchups/[id]/route": "app/api/matchups/[id]/route.js",
   "/page": "app/page.js"
 }

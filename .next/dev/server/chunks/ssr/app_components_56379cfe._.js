@@ -390,23 +390,31 @@ function StatsTable({ decks, matchups, embedded }) {
                                                     columnNumber: 15
                                                 }, this),
                                                 sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "min-w-[110px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
+                                                        className: "min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "font-semibold text-zinc-900",
+                                                                className: "max-w-[160px] text-center text-xs font-semibold text-zinc-900",
+                                                                style: {
+                                                                    display: "-webkit-box",
+                                                                    WebkitLineClamp: 2,
+                                                                    WebkitBoxOrient: "vertical",
+                                                                    overflow: "hidden",
+                                                                    lineHeight: "1.2",
+                                                                    minHeight: "2.4em"
+                                                                },
                                                                 children: deck.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
                                                                 lineNumber: 305,
-                                                                columnNumber: 21
+                                                                columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "text-[10px] text-zinc-400",
                                                                 children: deckClassLabels[deck.deckClass] ?? deck.deckClass
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 306,
-                                                                columnNumber: 21
+                                                                lineNumber: 318,
+                                                                columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, deck.id, true, {
@@ -429,9 +437,24 @@ function StatsTable({ decks, matchups, embedded }) {
                                         children: sortedDecks.map((rowDeck, rowIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
+                                                        className: "min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
                                                         children: [
-                                                            rowDeck.name,
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "max-w-[200px]",
+                                                                style: {
+                                                                    display: "-webkit-box",
+                                                                    WebkitLineClamp: 2,
+                                                                    WebkitBoxOrient: "vertical",
+                                                                    overflow: "hidden",
+                                                                    lineHeight: "1.2",
+                                                                    minHeight: "2.4em"
+                                                                },
+                                                                children: rowDeck.name
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/components/StatsTable.tsx",
+                                                                lineNumber: 329,
+                                                                columnNumber: 19
+                                                            }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "text-xs font-normal text-zinc-700",
                                                                 children: [
@@ -441,13 +464,13 @@ function StatsTable({ decks, matchups, embedded }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 318,
-                                                                columnNumber: 21
+                                                                lineNumber: 342,
+                                                                columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                                        lineNumber: 316,
+                                                        lineNumber: 328,
                                                         columnNumber: 17
                                                     }, this),
                                                     sortedDecks.map((colDeck, colIndex)=>{
@@ -460,38 +483,38 @@ function StatsTable({ decks, matchups, embedded }) {
                                                                 children: "*"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 333,
+                                                                lineNumber: 357,
                                                                 columnNumber: 27
                                                             }, this) : value === undefined ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "text-zinc-400",
                                                                 children: "—"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 337,
+                                                                lineNumber: 361,
                                                                 columnNumber: 27
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "font-semibold text-zinc-900",
                                                                 children: formatRate(value)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                                lineNumber: 339,
+                                                                lineNumber: 363,
                                                                 columnNumber: 27
                                                             }, this)
                                                         }, colDeck.id, false, {
                                                             fileName: "[project]/app/components/StatsTable.tsx",
-                                                            lineNumber: 328,
+                                                            lineNumber: 352,
                                                             columnNumber: 23
                                                         }, this);
                                                     })
                                                 ]
                                             }, rowDeck.id, true, {
                                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                                lineNumber: 315,
+                                                lineNumber: 327,
                                                 columnNumber: 15
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/StatsTable.tsx",
-                                        lineNumber: 313,
+                                        lineNumber: 325,
                                         columnNumber: 13
                                     }, this)
                                 ]
@@ -505,7 +528,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "相性評価が登録されていません。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 351,
+                                lineNumber: 375,
                                 columnNumber: 13
                             }, this),
                             activeTab && activeMatchups.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -513,7 +536,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "選択したメンバーの相性評価がありません。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 356,
+                                lineNumber: 380,
                                 columnNumber: 13
                             }, this),
                             !activeTab && users.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -521,7 +544,7 @@ function StatsTable({ decks, matchups, embedded }) {
                                 children: "メンバーを選択してください。"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/StatsTable.tsx",
-                                lineNumber: 361,
+                                lineNumber: 385,
                                 columnNumber: 13
                             }, this)
                         ]

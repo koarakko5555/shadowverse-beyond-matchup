@@ -70,25 +70,15 @@ function AppHeader({ isAuthenticated }) {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex items-baseline gap-3",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-700",
-                                    children: "Shadowverse"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/AppHeader.tsx",
-                                    lineNumber: 30,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-lg font-semibold text-zinc-900",
-                                    children: "Beyond Matchup"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/AppHeader.tsx",
-                                    lineNumber: 33,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-lg font-semibold text-zinc-900",
+                                children: "Beyond Matchup"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/AppHeader.tsx",
+                                lineNumber: 30,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
                             fileName: "[project]/app/components/AppHeader.tsx",
                             lineNumber: 29,
                             columnNumber: 11
@@ -103,13 +93,13 @@ function AppHeader({ isAuthenticated }) {
                                     children: item.label
                                 }, item.href, false, {
                                     fileName: "[project]/app/components/AppHeader.tsx",
-                                    lineNumber: 42,
+                                    lineNumber: 39,
                                     columnNumber: 19
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/app/components/AppHeader.tsx",
-                            lineNumber: 38,
+                            lineNumber: 35,
                             columnNumber: 13
                         }, this)
                     ]
@@ -127,12 +117,12 @@ function AppHeader({ isAuthenticated }) {
                         children: "ログアウト"
                     }, void 0, false, {
                         fileName: "[project]/app/components/AppHeader.tsx",
-                        lineNumber: 60,
+                        lineNumber: 57,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/components/AppHeader.tsx",
-                    lineNumber: 59,
+                    lineNumber: 56,
                     columnNumber: 11
                 }, this)
             ]
