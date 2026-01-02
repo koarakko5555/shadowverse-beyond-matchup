@@ -641,6 +641,10 @@
     min-width: 100%;
   }
 
+  .min-w-max {
+    min-width: max-content;
+  }
+
   .table-fixed {
     table-layout: fixed;
   }
@@ -656,6 +660,10 @@
 
   .flex-col {
     flex-direction: column;
+  }
+
+  .flex-nowrap {
+    flex-wrap: nowrap;
   }
 
   .flex-wrap {
@@ -1207,6 +1215,12 @@
   @media (min-width: 48rem) {
     .md\:self-auto {
       align-self: auto;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .md\:overflow-visible {
+      overflow: visible;
     }
   }
 }
