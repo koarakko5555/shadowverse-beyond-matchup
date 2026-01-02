@@ -407,8 +407,8 @@ export default function MatchupManager({
           )}
 
           {activeTab === "input" && (
-            <div className="mt-6">
-              <table className="w-full table-fixed border-collapse text-center text-[11px] text-zinc-700">
+            <div className="mt-6 overflow-x-auto">
+              <table className="w-[150%] table-fixed border-collapse text-center text-[11px] text-zinc-700">
                 <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
                   <tr>
                     <th className="w-[18%] border border-zinc-200 bg-white px-2 py-2 text-left text-zinc-700">

@@ -180,7 +180,7 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
       </div>
 
       <div className="mt-6 overflow-x-auto">
-        <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
+        <table className="w-[150%] table-fixed border-collapse text-center text-sm text-zinc-700">
           <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
             <tr>
               <th className="w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700">
@@ -291,7 +291,7 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
         </div>
 
         <div className="mt-4 overflow-x-auto">
-        <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
+        <table className="w-[150%] table-fixed border-collapse text-center text-sm text-zinc-700">
           <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
             <tr>
               <th className="w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700">
