@@ -67,7 +67,7 @@ export default function SignupPage() {
             className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
             value={loginId}
             onChange={(event) => setLoginId(event.target.value)}
-            placeholder="例: torieru"
+            placeholder="id123"
           />
         </label>
         <label className="flex flex-col gap-2 text-sm text-zinc-700">
@@ -76,7 +76,7 @@ export default function SignupPage() {
             className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            placeholder="例: とりえる"
+            placeholder="寺田邪心"
           />
         </label>
         <label className="flex flex-col gap-2 text-sm text-zinc-700">
@@ -87,6 +87,7 @@ export default function SignupPage() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
+          <span className="text-xs text-zinc-500">1文字でもいけるよ♡</span>
         </label>
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button

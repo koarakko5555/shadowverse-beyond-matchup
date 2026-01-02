@@ -78,7 +78,7 @@ function SignupPage() {
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-xs font-semibold uppercase tracking-[0.3em] text-blue-400",
+                        className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
                         children: "Signup"
                     }, void 0, false, {
                         fileName: "[project]/app/(auth)/signup/page.tsx",
@@ -86,7 +86,7 @@ function SignupPage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "mt-2 text-2xl font-semibold text-blue-950",
+                        className: "mt-2 text-2xl font-semibold text-zinc-900",
                         children: "新規登録"
                     }, void 0, false, {
                         fileName: "[project]/app/(auth)/signup/page.tsx",
@@ -104,14 +104,14 @@ function SignupPage() {
                 onSubmit: onSubmit,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "flex flex-col gap-2 text-sm text-blue-800",
+                        className: "flex flex-col gap-2 text-sm text-zinc-700",
                         children: [
                             "ID",
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                className: "rounded-lg border border-blue-200 px-3 py-2 text-sm text-blue-950 focus:border-blue-400 focus:outline-none",
+                                className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
                                 value: loginId,
                                 onChange: (event)=>setLoginId(event.target.value),
-                                placeholder: "例: torieru"
+                                placeholder: "id123"
                             }, void 0, false, {
                                 fileName: "[project]/app/(auth)/signup/page.tsx",
                                 lineNumber: 66,
@@ -124,14 +124,14 @@ function SignupPage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "flex flex-col gap-2 text-sm text-blue-800",
+                        className: "flex flex-col gap-2 text-sm text-zinc-700",
                         children: [
                             "表示名",
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                className: "rounded-lg border border-blue-200 px-3 py-2 text-sm text-blue-950 focus:border-blue-400 focus:outline-none",
+                                className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
                                 value: name,
                                 onChange: (event)=>setName(event.target.value),
-                                placeholder: "例: とりえる"
+                                placeholder: "寺田邪心"
                             }, void 0, false, {
                                 fileName: "[project]/app/(auth)/signup/page.tsx",
                                 lineNumber: 75,
@@ -144,17 +144,25 @@ function SignupPage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "flex flex-col gap-2 text-sm text-blue-800",
+                        className: "flex flex-col gap-2 text-sm text-zinc-700",
                         children: [
                             "パスワード",
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                className: "rounded-lg border border-blue-200 px-3 py-2 text-sm text-blue-950 focus:border-blue-400 focus:outline-none",
+                                className: "rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none",
                                 type: "password",
                                 value: password,
                                 onChange: (event)=>setPassword(event.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/app/(auth)/signup/page.tsx",
                                 lineNumber: 84,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-xs text-zinc-500",
+                                children: "1文字でもいけるよ♡"
+                            }, void 0, false, {
+                                fileName: "[project]/app/(auth)/signup/page.tsx",
+                                lineNumber: 90,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -168,17 +176,17 @@ function SignupPage() {
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/(auth)/signup/page.tsx",
-                        lineNumber: 91,
+                        lineNumber: 92,
                         columnNumber: 19
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "w-full rounded-lg bg-blue-950 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-900 disabled:cursor-not-allowed disabled:bg-blue-400",
+                        className: "w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-400",
                         type: "submit",
                         disabled: isPending,
                         children: "登録する"
                     }, void 0, false, {
                         fileName: "[project]/app/(auth)/signup/page.tsx",
-                        lineNumber: 92,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, this)
                 ]
@@ -188,23 +196,23 @@ function SignupPage() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "text-sm text-blue-600",
+                className: "text-sm text-zinc-700",
                 children: [
                     "既にアカウントがある場合は",
                     " ",
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                        className: "font-semibold text-blue-950",
+                        className: "font-semibold text-zinc-900",
                         href: "/login",
                         children: "ログイン"
                     }, void 0, false, {
                         fileName: "[project]/app/(auth)/signup/page.tsx",
-                        lineNumber: 103,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(auth)/signup/page.tsx",
-                lineNumber: 101,
+                lineNumber: 102,
                 columnNumber: 7
             }, this)
         ]
