@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 
@@ -31,23 +32,12 @@ type Props = {
   cardPacks: CardPack[];
   matchups: Matchup[];
   statsMatchups: Matchup[];
-  isAdmin: boolean;
   isPublic: boolean;
 };
 
 type User = {
   id: number;
   name: string;
-};
-
-const deckClassLabels: Record<string, string> = {
-  ELF: "エルフ",
-  ROYAL: "ロイヤル",
-  WITCH: "ウィッチ",
-  NIGHTMARE: "ナイトメア",
-  DRAGON: "ドラゴン",
-  BISHOP: "ビショップ",
-  NEMESIS: "ネメシス",
 };
 
 const deckClassOrder = [
@@ -128,7 +118,6 @@ export default function MatchupManager({
   cardPacks,
   matchups,
   statsMatchups,
-  isAdmin,
   isPublic,
 }: Props) {
   const router = useRouter();
@@ -150,14 +139,9 @@ export default function MatchupManager({
   const [matrixMessage, setMatrixMessage] = useState<string | null>(null);
   const [flashMessage, setFlashMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [deckName, setDeckName] = useState("");
-  const [deckClass, setDeckClass] = useState("");
-  const [cardPackId, setCardPackId] = useState("");
-  const [editingDeckId, setEditingDeckId] = useState<number | null>(null);
   const [activePackId, setActivePackId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"input" | "stats">("input");
   const [isPublicMatchup, setIsPublicMatchup] = useState(isPublic);
-  const deckFormRef = useRef<HTMLDivElement | null>(null);
   const matrixEditRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -176,11 +160,6 @@ export default function MatchupManager({
     const timer = setTimeout(() => setMatrixMessage(null), 3000);
     return () => clearTimeout(timer);
   }, [matrixMessage]);
-
-  useEffect(() => {
-    if (!activePackId) return;
-    setCardPackId(String(activePackId));
-  }, [activePackId]);
 
   useEffect(() => {
     setIsPublicMatchup(isPublic);
@@ -349,73 +328,6 @@ export default function MatchupManager({
     }
     setMatrixEdit(null);
     setMatrixWinRate("");
-    setFlashMessage("削除しました！");
-    startTransition(() => router.refresh());
-  };
-
-  const onDeckSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError(null);
-
-    if (deckName.trim().length < 1 || deckName.trim().length > 10) {
-      setError("デッキ名は1〜10文字で入力してください。");
-      return;
-    }
-    if (!deckClass) {
-      setError("クラスを選択してください。");
-      return;
-    }
-    if (!cardPackId) {
-      setError("カードパックを選択してください。");
-      return;
-    }
-
-    const targetUrl = editingDeckId ? `/api/decks/${editingDeckId}` : "/api/decks";
-    const method = editingDeckId ? "PUT" : "POST";
-    const res = await fetch(targetUrl, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: deckName.trim(),
-        deckClass,
-        cardPackId: Number(cardPackId),
-      }),
-    });
-
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      setError(data?.error ?? "登録に失敗しました。");
-      return;
-    }
-
-    setDeckName("");
-    setDeckClass("");
-    setCardPackId(activePackId ? String(activePackId) : "");
-    setEditingDeckId(null);
-    setFlashMessage(null);
-    startTransition(() => router.refresh());
-  };
-
-  const onDeckEdit = (deck: Deck) => {
-    setDeckName(deck.name);
-    setDeckClass(deck.deckClass);
-    setCardPackId(String(deck.cardPack.id));
-    setEditingDeckId(deck.id);
-    setActiveTab("input");
-    setError(null);
-    setTimeout(() => {
-      deckFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 0);
-  };
-
-  const onDeckDelete = async (id: number) => {
-    setError(null);
-    const res = await fetch(`/api/decks/${id}`, { method: "DELETE" });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      setError(data?.error ?? "削除に失敗しました。");
-      return;
-    }
     setFlashMessage("削除しました！");
     startTransition(() => router.refresh());
   };
@@ -698,137 +610,10 @@ export default function MatchupManager({
           )}
 
           {activeTab === "input" && (
-            <div
-              ref={deckFormRef}
-              className="mt-10 border-t border-zinc-200 pt-8"
-            >
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
-                  Decks
-                </p>
-                <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-                  {editingDeckId ? "デッキの編集" : "デッキ追加"}
-                </h2>
-                {editingDeckId && (
-                  <p className="mt-2 text-sm text-emerald-600">
-                    編集中のデッキが選択されています。内容を更新して保存してください。
-                  </p>
-                )}
-              </div>
-
-              <form
-                className="mt-6 grid gap-4 md:grid-cols-3"
-                onSubmit={onDeckSubmit}
-              >
-                <label className="flex flex-col gap-2 text-sm text-zinc-700">
-                  クラス
-                  <select
-                    className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
-                    value={deckClass}
-                    onChange={(event) => setDeckClass(event.target.value)}
-                  >
-                    <option value="">選択してください</option>
-                    {Object.entries(deckClassLabels).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2">
-                  デッキ名
-                  <input
-                    className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
-                    value={deckName}
-                    onChange={(event) => setDeckName(event.target.value)}
-                    placeholder="デッキ名を入力"
-                    maxLength={10}
-                  />
-                </label>
-                <div className="flex flex-col gap-2 text-sm text-zinc-700 md:col-span-2">
-                  カードパック
-                  <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-700">
-                    {cardPacks.find((pack) => pack.id === activePackId)?.name ??
-                      "未選択"}
-                  </div>
-                </div>
-              <div className="flex items-end">
-                <button
-                  className="w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-400"
-                  type="submit"
-                  disabled={isPending}
-                >
-                  {editingDeckId ? "更新する" : "追加する"}
-                </button>
-              </div>
-              {editingDeckId && (
-                <button
-                  type="button"
-                  className="w-full rounded-lg border border-zinc-200 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-100 md:col-span-3 md:w-auto"
-                  onClick={() => {
-                    setDeckName("");
-                    setDeckClass("");
-                    setCardPackId(activePackId ? String(activePackId) : "");
-                    setEditingDeckId(null);
-                  }}
-                >
-                  編集をやめる
-                </button>
-              )}
-            </form>
-              {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-            </div>
-          )}
-
-          {activeTab === "input" && (
-            <div className="mt-10 border-t border-zinc-200 pt-8">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-zinc-900">
-                  登録済みデッキ
-                </h3>
-                <span className="text-sm text-zinc-700">
-                  {sortedDecks.length}件
-                </span>
-              </div>
-              <div className="mt-4 space-y-3">
-                {sortedDecks.length === 0 && (
-                  <p className="text-sm text-zinc-700">まだ登録がありません。</p>
-                )}
-                {sortedDecks.map((deck) => (
-                  <div
-                    key={deck.id}
-                    className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3"
-                  >
-                    <div>
-                      <p className="text-sm font-semibold text-zinc-900">
-                        {deck.name}
-                      </p>
-                      <p className="text-xs text-zinc-700">
-                        {deckClassLabels[deck.deckClass] ?? deck.deckClass} /{" "}
-                        {deck.cardPack.name}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button
-                        className="text-sm font-semibold text-zinc-700 hover:text-zinc-900"
-                        onClick={() => onDeckEdit(deck)}
-                        type="button"
-                      >
-                        編集
-                      </button>
-                      {isAdmin && (
-                        <button
-                          className="text-sm font-semibold text-red-600 hover:text-red-700"
-                          onClick={() => onDeckDelete(deck.id)}
-                          type="button"
-                        >
-                          削除
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="mt-6 text-right text-sm">
+              <Link className="font-semibold text-blue-600 hover:text-blue-800" href="/settings">
+                デッキ追加はこちら
+              </Link>
             </div>
           )}
         </div>

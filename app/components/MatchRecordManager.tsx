@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
@@ -273,13 +274,21 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
           ))}
         </div>
         <div className="-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm">
-          <div>
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
               Records
             </p>
-            <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-              {editingId ? "戦績の編集" : "戦績の登録"}
-            </h2>
+            <div className="w-full">
+              <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
+                {editingId ? "戦績の編集" : "戦績の登録"}
+              </h2>
+            </div>
+            <Link
+              className="text-sm font-semibold text-blue-600 hover:text-blue-800"
+              href="/settings"
+            >
+              デッキ追加はこちら
+            </Link>
           </div>
 
           <div className="mt-6">

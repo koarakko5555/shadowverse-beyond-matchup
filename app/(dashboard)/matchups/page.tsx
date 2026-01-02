@@ -7,7 +7,6 @@ export const runtime = "nodejs";
 export default async function MatchupsPage() {
   const session = await getSession();
   const userId = session ? Number(session.sub) : null;
-  const isAdmin = session?.role === "ADMIN";
   const currentUser = Number.isInteger(userId)
     ? await prisma.user.findUnique({
         where: { id: userId as number },
@@ -88,7 +87,6 @@ export default async function MatchupsPage() {
           },
         },
       }))}
-      isAdmin={isAdmin}
       isPublic={currentUser?.isPublic ?? false}
     />
   );

@@ -38,6 +38,8 @@
     --color-emerald-200: #a4f4cf;
     --color-emerald-600: #009767;
     --color-emerald-700: #007956;
+    --color-blue-600: #155dfc;
+    --color-blue-800: #193cb8;
     --color-rose-50: #fff1f2;
     --color-rose-100: #ffe4e6;
     --color-rose-500: #ff2357;
@@ -86,6 +88,8 @@
       --color-emerald-200: lab(90.2247% -31.039 9.47084);
       --color-emerald-600: lab(55.0481% -49.9246 15.93);
       --color-emerald-700: lab(44.4871% -41.0396 11.0361);
+      --color-blue-600: lab(44.0605% 29.0279 -86.0352);
+      --color-blue-800: lab(30.2514% 27.7853 -70.2699);
       --color-rose-50: lab(96.2369% 4.94155 1.28011);
       --color-rose-100: lab(92.8221% 9.86832 2.60075);
       --color-rose-500: lab(56.101% 79.4328 31.4532);
@@ -843,6 +847,10 @@
     text-align: left;
   }
 
+  .text-right {
+    text-align: right;
+  }
+
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -898,6 +906,10 @@
 
   .whitespace-normal {
     white-space: normal;
+  }
+
+  .text-blue-600 {
+    color: var(--color-blue-600);
   }
 
   .text-emerald-600 {
@@ -976,6 +988,12 @@
   @media (hover: hover) {
     .hover\:bg-zinc-800:hover {
       background-color: var(--color-zinc-800);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:text-blue-800:hover {
+      color: var(--color-blue-800);
     }
   }
 

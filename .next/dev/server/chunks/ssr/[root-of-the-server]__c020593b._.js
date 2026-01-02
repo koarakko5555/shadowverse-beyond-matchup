@@ -137,7 +137,6 @@ const runtime = "nodejs";
 async function MatchupsPage() {
     const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSession"])();
     const userId = session ? Number(session.sub) : null;
-    const isAdmin = session?.role === "ADMIN";
     const currentUser = Number.isInteger(userId) ? await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].user.findUnique({
         where: {
             id: userId
@@ -249,11 +248,10 @@ async function MatchupsPage() {
                     }
                 }
             })),
-        isAdmin: isAdmin,
         isPublic: currentUser?.isPublic ?? false
     }, void 0, false, {
         fileName: "[project]/app/(dashboard)/matchups/page.tsx",
-        lineNumber: 45,
+        lineNumber: 44,
         columnNumber: 5
     }, this);
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import CardPackManager from "@/app/components/CardPackManager";
+import DeckManager from "@/app/components/DeckManager";
 import AuthUserManager from "@/app/components/AuthUserManager";
 import SettingsProfileForm from "@/app/components/SettingsProfileForm";
 
@@ -33,7 +34,7 @@ type Props = {
   currentUserId?: number;
 };
 
-type Tab = "cardPacks" | "users" | "profile";
+type Tab = "decks" | "cardPacks" | "users" | "profile";
 
 export default function SettingsHub({
   profileName,
@@ -44,15 +45,16 @@ export default function SettingsHub({
   currentUserId,
 }: Props) {
   const tabs: { id: Tab; label: string }[] = [
+    { id: "decks", label: "デッキ編集" },
     { id: "cardPacks", label: "カードパック" },
     { id: "profile", label: "アカウント管理" },
     ...(isAdmin ? [{ id: "users" as const, label: "ユーザー管理" }] : []),
   ];
-  const [activeTab, setActiveTab] = useState<Tab>("cardPacks");
+  const [activeTab, setActiveTab] = useState<Tab>("decks");
 
   useEffect(() => {
     if (!isAdmin && activeTab === "users") {
-      setActiveTab("cardPacks");
+      setActiveTab("decks");
     }
   }, [activeTab, isAdmin]);
 
@@ -86,6 +88,9 @@ export default function SettingsHub({
         <div className="mt-8 border-t border-zinc-200 pt-8">
           {activeTab === "cardPacks" && (
             <CardPackManager cardPacks={cardPacks} embedded isAdmin={isAdmin} />
+          )}
+          {activeTab === "decks" && (
+            <DeckManager cardPacks={cardPacks} decks={decks} />
           )}
           {activeTab === "users" && (
             <AuthUserManager
