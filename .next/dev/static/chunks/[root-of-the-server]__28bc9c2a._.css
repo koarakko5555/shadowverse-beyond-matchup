@@ -585,6 +585,10 @@
     width: calc(var(--spacing) * 44);
   }
 
+  .w-\[18\%\] {
+    width: 18%;
+  }
+
   .w-\[min\(90vw\,420px\)\] {
     width: min(90vw, 420px);
   }
@@ -847,6 +851,10 @@
     padding: calc(var(--spacing) * 8);
   }
 
+  .px-1 {
+    padding-inline: calc(var(--spacing) * 1);
+  }
+
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -948,6 +956,10 @@
     font-size: 10px;
   }
 
+  .text-\[11px\] {
+    font-size: 11px;
+  }
+
   .font-normal {
     --tw-font-weight: var(--font-weight-normal);
     font-weight: var(--font-weight-normal);
@@ -966,6 +978,10 @@
   .tracking-wider {
     --tw-tracking: var(--tracking-wider);
     letter-spacing: var(--tracking-wider);
+  }
+
+  .whitespace-normal {
+    white-space: normal;
   }
 
   .text-emerald-600 {

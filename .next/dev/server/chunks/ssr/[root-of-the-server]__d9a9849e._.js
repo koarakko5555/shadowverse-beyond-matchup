@@ -174,7 +174,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts_
 ;
 const metadata = {
     title: "Beyond Matchup",
-    description: "ビヨンドの戦績と相性管理をするアプリ",
+    description: "ビヨンドがんばリーヨ",
     icons: {
         icon: "/cthulhu_deep_ones.png",
         shortcut: "/cthulhu_deep_ones.png",

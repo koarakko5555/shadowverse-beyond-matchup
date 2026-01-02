@@ -495,20 +495,20 @@ export default function MatchupManager({
           )}
 
           {activeTab === "input" && (
-            <div className="mt-6 overflow-x-auto">
-              <table className="min-w-full table-fixed border-collapse text-center text-sm text-zinc-700">
+            <div className="mt-6">
+              <table className="w-full table-fixed border-collapse text-center text-[11px] text-zinc-700">
                 <thead className="bg-white text-xs uppercase tracking-wider text-zinc-400">
                   <tr>
-                    <th className="w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700">
+                    <th className="w-[18%] border border-zinc-200 bg-white px-2 py-2 text-left text-zinc-700">
                       デッキ
                     </th>
                     {sortedDecks.map((deck) => (
                       <th
                         key={deck.id}
-                        className="min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700"
+                        className="border border-zinc-200 bg-white px-1 py-2 text-zinc-700"
                       >
                         <div
-                          className="max-w-[160px] text-center text-xs font-semibold text-zinc-900"
+                          className="text-center font-semibold text-zinc-900"
                           style={{
                             display: "-webkit-box",
                             WebkitLineClamp: 2,
@@ -527,9 +527,9 @@ export default function MatchupManager({
                 <tbody>
                   {sortedDecks.map((rowDeck, rowIndex) => (
                     <tr key={rowDeck.id}>
-                      <th className="min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900">
+                      <th className="border border-zinc-200 bg-white px-2 py-3 text-left font-semibold text-zinc-900">
                         <div
-                          className="max-w-[200px]"
+                          className="whitespace-normal"
                           style={{
                             display: "-webkit-box",
                             WebkitLineClamp: 2,

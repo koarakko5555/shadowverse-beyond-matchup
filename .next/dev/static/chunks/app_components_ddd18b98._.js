@@ -1117,17 +1117,17 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mt-6 overflow-x-auto",
+                            className: "mt-6",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                    className: "min-w-full table-fixed border-collapse text-center text-sm text-zinc-700",
+                                    className: "w-full table-fixed border-collapse text-center text-[11px] text-zinc-700",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
                                             className: "bg-white text-xs uppercase tracking-wider text-zinc-400",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "w-44 border border-zinc-200 bg-white px-3 py-2 text-left text-zinc-700",
+                                                        className: "w-[18%] border border-zinc-200 bg-white px-2 py-2 text-left text-zinc-700",
                                                         children: "デッキ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/MatchupManager.tsx",
@@ -1135,9 +1135,9 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                                         columnNumber: 21
                                                     }, this),
                                                     sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                            className: "min-w-[160px] border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700",
+                                                            className: "border border-zinc-200 bg-white px-1 py-2 text-zinc-700",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "max-w-[160px] text-center text-xs font-semibold text-zinc-900",
+                                                                className: "text-center font-semibold text-zinc-900",
                                                                 style: {
                                                                     display: "-webkit-box",
                                                                     WebkitLineClamp: 2,
@@ -1172,9 +1172,9 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isAdmin, is
                                             children: sortedDecks.map((rowDeck, rowIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                            className: "min-w-[200px] border border-zinc-200 bg-white px-3 py-3 text-left text-sm font-semibold text-zinc-900",
+                                                            className: "border border-zinc-200 bg-white px-2 py-3 text-left font-semibold text-zinc-900",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "max-w-[200px]",
+                                                                className: "whitespace-normal",
                                                                 style: {
                                                                     display: "-webkit-box",
                                                                     WebkitLineClamp: 2,

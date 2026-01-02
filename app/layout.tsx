@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Beyond Matchup",
-  description: "ビヨンドの戦績と相性管理をするアプリ",
+  description: "ビヨンドがんばリーヨ",
   icons: {
     icon: "/cthulhu_deep_ones.png",
     shortcut: "/cthulhu_deep_ones.png",
