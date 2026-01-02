@@ -3,6 +3,7 @@
   "/(dashboard)/matchups/page": "app/(dashboard)/matchups/page.js",
   "/(dashboard)/records/page": "app/(dashboard)/records/page.js",
   "/(dashboard)/settings/page": "app/(dashboard)/settings/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/auth/logout/route": "app/api/auth/logout/route.js",
   "/api/match-records/route": "app/api/match-records/route.js",
