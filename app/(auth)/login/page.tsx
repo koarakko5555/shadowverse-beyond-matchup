@@ -33,7 +33,9 @@ export default function LoginPage() {
       return;
     }
 
-    startTransition(() => router.push("/matchups"));
+    startTransition(() => {
+      window.location.href = "/matchups";
+    });
   };
 
   return (
