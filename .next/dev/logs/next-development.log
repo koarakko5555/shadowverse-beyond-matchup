@@ -5,3 +5,10 @@
 [00:08:41.194] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:28:35.114] Server  LOG      ✓ Compiled in 12ms
 [00:29:20.927] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:37:01.442] Server  LOG     prisma:error "MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size"
+[00:37:01.509] Server  ERROR    ⨯ DriverAdapterError: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size
+[00:37:01.605] Server  LOG     prisma:error "MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size"
+[00:37:01.631] Server  ERROR    ⨯ DriverAdapterError: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size
+[00:37:01.874] Server  LOG     prisma:error "MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size"
+[00:37:01.912] Server  ERROR    ⨯ DriverAdapterError: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size
+[00:37:02.277] Browser ERROR   uncaughtError: DriverAdapterError: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size

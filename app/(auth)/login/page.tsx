@@ -33,7 +33,7 @@ export default function LoginPage() {
       return;
     }
 
-    startTransition(() => router.push("/records"));
+    startTransition(() => router.push("/matchups"));
   };
 
   return (
