@@ -28,7 +28,7 @@ export default function AppHeader({ isAuthenticated }: Props) {
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
           <div className="flex items-baseline gap-3">
             <span className="text-lg font-semibold text-zinc-900">
-              Beyond Matchup
+              ろくめいえん秘密の花園
             </span>
           </div>
         </div>

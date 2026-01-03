@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Beyond Matchup",
-  description: "ビヨンドがんばリーヨ",
+  title: "ろくめいえん秘密の花園",
+  description: "ろくめいえんの相性管理サイト",
   icons: {
     icon: "/cthulhu_deep_ones.png",
     shortcut: "/cthulhu_deep_ones.png",

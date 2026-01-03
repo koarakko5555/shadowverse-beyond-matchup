@@ -173,8 +173,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts_
 ;
 ;
 const metadata = {
-    title: "Beyond Matchup",
-    description: "ビヨンドがんばリーヨ",
+    title: "ろくめいえん秘密の花園",
+    description: "ろくめいえんの相性管理サイト",
     icons: {
         icon: "/cthulhu_deep_ones.png",
         shortcut: "/cthulhu_deep_ones.png",

@@ -469,7 +469,7 @@ async function POST(request) {
         content: headline
     }));
     formData.append("file", new Blob([
-        pngBuffer
+        Buffer.from(pngBuffer)
     ], {
         type: "image/png"
     }), "matchups.png");
