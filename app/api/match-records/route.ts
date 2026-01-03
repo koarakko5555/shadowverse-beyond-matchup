@@ -82,6 +82,14 @@ export async function POST(request: Request) {
     );
   }
 
+  const userId = Number(session.sub);
+  if (!Number.isInteger(userId)) {
+    return NextResponse.json(
+      { error: "ユーザー情報を確認できませんでした。" },
+      { status: 401 }
+    );
+  }
+
   const decks = await fetchDecks(userId, deckId, opponentDeckId);
   if (!decks?.deck || !decks?.opponent) {
     return NextResponse.json(
@@ -94,14 +102,6 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { error: "同じカードパックのデッキ同士で登録してください。" },
       { status: 400 }
-    );
-  }
-
-  const userId = Number(session.sub);
-  if (!Number.isInteger(userId)) {
-    return NextResponse.json(
-      { error: "ユーザー情報を確認できませんでした。" },
-      { status: 401 }
     );
   }
 
