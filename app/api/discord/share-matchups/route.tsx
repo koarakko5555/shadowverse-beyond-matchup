@@ -272,7 +272,7 @@ export async function POST(request: Request) {
   formData.append("payload_json", JSON.stringify({ content: headline }));
   formData.append(
     "file",
-    new Blob([pngBuffer], { type: "image/png" }),
+    new Blob([Buffer.from(pngBuffer)], { type: "image/png" }),
     "matchups.png"
   );
 
