@@ -491,15 +491,15 @@ export default function MatchupManager({
                                 <select
                                   className="w-full rounded-md border border-zinc-200 bg-white px-1 py-1 text-xs font-semibold text-zinc-900"
                                   value={matrixWinRate}
-                                  onChange={async (event) => {
+                                  onChange={(event) => {
                                     const value = event.target.value;
                                     if (!value) return;
                                     if (value === "delete") {
-                                      await onMatrixDelete();
+                                      void onMatrixDelete();
                                       return;
                                     }
                                     setMatrixWinRate(value);
-                                    await onMatrixSaveValue(value);
+                                    void onMatrixSaveValue(value);
                                   }}
                                 >
                                   <option value="">選択してください</option>

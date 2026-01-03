@@ -91,7 +91,10 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 const globalForPrisma = globalThis;
 const pool = globalForPrisma.prismaPool ?? new __TURBOPACK__imported__module__$5b$externals$5d2f$pg__$5b$external$5d$__$28$pg$2c$__esm_import$29$__["Pool"]({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
+    max: 3,
+    idleTimeoutMillis: 10_000,
+    connectionTimeoutMillis: 10_000
 });
 const prisma = globalForPrisma.prisma ?? new __TURBOPACK__imported__module__$5b$externals$5d2f40$prisma$2f$client__$5b$external$5d$__$2840$prisma$2f$client$2c$__cjs$29$__["PrismaClient"]({
     log: [
@@ -321,14 +324,15 @@ async function POST(request) {
         return a.id - b.id;
     });
     const matrix = buildMatrix(sortedDecks, matchups);
-    const nameColWidth = 140;
-    const cellWidth = sortedDecks.length > 8 ? 80 : 110;
+    const nameColWidth = 120;
+    const cellWidth = Math.max(60, Math.min(110, Math.floor(900 / Math.max(1, sortedDecks.length))));
     const rowHeight = 44;
     const headerHeight = 24;
     const tableWidth = nameColWidth + sortedDecks.length * cellWidth;
     const tableHeight = (sortedDecks.length + 1) * rowHeight;
     const width = tableWidth + 48;
     const height = headerHeight + tableHeight + 24;
+    const outputWidth = Math.min(width, 1200);
     const fontData = await loadFont();
     const svg = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$satori$2f$dist$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         style: {
@@ -369,7 +373,7 @@ async function POST(request) {
                             children: "デッキ"
                         }, void 0, false, {
                             fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-                            lineNumber: 182,
+                            lineNumber: 186,
                             columnNumber: 11
                         }, this),
                         sortedDecks.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -384,13 +388,13 @@ async function POST(request) {
                                 children: truncateName(deck.name)
                             }, deck.id, false, {
                                 fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-                                lineNumber: 194,
+                                lineNumber: 198,
                                 columnNumber: 13
                             }, this))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-                    lineNumber: 175,
+                    lineNumber: 179,
                     columnNumber: 9
                 }, this),
                 sortedDecks.map((rowDeck, rowIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -411,7 +415,7 @@ async function POST(request) {
                                 children: truncateName(rowDeck.name)
                             }, void 0, false, {
                                 fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-                                lineNumber: 221,
+                                lineNumber: 225,
                                 columnNumber: 13
                             }, this),
                             sortedDecks.map((colDeck, colIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -425,24 +429,24 @@ async function POST(request) {
                                     children: matrix[rowIndex][colIndex]
                                 }, colDeck.id, false, {
                                     fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-                                    lineNumber: 233,
+                                    lineNumber: 237,
                                     columnNumber: 15
                                 }, this))
                         ]
                     }, rowDeck.id, true, {
                         fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-                        lineNumber: 210,
+                        lineNumber: 214,
                         columnNumber: 11
                     }, this))
             ]
         }, void 0, true, {
             fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-            lineNumber: 164,
+            lineNumber: 168,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/api/discord/share-matchups/route.tsx",
-        lineNumber: 153,
+        lineNumber: 157,
         columnNumber: 5
     }, this), {
         width,
@@ -459,7 +463,7 @@ async function POST(request) {
     const pngBuffer = new Resvg(svg, {
         fitTo: {
             mode: "width",
-            value: width
+            value: outputWidth
         }
     }).render().asPng();
     const formData = new FormData();
@@ -473,14 +477,22 @@ async function POST(request) {
     ], {
         type: "image/png"
     }), "matchups.png");
-    const response = await fetch(webhookUrl, {
-        method: "POST",
-        body: formData
-    });
-    if (!response.ok) {
-        const text = await response.text();
+    try {
+        const response = await fetch(webhookUrl, {
+            method: "POST",
+            body: formData
+        });
+        if (!response.ok) {
+            const text = await response.text();
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: `Discord投稿に失敗しました。(status: ${response.status}) ${text}`
+            }, {
+                status: 502
+            });
+        }
+    } catch (err) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: `Discord投稿に失敗しました。${text}`
+            error: err instanceof Error ? `Discord投稿に失敗しました。${err.message}` : "Discord投稿に失敗しました。"
         }, {
             status: 502
         });

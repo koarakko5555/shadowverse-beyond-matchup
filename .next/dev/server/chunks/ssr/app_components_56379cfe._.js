@@ -1062,15 +1062,15 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                                                 }, this) : matrixEdit && matrixEdit.deck1Id === rowDeck.id && matrixEdit.deck2Id === colDeck.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                                     className: "w-full rounded-md border border-zinc-200 bg-white px-1 py-1 text-xs font-semibold text-zinc-900",
                                                                     value: matrixWinRate,
-                                                                    onChange: async (event)=>{
+                                                                    onChange: (event)=>{
                                                                         const value = event.target.value;
                                                                         if (!value) return;
                                                                         if (value === "delete") {
-                                                                            await onMatrixDelete();
+                                                                            void onMatrixDelete();
                                                                             return;
                                                                         }
                                                                         setMatrixWinRate(value);
-                                                                        await onMatrixSaveValue(value);
+                                                                        void onMatrixSaveValue(value);
                                                                     },
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
