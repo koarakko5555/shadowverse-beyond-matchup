@@ -138,14 +138,18 @@ export async function POST(request: Request) {
 
   const matrix = buildMatrix(sortedDecks, matchups);
 
-  const nameColWidth = 140;
-  const cellWidth = sortedDecks.length > 8 ? 80 : 110;
+  const nameColWidth = 120;
+  const cellWidth = Math.max(
+    60,
+    Math.min(110, Math.floor(900 / Math.max(1, sortedDecks.length)))
+  );
   const rowHeight = 44;
   const headerHeight = 24;
   const tableWidth = nameColWidth + sortedDecks.length * cellWidth;
   const tableHeight = (sortedDecks.length + 1) * rowHeight;
   const width = tableWidth + 48;
   const height = headerHeight + tableHeight + 24;
+  const outputWidth = Math.min(width, 1200);
 
   const fontData = await loadFont();
 
@@ -262,7 +266,9 @@ export async function POST(request: Request) {
     }
   );
 
-  const pngBuffer = new Resvg(svg, { fitTo: { mode: "width", value: width } })
+  const pngBuffer = new Resvg(svg, {
+    fitTo: { mode: "width", value: outputWidth },
+  })
     .render()
     .asPng();
 
@@ -276,15 +282,29 @@ export async function POST(request: Request) {
     "matchups.png"
   );
 
-  const response = await fetch(webhookUrl, {
-    method: "POST",
-    body: formData,
-  });
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      body: formData,
+    });
 
-  if (!response.ok) {
-    const text = await response.text();
+    if (!response.ok) {
+      const text = await response.text();
+      return NextResponse.json(
+        {
+          error: `Discord投稿に失敗しました。(status: ${response.status}) ${text}`,
+        },
+        { status: 502 }
+      );
+    }
+  } catch (err) {
     return NextResponse.json(
-      { error: `Discord投稿に失敗しました。${text}` },
+      {
+        error:
+          err instanceof Error
+            ? `Discord投稿に失敗しました。${err.message}`
+            : "Discord投稿に失敗しました。",
+      },
       { status: 502 }
     );
   }
