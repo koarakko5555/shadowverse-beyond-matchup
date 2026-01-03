@@ -12,6 +12,9 @@ const pool =
   globalForPrisma.prismaPool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
+    max: 3,
+    idleTimeoutMillis: 10_000,
+    connectionTimeoutMillis: 10_000,
   });
 
 const prisma =
