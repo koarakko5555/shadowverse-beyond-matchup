@@ -19,10 +19,42 @@
   }
 }
 
+html,
 body {
-  background: var(--background);
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  background-image: url("/flower.png");
+  background-repeat: repeat;
+  background-size: 240px 240px;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.panel-floral {
+  background-image: url("/flower.png");
+  background-repeat: repeat;
+  background-size: 240px 240px;
+}
+
+.panel-soft {
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-soft::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+}
+
+.panel-soft > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes flash-fade-in {

@@ -444,10 +444,6 @@
     margin-left: calc(var(--spacing) * 2);
   }
 
-  .block {
-    display: block;
-  }
-
   .flex {
     display: flex;
   }
@@ -744,6 +740,16 @@
 
   .bg-white {
     background-color: var(--color-white);
+  }
+
+  .bg-white\/90 {
+    background-color: #ffffffe6;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-white\/90 {
+      background-color: color-mix(in oklab, var(--color-white) 90%, transparent);
+    }
   }
 
   .bg-zinc-50 {
@@ -1144,10 +1150,41 @@
   }
 }
 
+html, body {
+  min-height: 100%;
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
+  background-image: url("/flower.png");
+  background-repeat: repeat;
+  background-size: 240px 240px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.panel-floral {
+  background-image: url("/flower.png");
+  background-repeat: repeat;
+  background-size: 240px 240px;
+}
+
+.panel-soft {
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-soft:before {
+  content: "";
+  pointer-events: none;
+  background: #ffffffeb;
+  position: absolute;
+  inset: 0;
+}
+
+.panel-soft > * {
+  z-index: 1;
+  position: relative;
 }
 
 @keyframes flash-fade-in {

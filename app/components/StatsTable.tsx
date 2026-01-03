@@ -167,7 +167,7 @@ export default function StatsTable({ decks, matchups, embedded }: Props) {
       className={
         embedded
           ? "bg-transparent"
-          : "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
+          : "panel-soft panel-floral rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
       }
     >
       <div>

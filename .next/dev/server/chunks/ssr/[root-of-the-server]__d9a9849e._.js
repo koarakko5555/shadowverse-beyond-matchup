@@ -195,7 +195,7 @@ async function RootLayout({ children }) {
                     isAuthenticated: Boolean(session)
                 }, void 0, false, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 40,
+                    lineNumber: 38,
                     columnNumber: 9
                 }, this),
                 children

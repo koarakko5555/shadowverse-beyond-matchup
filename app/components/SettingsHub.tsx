@@ -67,7 +67,7 @@ export default function SettingsHub({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="panel-soft panel-floral rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
             Settings

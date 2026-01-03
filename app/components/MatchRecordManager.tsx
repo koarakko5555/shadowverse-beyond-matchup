@@ -277,7 +277,7 @@ export default function MatchRecordManager({
             </button>
           ))}
         </div>
-        <div className="-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm">
+        <div className="-mt-px panel-soft panel-floral rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-2">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
               Records

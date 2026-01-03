@@ -362,7 +362,7 @@ export default function MatchupManager({
             </button>
           ))}
         </div>
-        <div className="-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-zinc-200 bg-white p-6 shadow-sm">
+        <div className="-mt-px panel-soft panel-floral rounded-t-2xl rounded-b-2xl border-x border-b border-zinc-200 bg-white p-6 shadow-sm">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
               Matchups
