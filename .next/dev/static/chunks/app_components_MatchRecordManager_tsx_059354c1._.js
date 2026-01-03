@@ -34,7 +34,7 @@ const resultLabels = {
     LOSS: "負け"
 };
 const formatRate = (value)=>value === null ? "-" : Number.isInteger(value) ? `${value}` : value.toFixed(1);
-function MatchRecordManager({ decks, cardPacks, records }) {
+function MatchRecordManager({ recordDecks, cardPacks, records }) {
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isPending, startTransition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransition"])();
@@ -74,13 +74,13 @@ function MatchRecordManager({ decks, cardPacks, records }) {
     const filteredDecks = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "MatchRecordManager.useMemo[filteredDecks]": ()=>{
             if (!activePackId) return [];
-            return decks.filter({
+            return recordDecks.filter({
                 "MatchRecordManager.useMemo[filteredDecks]": (deck)=>deck.cardPack.id === activePackId
             }["MatchRecordManager.useMemo[filteredDecks]"]);
         }
     }["MatchRecordManager.useMemo[filteredDecks]"], [
         activePackId,
-        decks
+        recordDecks
     ]);
     const filteredRecords = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "MatchRecordManager.useMemo[filteredRecords]": ()=>{
@@ -274,56 +274,58 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                             children: pack.name
                         }, pack.id, false, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 262,
+                            lineNumber: 266,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                    lineNumber: 260,
+                    lineNumber: 264,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-wrap items-center justify-between gap-2",
+                            className: "flex flex-col gap-2",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400",
                                     children: "Records"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 278,
+                                    lineNumber: 282,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "w-full",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "mt-2 text-2xl font-semibold text-zinc-900",
-                                        children: editingId ? "戦績の編集" : "戦績の登録"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 282,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
+                                    className: "flex flex-wrap items-center justify-between gap-2",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "text-2xl font-semibold text-zinc-900",
+                                            children: editingId ? "戦績の編集" : "戦績の登録"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 286,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            className: "text-sm font-semibold text-blue-600 hover:text-blue-800",
+                                            href: "/settings",
+                                            children: "デッキ追加はこちら"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MatchRecordManager.tsx",
+                                            lineNumber: 289,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 281,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                    className: "text-sm font-semibold text-blue-600 hover:text-blue-800",
-                                    href: "/settings",
-                                    children: "デッキ追加はこちら"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 286,
+                                    lineNumber: 285,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 277,
+                            lineNumber: 281,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -345,7 +347,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                 children: "選択してください"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 305,
+                                                lineNumber: 309,
                                                 columnNumber: 17
                                             }, this),
                                             deckOptions.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -357,24 +359,24 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     ]
                                                 }, deck.id, true, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 307,
+                                                    lineNumber: 311,
                                                     columnNumber: 19
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                        lineNumber: 297,
+                                        lineNumber: 301,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                lineNumber: 295,
+                                lineNumber: 299,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 294,
+                            lineNumber: 298,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -395,7 +397,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "選択してください"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 323,
+                                                    lineNumber: 327,
                                                     columnNumber: 15
                                                 }, this),
                                                 opponentOptions.map((deck)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -407,19 +409,19 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                         ]
                                                     }, deck.id, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 325,
+                                                        lineNumber: 329,
                                                         columnNumber: 17
                                                     }, this))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 318,
+                                            lineNumber: 322,
                                             columnNumber: 13
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 316,
+                                    lineNumber: 320,
                                     columnNumber: 11
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -436,7 +438,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "先攻"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 340,
+                                                    lineNumber: 344,
                                                     columnNumber: 15
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -444,19 +446,19 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "後攻"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 345,
                                                     columnNumber: 15
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 333,
+                                            lineNumber: 337,
                                             columnNumber: 13
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 331,
+                                    lineNumber: 335,
                                     columnNumber: 11
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -473,7 +475,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "勝ち"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 353,
+                                                    lineNumber: 357,
                                                     columnNumber: 15
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -481,19 +483,19 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "負け"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 354,
+                                                    lineNumber: 358,
                                                     columnNumber: 15
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 346,
+                                            lineNumber: 350,
                                             columnNumber: 13
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 344,
+                                    lineNumber: 348,
                                     columnNumber: 11
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -507,13 +509,13 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             placeholder: "任意でメモを入力してください"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 359,
+                                            lineNumber: 363,
                                             columnNumber: 13
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 357,
+                                    lineNumber: 361,
                                     columnNumber: 11
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -526,7 +528,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: editingId ? "更新する" : "登録する"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 367,
+                                            lineNumber: 371,
                                             columnNumber: 13
                                         }, this),
                                         editingId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -536,19 +538,19 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "編集をやめる"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 375,
+                                            lineNumber: 379,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 366,
+                                    lineNumber: 370,
                                     columnNumber: 11
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 315,
+                            lineNumber: 319,
                             columnNumber: 11
                         }, this),
                         flashMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -556,7 +558,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                             children: flashMessage
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 386,
+                            lineNumber: 390,
                             columnNumber: 13
                         }, this),
                         error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -564,7 +566,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 390,
+                            lineNumber: 394,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -577,7 +579,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "Summary"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 394,
+                                            lineNumber: 398,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -585,13 +587,13 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "戦績サマリー"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 397,
+                                            lineNumber: 401,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 397,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -609,7 +611,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: "全体勝率"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 406,
+                                                                lineNumber: 410,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -617,7 +619,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: "先攻勝率"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 407,
+                                                                lineNumber: 411,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -625,7 +627,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: "後攻勝率"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 408,
+                                                                lineNumber: 412,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -633,18 +635,18 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: "試合数"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 409,
+                                                                lineNumber: 413,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 405,
+                                                        lineNumber: 409,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 404,
+                                                    lineNumber: 408,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -656,7 +658,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: formatRate(summary.rate)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 414,
+                                                                lineNumber: 418,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -664,7 +666,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: formatRate(summary.firstRate)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 417,
+                                                                lineNumber: 421,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -672,7 +674,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: formatRate(summary.secondRate)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 420,
+                                                                lineNumber: 424,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -680,24 +682,24 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: summary.total
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 423,
+                                                                lineNumber: 427,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 413,
+                                                        lineNumber: 417,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 412,
+                                                    lineNumber: 416,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 403,
+                                            lineNumber: 407,
                                             columnNumber: 15
                                         }, this),
                                         !deckId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -705,7 +707,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "デッキを選択してください。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 428,
+                                            lineNumber: 432,
                                             columnNumber: 17
                                         }, this),
                                         deckId && summary.total === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -713,19 +715,19 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "選択したデッキの戦績がありません。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 433,
+                                            lineNumber: 437,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 402,
+                                    lineNumber: 406,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 392,
+                            lineNumber: 396,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -739,7 +741,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "戦績一覧"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 442,
+                                            lineNumber: 446,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -750,13 +752,13 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 443,
+                                            lineNumber: 447,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 441,
+                                    lineNumber: 445,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -767,7 +769,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             children: "まだ登録がありません。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 447,
+                                            lineNumber: 451,
                                             columnNumber: 17
                                         }, this),
                                         pagedRecords.map((record)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -788,7 +790,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                        lineNumber: 460,
+                                                                        lineNumber: 464,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -796,13 +798,13 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                         children: resultLabels[record.result]
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                        lineNumber: 463,
+                                                                        lineNumber: 467,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 459,
+                                                                lineNumber: 463,
                                                                 columnNumber: 21
                                                             }, this),
                                                             record.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -810,13 +812,13 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: record.note
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 474,
+                                                                lineNumber: 478,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 458,
+                                                        lineNumber: 462,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -829,7 +831,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: "編集"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 478,
+                                                                lineNumber: 482,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -839,25 +841,25 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                                 children: "削除"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                                lineNumber: 485,
+                                                                lineNumber: 489,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                        lineNumber: 477,
+                                                        lineNumber: 481,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, record.id, true, {
                                                 fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                lineNumber: 450,
+                                                lineNumber: 454,
                                                 columnNumber: 17
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 445,
+                                    lineNumber: 449,
                                     columnNumber: 13
                                 }, this),
                                 summaryRecords.length > pageSize && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -873,7 +875,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 498,
+                                            lineNumber: 502,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -887,7 +889,7 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "前へ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 502,
+                                                    lineNumber: 506,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -898,42 +900,42 @@ function MatchRecordManager({ decks, cardPacks, records }) {
                                                     children: "次へ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                                    lineNumber: 510,
+                                                    lineNumber: 514,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                            lineNumber: 501,
+                                            lineNumber: 505,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                                    lineNumber: 497,
+                                    lineNumber: 501,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchRecordManager.tsx",
-                            lineNumber: 440,
+                            lineNumber: 444,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/MatchRecordManager.tsx",
-                    lineNumber: 276,
+                    lineNumber: 280,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/MatchRecordManager.tsx",
-            lineNumber: 259,
+            lineNumber: 263,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/MatchRecordManager.tsx",
-        lineNumber: 258,
+        lineNumber: 262,
         columnNumber: 5
     }, this);
 }

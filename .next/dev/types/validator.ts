@@ -200,6 +200,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/discord/share-matchups/route.tsx
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/discord/share-matchups">> = Specific
+  const handler = {} as typeof import("../../../app/api/discord/share-matchups/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/match-records/[id]/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/match-records/[id]">> = Specific
@@ -231,6 +240,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/matchups">> = Specific
   const handler = {} as typeof import("../../../app/api/matchups/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/api/record-decks/[id]/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/record-decks/[id]">> = Specific
+  const handler = {} as typeof import("../../../app/api/record-decks/[id]/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/api/record-decks/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/record-decks">> = Specific
+  const handler = {} as typeof import("../../../app/api/record-decks/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

@@ -17,8 +17,13 @@ export default async function SettingsPage() {
     select: { name: true, role: true },
   });
 
-  const [cardPacks, decks, users] = await Promise.all([
+  const [cardPacks, recordDecks, matchupDecks, users] = await Promise.all([
     prisma.cardPack.findMany({ orderBy: { releaseDate: "desc" } }),
+    prisma.recordDeck.findMany({
+      where: { userId },
+      orderBy: { id: "desc" },
+      include: { cardPack: true },
+    }),
     prisma.deck.findMany({
       orderBy: { id: "desc" },
       include: { cardPack: true },
@@ -35,7 +40,14 @@ export default async function SettingsPage() {
         ...pack,
         releaseDate: pack.releaseDate.toISOString(),
       }))}
-      decks={decks.map((deck) => ({
+      recordDecks={recordDecks.map((deck) => ({
+        ...deck,
+        cardPack: {
+          ...deck.cardPack,
+          releaseDate: deck.cardPack.releaseDate.toISOString(),
+        },
+      }))}
+      matchupDecks={matchupDecks.map((deck) => ({
         ...deck,
         cardPack: {
           ...deck.cardPack,

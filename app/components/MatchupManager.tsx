@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 
 import StatsTable from "@/app/components/StatsTable";
 
@@ -139,10 +138,10 @@ export default function MatchupManager({
   const [matrixMessage, setMatrixMessage] = useState<string | null>(null);
   const [flashMessage, setFlashMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isSharing, setIsSharing] = useState(false);
   const [activePackId, setActivePackId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"input" | "stats">("input");
   const [isPublicMatchup, setIsPublicMatchup] = useState(isPublic);
-  const matrixEditRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (activePackId !== null || cardPacks.length === 0) return;
@@ -256,26 +255,11 @@ export default function MatchupManager({
       reversed: cell.type === "value" ? cell.reversed : undefined,
     });
     setMatrixWinRate(cell.type === "value" ? String(cell.value) : "");
-    if (typeof window !== "undefined") {
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      if (isMobile) {
-        setTimeout(() => {
-          matrixEditRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }, 0);
-      }
-    }
   };
 
-  const onMatrixSave = async () => {
+  const onMatrixSaveValue = async (rawValue: string) => {
     if (!matrixEdit) return;
-    if (matrixWinRate === "") {
-      setError("相性評価を選択してください。");
-      return;
-    }
-    const inputRate = Number(matrixWinRate);
+    const inputRate = Number(rawValue);
     if (!Number.isFinite(inputRate)) {
       setError("相性評価を選択してください。");
       return;
@@ -309,7 +293,7 @@ export default function MatchupManager({
     setLastSaved({
       deck1Id: matrixEdit.deck1Id,
       deck2Id: matrixEdit.deck2Id,
-      value: Number(matrixWinRate),
+      value: inputRate,
     });
     setMatrixMessage("更新しました！");
     setFlashMessage(null);
@@ -330,6 +314,33 @@ export default function MatchupManager({
     setMatrixWinRate("");
     setFlashMessage("削除しました！");
     startTransition(() => router.refresh());
+  };
+
+  const onShareDiscord = async () => {
+    if (!activePackId) {
+      setError("カードパックを選択してください。");
+      return;
+    }
+    setError(null);
+    setIsSharing(true);
+    try {
+      const res = await fetch("/api/discord/share-matchups", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cardPackId: activePackId }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error ?? "Discord共有に失敗しました。");
+      }
+      setFlashMessage("Discordに共有しました！");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Discord共有に失敗しました。"
+      );
+    } finally {
+      setIsSharing(false);
+    }
   };
 
   return (
@@ -474,17 +485,46 @@ export default function MatchupManager({
                                 *
                               </span>
                             ) : (
-                              <button
-                                type="button"
-                                className="w-full font-semibold text-zinc-900"
-                                onClick={() => cell && onMatrixSelect(cell)}
-                              >
-                                {override !== null
-                                  ? override
-                                  : display === undefined
-                                    ? "—"
-                                    : display}
-                              </button>
+                              matrixEdit &&
+                              matrixEdit.deck1Id === rowDeck.id &&
+                              matrixEdit.deck2Id === colDeck.id ? (
+                                <select
+                                  className="w-full rounded-md border border-zinc-200 bg-white px-1 py-1 text-xs font-semibold text-zinc-900"
+                                  value={matrixWinRate}
+                                  onChange={async (event) => {
+                                    const value = event.target.value;
+                                    if (!value) return;
+                                    if (value === "delete") {
+                                      await onMatrixDelete();
+                                      return;
+                                    }
+                                    setMatrixWinRate(value);
+                                    await onMatrixSaveValue(value);
+                                  }}
+                                >
+                                  <option value="">選択してください</option>
+                                  {winRateOptions.map((value) => (
+                                    <option key={value} value={value}>
+                                      {value}
+                                    </option>
+                                  ))}
+                                  {matrixEdit.recordId && (
+                                    <option value="delete">削除</option>
+                                  )}
+                                </select>
+                              ) : (
+                                <button
+                                  type="button"
+                                  className="w-full font-semibold text-zinc-900"
+                                  onClick={() => cell && onMatrixSelect(cell)}
+                                >
+                                  {override !== null
+                                    ? override
+                                    : display === undefined
+                                      ? "—"
+                                      : display}
+                                </button>
+                              )
                             )}
                           </td>
                         );
@@ -498,6 +538,18 @@ export default function MatchupManager({
                   このカードパックのデッキがありません。
                 </p>
               )}
+            </div>
+          )}
+          {activeTab === "input" && (
+            <div className="mt-4 flex justify-end">
+              <button
+                type="button"
+                className="rounded-lg border border-zinc-200 bg-white px-4 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60"
+                onClick={onShareDiscord}
+                disabled={isSharing || sortedDecks.length === 0}
+              >
+                {isSharing ? "Discordに共有中..." : "Discordで共有"}
+              </button>
             </div>
           )}
           {activeTab === "input" && (
@@ -550,72 +602,6 @@ export default function MatchupManager({
             </div>
           )}
 
-          {activeTab === "input" && matrixEdit && (
-            <div
-              ref={matrixEditRef}
-              className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-zinc-900">
-                    相性の編集
-                  </p>
-                  <p className="text-xs text-zinc-700">
-                    {filteredDecks.find((deck) => deck.id === matrixEdit.deck1Id)
-                      ?.name}{" "}
-                    vs{" "}
-                    {filteredDecks.find((deck) => deck.id === matrixEdit.deck2Id)
-                      ?.name}
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <select
-                    className="rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none"
-                    value={matrixWinRate}
-                    onChange={(event) => setMatrixWinRate(event.target.value)}
-                  >
-                    <option value="">選択してください</option>
-                    {winRateOptions.map((value) => (
-                      <option key={value} value={value}>
-                        {value}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    className="rounded-lg bg-zinc-900 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800"
-                    onClick={onMatrixSave}
-                  >
-                    保存
-                  </button>
-                  {matrixEdit.recordId && (
-                    <button
-                      type="button"
-                      className="rounded-lg border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-100"
-                      onClick={onMatrixDelete}
-                    >
-                      削除
-                    </button>
-                  )}
-                  <button
-                    type="button"
-                    className="rounded-lg border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-100"
-                    onClick={() => setMatrixEdit(null)}
-                  >
-                    閉じる
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === "input" && (
-            <div className="mt-6 text-right text-sm">
-              <Link className="font-semibold text-blue-600 hover:text-blue-800" href="/settings">
-                デッキ追加はこちら
-              </Link>
-            </div>
-          )}
         </div>
       </section>
     </div>

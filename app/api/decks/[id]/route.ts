@@ -25,11 +25,6 @@ export async function DELETE(_: Request, { params }: Params) {
   }
 
   await prisma.$transaction([
-    prisma.matchRecord.deleteMany({
-      where: {
-        OR: [{ deckId: id }, { opponentDeckId: id }],
-      },
-    }),
     prisma.matchup.deleteMany({
       where: {
         OR: [{ deck1Id: id }, { deck2Id: id }],
@@ -42,6 +37,14 @@ export async function DELETE(_: Request, { params }: Params) {
 }
 
 export async function PUT(request: Request, { params }: Params) {
+  const session = await getSession();
+  if (session?.role !== "ADMIN") {
+    return NextResponse.json(
+      { error: "管理者のみ編集できます。" },
+      { status: 403 }
+    );
+  }
+
   const { id: idParam } = await params;
   const id = Number(idParam);
 

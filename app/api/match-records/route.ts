@@ -11,9 +11,13 @@ const isValidTurn = (value: string): value is "FIRST" | "SECOND" =>
 const isValidResult = (value: string): value is "WIN" | "LOSS" =>
   value === "WIN" || value === "LOSS";
 
-const fetchDecks = async (deckId: number, opponentDeckId: number) => {
-  const decks = await prisma.deck.findMany({
-    where: { id: { in: [deckId, opponentDeckId] } },
+const fetchDecks = async (
+  userId: number,
+  deckId: number,
+  opponentDeckId: number
+) => {
+  const decks = await prisma.recordDeck.findMany({
+    where: { userId, id: { in: [deckId, opponentDeckId] } },
     select: { id: true, cardPackId: true },
   });
   if (decks.length < 1) return null;
@@ -78,7 +82,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const decks = await fetchDecks(deckId, opponentDeckId);
+  const decks = await fetchDecks(userId, deckId, opponentDeckId);
   if (!decks?.deck || !decks?.opponent) {
     return NextResponse.json(
       { error: "デッキ情報を確認できませんでした。" },

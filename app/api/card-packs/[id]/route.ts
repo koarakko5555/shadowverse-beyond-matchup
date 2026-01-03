@@ -21,13 +21,19 @@ export async function DELETE(_: Request, { params }: Params) {
     select: { id: true },
   });
   const ids = deckIds.map((deck) => deck.id);
+  const recordDeckIds = await prisma.recordDeck.findMany({
+    where: { cardPackId: id },
+    select: { id: true },
+  });
+  const recordIds = recordDeckIds.map((deck) => deck.id);
 
   await prisma.$transaction([
     prisma.matchRecord.deleteMany({
       where: {
-        OR: [{ deckId: { in: ids } }, { opponentDeckId: { in: ids } }],
+        OR: [{ deckId: { in: recordIds } }, { opponentDeckId: { in: recordIds } }],
       },
     }),
+    prisma.recordDeck.deleteMany({ where: { cardPackId: id } }),
     prisma.matchup.deleteMany({
       where: {
         OR: [{ deck1Id: { in: ids } }, { deck2Id: { in: ids } }],

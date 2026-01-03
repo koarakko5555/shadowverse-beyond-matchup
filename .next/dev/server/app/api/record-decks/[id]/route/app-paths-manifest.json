@@ -1,0 +1,3 @@
+{
+  "/api/record-decks/[id]/route": "app/api/record-decks/[id]/route.js"
+}

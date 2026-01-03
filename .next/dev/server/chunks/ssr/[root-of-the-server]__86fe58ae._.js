@@ -137,20 +137,23 @@ const runtime = "nodejs";
 async function RecordsPage() {
     const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSession"])();
     const userId = Number(session?.sub);
-    const [cardPacks, decks] = await Promise.all([
+    const [cardPacks, recordDecks] = await Promise.all([
         __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].cardPack.findMany({
             orderBy: {
                 releaseDate: "desc"
             }
         }),
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].deck.findMany({
+        Number.isInteger(userId) ? __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].recordDeck.findMany({
+            where: {
+                userId
+            },
             orderBy: {
                 id: "desc"
             },
             include: {
                 cardPack: true
             }
-        })
+        }) : Promise.resolve([])
     ]);
     const records = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].matchRecord.findMany({
         where: Number.isInteger(userId) ? {
@@ -178,7 +181,7 @@ async function RecordsPage() {
                 ...pack,
                 releaseDate: pack.releaseDate.toISOString()
             })),
-        decks: decks.map((deck)=>({
+        recordDecks: recordDecks.map((deck)=>({
                 ...deck,
                 cardPack: {
                     ...deck.cardPack,
@@ -205,7 +208,7 @@ async function RecordsPage() {
             }))
     }, void 0, false, {
         fileName: "[project]/app/(dashboard)/records/page.tsx",
-        lineNumber: 29,
+        lineNumber: 32,
         columnNumber: 5
     }, this);
 }

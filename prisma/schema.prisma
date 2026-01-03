@@ -18,6 +18,7 @@ model CardPack {
   name        String
   releaseDate DateTime
   decks       Deck[]
+  recordDecks RecordDeck[]
 }
 
 model Deck {
@@ -28,8 +29,6 @@ model Deck {
   cardPack    CardPack  @relation(fields: [cardPackId], references: [id])
   matchups    Matchup[]  @relation("Deck1")
   matchups2   Matchup[]  @relation("Deck2")
-  matchRecords MatchRecord[] @relation("MatchRecordDeck")
-  opponentRecords MatchRecord[] @relation("MatchRecordOpponent")
 }
 
 enum DeckClass {
@@ -60,8 +59,8 @@ model MatchRecord {
   deckId         Int
   opponentDeckId Int
   userId         Int
-  deck           Deck        @relation("MatchRecordDeck", fields: [deckId], references: [id])
-  opponentDeck   Deck        @relation("MatchRecordOpponent", fields: [opponentDeckId], references: [id])
+  deck           RecordDeck  @relation("MatchRecordDeck", fields: [deckId], references: [id])
+  opponentDeck   RecordDeck  @relation("MatchRecordOpponent", fields: [opponentDeckId], references: [id])
   user           User        @relation(fields: [userId], references: [id])
   turn           MatchTurn
   result         MatchResult
@@ -71,6 +70,21 @@ model MatchRecord {
   @@index([deckId])
   @@index([opponentDeckId])
   @@index([userId])
+}
+
+model RecordDeck {
+  id              Int          @id @default(autoincrement())
+  name            String
+  deckClass       DeckClass
+  cardPackId      Int
+  userId          Int
+  cardPack        CardPack     @relation(fields: [cardPackId], references: [id])
+  user            User         @relation(fields: [userId], references: [id])
+  matchRecords    MatchRecord[] @relation("MatchRecordDeck")
+  opponentRecords MatchRecord[] @relation("MatchRecordOpponent")
+
+  @@index([userId])
+  @@index([cardPackId])
 }
 
 model User {
@@ -83,6 +97,7 @@ model User {
   createdAt    DateTime  @default(now())
   matchups     Matchup[]
   matchRecords MatchRecord[]
+  recordDecks  RecordDeck[]
 
   @@map("users")
 }

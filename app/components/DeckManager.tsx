@@ -19,6 +19,7 @@ type Deck = {
 type Props = {
   cardPacks: CardPack[];
   decks: Deck[];
+  isAdmin?: boolean;
 };
 
 const deckClassLabels: Record<string, string> = {
@@ -31,7 +32,7 @@ const deckClassLabels: Record<string, string> = {
   NEMESIS: "ネメシス",
 };
 
-export default function DeckManager({ cardPacks, decks }: Props) {
+export default function DeckManager({ cardPacks, decks, isAdmin = false }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [name, setName] = useState("");
@@ -113,6 +114,14 @@ export default function DeckManager({ cardPacks, decks }: Props) {
 
   return (
     <div className="space-y-8">
+      {!isAdmin && (
+        <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+          <p className="text-sm text-zinc-700">
+            この機能は管理者のみ利用できます。
+          </p>
+        </section>
+      )}
+      {isAdmin && (
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
@@ -185,7 +194,9 @@ export default function DeckManager({ cardPacks, decks }: Props) {
         </form>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
       </section>
+      )}
 
+      {isAdmin && (
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-zinc-900">
@@ -235,6 +246,7 @@ export default function DeckManager({ cardPacks, decks }: Props) {
           ))}
         </div>
       </section>
+      )}
     </div>
   );
 }

@@ -34,7 +34,7 @@ type MatchRecord = {
 };
 
 type Props = {
-  decks: Deck[];
+  recordDecks: Deck[];
   cardPacks: CardPack[];
   records: MatchRecord[];
 };
@@ -62,7 +62,11 @@ const resultLabels: Record<MatchRecord["result"], string> = {
 const formatRate = (value: number | null) =>
   value === null ? "-" : Number.isInteger(value) ? `${value}` : value.toFixed(1);
 
-export default function MatchRecordManager({ decks, cardPacks, records }: Props) {
+export default function MatchRecordManager({
+  recordDecks,
+  cardPacks,
+  records,
+}: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [deckId, setDeckId] = useState("");
@@ -91,8 +95,8 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
 
   const filteredDecks = useMemo(() => {
     if (!activePackId) return [];
-    return decks.filter((deck) => deck.cardPack.id === activePackId);
-  }, [activePackId, decks]);
+    return recordDecks.filter((deck) => deck.cardPack.id === activePackId);
+  }, [activePackId, recordDecks]);
 
   const filteredRecords = useMemo(() => {
     if (!activePackId) return [];
@@ -274,21 +278,21 @@ export default function MatchRecordManager({ decks, cardPacks, records }: Props)
           ))}
         </div>
         <div className="-mt-px rounded-t-2xl rounded-b-2xl border-x border-b border-white bg-white p-6 shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-col gap-2">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-400">
               Records
             </p>
-            <div className="w-full">
-              <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-2xl font-semibold text-zinc-900">
                 {editingId ? "戦績の編集" : "戦績の登録"}
               </h2>
+              <Link
+                className="text-sm font-semibold text-blue-600 hover:text-blue-800"
+                href="/settings"
+              >
+                デッキ追加はこちら
+              </Link>
             </div>
-            <Link
-              className="text-sm font-semibold text-blue-600 hover:text-blue-800"
-              href="/settings"
-            >
-              デッキ追加はこちら
-            </Link>
           </div>
 
           <div className="mt-6">

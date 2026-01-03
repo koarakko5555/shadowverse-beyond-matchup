@@ -69,6 +69,7 @@
     --font-weight-normal: 400;
     --font-weight-semibold: 600;
     --tracking-wider: .05em;
+    --radius-md: .375rem;
     --radius-lg: .5rem;
     --radius-xl: .75rem;
     --radius-2xl: 1rem;
@@ -519,14 +520,6 @@
     max-width: var(--container-6xl);
   }
 
-  .max-w-\[120px\] {
-    max-width: 120px;
-  }
-
-  .max-w-\[140px\] {
-    max-width: 140px;
-  }
-
   .max-w-\[160px\] {
     max-width: 160px;
   }
@@ -543,10 +536,6 @@
     min-width: calc(var(--spacing) * 0);
   }
 
-  .min-w-\[110px\] {
-    min-width: 110px;
-  }
-
   .min-w-\[160px\] {
     min-width: 160px;
   }
@@ -557,10 +546,6 @@
 
   .min-w-full {
     min-width: 100%;
-  }
-
-  .min-w-max {
-    min-width: max-content;
   }
 
   .table-fixed {
@@ -578,10 +563,6 @@
 
   .flex-col {
     flex-direction: column;
-  }
-
-  .flex-nowrap {
-    flex-wrap: nowrap;
   }
 
   .flex-wrap {
@@ -602,6 +583,10 @@
 
   .justify-between {
     justify-content: space-between;
+  }
+
+  .justify-end {
+    justify-content: flex-end;
   }
 
   .gap-2 {
@@ -654,6 +639,10 @@
 
   .rounded-lg {
     border-radius: var(--radius-lg);
+  }
+
+  .rounded-md {
+    border-radius: var(--radius-md);
   }
 
   .rounded-xl {
@@ -853,10 +842,6 @@
     text-align: left;
   }
 
-  .text-right {
-    text-align: right;
-  }
-
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -1040,6 +1025,10 @@
     opacity: .5;
   }
 
+  .disabled\:opacity-60:disabled {
+    opacity: .6;
+  }
+
   @media (min-width: 40rem) {
     .sm\:w-auto {
       width: auto;
@@ -1067,12 +1056,6 @@
   @media (min-width: 48rem) {
     .md\:col-span-2 {
       grid-column: span 2 / span 2;
-    }
-  }
-
-  @media (min-width: 48rem) {
-    .md\:col-span-3 {
-      grid-column: span 3 / span 3;
     }
   }
 
@@ -1145,18 +1128,6 @@
   @media (min-width: 48rem) {
     .md\:gap-6 {
       gap: calc(var(--spacing) * 6);
-    }
-  }
-
-  @media (min-width: 48rem) {
-    .md\:self-auto {
-      align-self: auto;
-    }
-  }
-
-  @media (min-width: 48rem) {
-    .md\:overflow-visible {
-      overflow: visible;
     }
   }
 }

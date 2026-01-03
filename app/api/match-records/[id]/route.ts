@@ -15,9 +15,13 @@ const isValidTurn = (value: string): value is "FIRST" | "SECOND" =>
 const isValidResult = (value: string): value is "WIN" | "LOSS" =>
   value === "WIN" || value === "LOSS";
 
-const fetchDecks = async (deckId: number, opponentDeckId: number) => {
-  const decks = await prisma.deck.findMany({
-    where: { id: { in: [deckId, opponentDeckId] } },
+const fetchDecks = async (
+  userId: number,
+  deckId: number,
+  opponentDeckId: number
+) => {
+  const decks = await prisma.recordDeck.findMany({
+    where: { userId, id: { in: [deckId, opponentDeckId] } },
     select: { id: true, cardPackId: true },
   });
   if (decks.length < 1) return null;
@@ -31,6 +35,14 @@ export async function PUT(request: Request, { params }: Params) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = Number(session.sub);
+  if (!Number.isInteger(userId)) {
+    return NextResponse.json(
+      { error: "ユーザー情報を確認できませんでした。" },
+      { status: 401 }
+    );
   }
 
   const resolvedParams = await params;
@@ -61,7 +73,7 @@ export async function PUT(request: Request, { params }: Params) {
     );
   }
 
-  const decks = await fetchDecks(deckId, opponentDeckId);
+  const decks = await fetchDecks(userId, deckId, opponentDeckId);
   if (!decks?.deck || !decks?.opponent) {
     return NextResponse.json(
       { error: "デッキ情報を確認できませんでした。" },
@@ -77,7 +89,7 @@ export async function PUT(request: Request, { params }: Params) {
   }
 
   const record = await prisma.matchRecord.update({
-    where: { id },
+    where: { id, userId },
     data: {
       deckId,
       opponentDeckId,
@@ -101,12 +113,20 @@ export async function DELETE(_: Request, { params }: Params) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const userId = Number(session.sub);
+  if (!Number.isInteger(userId)) {
+    return NextResponse.json(
+      { error: "ユーザー情報を確認できませんでした。" },
+      { status: 401 }
+    );
+  }
+
   const resolvedParams = await params;
   const id = Number(resolvedParams.id);
   if (!Number.isInteger(id)) {
     return NextResponse.json({ error: "IDが不正です。" }, { status: 400 });
   }
 
-  await prisma.matchRecord.delete({ where: { id } });
+  await prisma.matchRecord.delete({ where: { id, userId } });
   return NextResponse.json({ ok: true });
 }

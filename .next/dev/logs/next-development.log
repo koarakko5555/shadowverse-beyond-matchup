@@ -1,54 +1,5 @@
-[00:00:00.608] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:00.697] Server  LOG      ✓ Ready in 532ms
-[00:00:12.013] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:38.108] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:36.752] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:45.239] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:24:43.790] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:27:50.919] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:29:47.160] Server  LOG      ✓ Compiled in 32ms
-[00:40:56.142] Server  LOG      ✓ Compiled in 35ms
-[00:43:13.350] Server  LOG      ✓ Compiled in 17ms
-[00:44:52.993] Server  LOG      ✓ Compiled in 44ms
-[00:45:16.729] Server  LOG      ✓ Compiled in 20ms
-[00:46:06.425] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:46:43.062] Server  LOG      ✓ Compiled in 40ms
-[00:47:45.599] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:48:28.641] Server  LOG      ✓ Compiled in 33ms
-[00:51:42.686] Server  LOG      ✓ Compiled in 19ms
-[00:53:11.507] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:54:27.180] Server  LOG      ✓ Compiled in 20ms
-[00:55:00.275] Server  LOG      ✓ Compiled in 30ms
-[00:55:48.778] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[46:50:31.382] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[46:51:40.303] Server  LOG     prisma:error "Max client connections reached"
-[46:51:40.390] Server  ERROR    ⨯ DriverAdapterError: Max client connections reached
-[46:53:43.203] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[46:53:51.739] Server  LOG      ✓ Compiled in 59ms
-[46:54:35.469] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:01:38.190] Server  LOG      ✓ Compiled in 41ms
-[47:03:14.659] Server  LOG      ✓ Compiled in 14ms
-[47:04:19.161] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:16:12.950] Server  LOG      ✓ Compiled in 51ms
-[47:20:02.313] Server  LOG      ✓ Compiled in 22ms
-[47:20:28.255] Server  LOG      ✓ Compiled in 18ms
-[47:20:47.639] Server  LOG      ✓ Compiled in 16ms
-[47:21:36.287] Server  LOG      ✓ Compiled in 20ms
-[47:22:30.525] Server  LOG      ✓ Compiled in 39ms
-[47:23:08.744] Server  LOG      ✓ Compiled in 14ms
-[47:23:25.569] Server  LOG      ✓ Compiled in 12ms
-[47:23:51.338] Server  LOG      ✓ Compiled in 24ms
-[47:26:47.407] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:27:45.895] Server  LOG      ✓ Compiled in 68ms
-[47:28:01.766] Server  LOG      ✓ Compiled in 20ms
-[47:28:43.302] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:45:23.173] Server  LOG      ✓ Compiled in 48ms
-[47:45:44.939] Server  LOG      ✓ Compiled in 16ms
-[47:46:36.176] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:48:17.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:49:50.199] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:50:48.871] Server  LOG      ✓ Compiled in 360ms
-[47:50:49.100] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[47:50:51.775] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[48:01:57.719] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[48:02:06.097] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:00.553] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.640] Server  LOG      ✓ Ready in 492ms
+[00:00:03.895] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:11.743] Server  LOG      ✓ Compiled in 41ms
+[00:08:41.194] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

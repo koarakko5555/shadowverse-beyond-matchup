@@ -1,0 +1,10 @@
+var R=require("../../../../chunks/[turbopack]_runtime.js")("server/app/api/discord/share-matchups/route.js")
+R.c("server/chunks/node_modules_@resvg_resvg-wasm_index_mjs_afc45282._.js")
+R.c("server/chunks/node_modules_next_68c2d251._.js")
+R.c("server/chunks/node_modules_@shuding_opentype_js_dist_opentype_module_e3c170e1.js")
+R.c("server/chunks/node_modules_satori_dist_index_9353ce67.js")
+R.c("server/chunks/node_modules_817fe92c._.js")
+R.c("server/chunks/[root-of-the-server]__84bdb647._.js")
+R.c("server/chunks/_next-internal_server_app_api_discord_share-matchups_route_actions_955f9363.js")
+R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/app/api/discord/share-matchups/route.tsx [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/app/api/discord/share-matchups/route.tsx [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports
