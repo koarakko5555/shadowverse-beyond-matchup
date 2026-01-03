@@ -39,12 +39,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 ;
 const navItems = [
     {
-        href: "/records",
-        label: "戦績"
-    },
-    {
         href: "/matchups",
         label: "相性"
+    },
+    {
+        href: "/records",
+        label: "戦績"
     },
     {
         href: "/settings",

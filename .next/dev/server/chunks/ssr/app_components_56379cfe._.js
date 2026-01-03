@@ -1149,6 +1149,14 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                             lineNumber: 421,
                             columnNumber: 13
                         }, this),
+                        activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-4 text-sm text-zinc-700",
+                            children: "デッキ追加したい場合はdiscordでとりえるまで連絡してください m(_ _)m"
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/MatchupManager.tsx",
+                            lineNumber: 544,
+                            columnNumber: 13
+                        }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "mt-4 flex justify-end",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1159,12 +1167,12 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                 children: isSharing ? "Discordに共有中..." : "Discordで共有"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                lineNumber: 545,
+                                lineNumber: 550,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 544,
+                            lineNumber: 549,
                             columnNumber: 13
                         }, this),
                         activeTab === "input" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1177,7 +1185,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                             children: "相性表の公開設定"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 558,
+                                            lineNumber: 563,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1185,13 +1193,13 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                             children: "公開にすると、統計タブであなたの相性表が集計されます。"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 559,
+                                            lineNumber: 564,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 557,
+                                    lineNumber: 562,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1201,7 +1209,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                             children: isPublicMatchup ? "公開" : "非公開"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 564,
+                                            lineNumber: 569,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1235,7 +1243,7 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 565,
+                                            lineNumber: 570,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1244,24 +1252,24 @@ function MatchupManager({ decks, cardPacks, matchups, statsMatchups, isPublic })
                                                 className: "absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition peer-checked:translate-x-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/MatchupManager.tsx",
-                                                lineNumber: 599,
+                                                lineNumber: 604,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MatchupManager.tsx",
-                                            lineNumber: 598,
+                                            lineNumber: 603,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/MatchupManager.tsx",
-                                    lineNumber: 563,
+                                    lineNumber: 568,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/MatchupManager.tsx",
-                            lineNumber: 556,
+                            lineNumber: 561,
                             columnNumber: 13
                         }, this)
                     ]

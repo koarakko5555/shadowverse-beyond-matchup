@@ -48,8 +48,8 @@ export default function SettingsHub({
   currentUserId,
 }: Props) {
   const tabs: { id: Tab; label: string }[] = [
-    { id: "recordDecks", label: "デッキ編集" },
-    { id: "cardPacks", label: "カードパック" },
+    { id: "recordDecks", label: "戦績デッキ編集" },
+    ...(isAdmin ? [{ id: "cardPacks" as const, label: "カードパック" }] : []),
     { id: "profile", label: "アカウント管理" },
     ...(isAdmin ? [{ id: "matchupDecks" as const, label: "相性管理デッキ編集" }] : []),
     ...(isAdmin ? [{ id: "users" as const, label: "ユーザー管理" }] : []),
@@ -57,7 +57,10 @@ export default function SettingsHub({
   const [activeTab, setActiveTab] = useState<Tab>("recordDecks");
 
   useEffect(() => {
-    if (!isAdmin && (activeTab === "users" || activeTab === "matchupDecks")) {
+    if (
+      !isAdmin &&
+      (activeTab === "users" || activeTab === "matchupDecks" || activeTab === "cardPacks")
+    ) {
       setActiveTab("recordDecks");
     }
   }, [activeTab, isAdmin]);

@@ -16,12 +16,12 @@ var _s = __turbopack_context__.k.signature();
 ;
 const navItems = [
     {
-        href: "/records",
-        label: "戦績"
-    },
-    {
         href: "/matchups",
         label: "相性"
+    },
+    {
+        href: "/records",
+        label: "戦績"
     },
     {
         href: "/settings",

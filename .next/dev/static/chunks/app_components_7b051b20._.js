@@ -1761,12 +1761,14 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
     const tabs = [
         {
             id: "recordDecks",
-            label: "デッキ編集"
+            label: "戦績デッキ編集"
         },
-        {
-            id: "cardPacks",
-            label: "カードパック"
-        },
+        ...isAdmin ? [
+            {
+                id: "cardPacks",
+                label: "カードパック"
+            }
+        ] : [],
         {
             id: "profile",
             label: "アカウント管理"
@@ -1787,7 +1789,7 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("recordDecks");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "SettingsHub.useEffect": ()=>{
-            if (!isAdmin && (activeTab === "users" || activeTab === "matchupDecks")) {
+            if (!isAdmin && (activeTab === "users" || activeTab === "matchupDecks" || activeTab === "cardPacks")) {
                 setActiveTab("recordDecks");
             }
         }
@@ -1807,7 +1809,7 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             children: "Settings"
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 69,
+                            lineNumber: 72,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1815,13 +1817,13 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             children: "設定"
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 72,
+                            lineNumber: 75,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/SettingsHub.tsx",
-                    lineNumber: 68,
+                    lineNumber: 71,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1833,12 +1835,12 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             children: tab.label
                         }, tab.id, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 78,
+                            lineNumber: 81,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/components/SettingsHub.tsx",
-                    lineNumber: 76,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1849,7 +1851,7 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             decks: recordDecks
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 94,
+                            lineNumber: 97,
                             columnNumber: 13
                         }, this),
                         activeTab === "cardPacks" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$CardPackManager$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1858,7 +1860,7 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             isAdmin: isAdmin
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 97,
+                            lineNumber: 100,
                             columnNumber: 13
                         }, this),
                         activeTab === "matchupDecks" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$DeckManager$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1867,7 +1869,7 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             isAdmin: true
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 100,
+                            lineNumber: 103,
                             columnNumber: 13
                         }, this),
                         activeTab === "users" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$AuthUserManager$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1877,7 +1879,7 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             embedded: true
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 103,
+                            lineNumber: 106,
                             columnNumber: 13
                         }, this),
                         activeTab === "profile" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SettingsProfileForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1885,24 +1887,24 @@ function SettingsHub({ profileName, cardPacks, recordDecks, matchupDecks, users,
                             embedded: true
                         }, void 0, false, {
                             fileName: "[project]/app/components/SettingsHub.tsx",
-                            lineNumber: 111,
+                            lineNumber: 114,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/SettingsHub.tsx",
-                    lineNumber: 92,
+                    lineNumber: 95,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/SettingsHub.tsx",
-            lineNumber: 67,
+            lineNumber: 70,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/SettingsHub.tsx",
-        lineNumber: 66,
+        lineNumber: 69,
         columnNumber: 5
     }, this);
 }

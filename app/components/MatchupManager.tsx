@@ -541,6 +541,11 @@ export default function MatchupManager({
             </div>
           )}
           {activeTab === "input" && (
+            <p className="mt-4 text-sm text-zinc-700">
+              デッキ追加したい場合はdiscordでとりえるまで連絡してください m(_ _)m
+            </p>
+          )}
+          {activeTab === "input" && (
             <div className="mt-4 flex justify-end">
               <button
                 type="button"

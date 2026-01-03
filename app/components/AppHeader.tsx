@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
-  { href: "/records", label: "戦績" },
   { href: "/matchups", label: "相性" },
+  { href: "/records", label: "戦績" },
   { href: "/settings", label: "設定" },
 ];
 

@@ -158,16 +158,16 @@ const getSession = async ()=>{
     }
 };
 }),
-"[project]/app/api/decks/[id]/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"[project]/app/api/decks/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 
 __turbopack_context__.s([
-    "DELETE",
-    ()=>DELETE,
-    "PUT",
-    ()=>PUT,
+    "GET",
+    ()=>GET,
+    "POST",
+    ()=>POST,
     "runtime",
     ()=>runtime
 ]);
@@ -182,68 +182,38 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 const runtime = "nodejs";
-async function DELETE(_, { params }) {
-    const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getSession"])();
-    if (session?.role !== "ADMIN") {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: "管理者のみ削除できます。"
-        }, {
-            status: 403
-        });
-    }
-    const { id: idParam } = await params;
-    const id = Number(idParam);
-    if (!Number.isInteger(id)) {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: "IDが不正です。"
-        }, {
-            status: 400
-        });
-    }
-    await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].$transaction([
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].matchup.deleteMany({
-            where: {
-                OR: [
-                    {
-                        deck1Id: id
-                    },
-                    {
-                        deck2Id: id
-                    }
-                ]
-            }
-        }),
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.delete({
-            where: {
-                id
-            }
-        })
-    ]);
-    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-        ok: true
+const deckClasses = [
+    "ELF",
+    "ROYAL",
+    "WITCH",
+    "NIGHTMARE",
+    "DRAGON",
+    "BISHOP",
+    "NEMESIS"
+];
+async function GET() {
+    const decks = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.findMany({
+        orderBy: {
+            id: "desc"
+        },
+        include: {
+            cardPack: true
+        }
     });
+    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(decks);
 }
-async function PUT(request, { params }) {
+async function POST(request) {
     const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$session$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getSession"])();
     if (session?.role !== "ADMIN") {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: "管理者のみ編集できます。"
+            error: "Unauthorized"
         }, {
-            status: 403
-        });
-    }
-    const { id: idParam } = await params;
-    const id = Number(idParam);
-    if (!Number.isInteger(id)) {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: "IDが不正です。"
-        }, {
-            status: 400
+            status: 401
         });
     }
     const body = await request.json().catch(()=>null);
     const name = typeof body?.name === "string" ? body.name.trim() : "";
-    const deckClass = typeof body?.deckClass === "string" ? body.deckClass : "";
+    const deckClass = body?.deckClass;
     const cardPackId = typeof body?.cardPackId === "number" ? body.cardPackId : null;
     if (name.length < 1 || name.length > 10) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -252,7 +222,7 @@ async function PUT(request, { params }) {
             status: 400
         });
     }
-    if (!deckClass) {
+    if (!deckClass || !deckClasses.includes(deckClass)) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: "クラスを正しく選択してください。"
         }, {
@@ -275,10 +245,7 @@ async function PUT(request, { params }) {
         }
         resolvedCardPackId = latestPack.id;
     }
-    const deck = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.update({
-        where: {
-            id
-        },
+    const deck = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deck.create({
         data: {
             name,
             deckClass,
@@ -288,10 +255,12 @@ async function PUT(request, { params }) {
             cardPack: true
         }
     });
-    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(deck);
+    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(deck, {
+        status: 201
+    });
 }
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__a4c00652._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__4a769041._.js.map
