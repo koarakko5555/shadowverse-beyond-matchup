@@ -7,6 +7,7 @@
       --tw-translate-z: 0;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
+      --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-tracking: initial;
       --tw-shadow: 0 0 #0000;
@@ -581,6 +582,10 @@
     justify-content: space-between;
   }
 
+  .justify-center {
+    justify-content: center;
+  }
+
   .justify-end {
     justify-content: flex-end;
   }
@@ -752,6 +757,16 @@
     }
   }
 
+  .bg-white\/95 {
+    background-color: #fffffff2;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-white\/95 {
+      background-color: color-mix(in oklab, var(--color-white) 95%, transparent);
+    }
+  }
+
   .bg-zinc-50 {
     background-color: var(--color-zinc-50);
   }
@@ -762,6 +777,10 @@
 
   .bg-zinc-900 {
     background-color: var(--color-zinc-900);
+  }
+
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
   }
 
   .p-6 {
@@ -879,6 +898,11 @@
 
   .text-\[11px\] {
     font-size: 11px;
+  }
+
+  .leading-none {
+    --tw-leading: 1;
+    line-height: 1;
   }
 
   .font-normal {
@@ -1072,6 +1096,18 @@
   }
 
   @media (min-width: 48rem) {
+    .md\:flex {
+      display: flex;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .md\:hidden {
+      display: none;
+    }
+  }
+
+  @media (min-width: 48rem) {
     .md\:w-auto {
       width: auto;
     }
@@ -1231,6 +1267,11 @@ body {
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false
 }
 
 @property --tw-font-weight {

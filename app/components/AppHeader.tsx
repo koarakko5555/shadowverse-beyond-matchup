@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 const navItems = [
   { href: "/matchups", label: "相性" },
@@ -16,6 +17,7 @@ type Props = {
 export default function AppHeader({ isAuthenticated }: Props) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const onLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -24,17 +26,15 @@ export default function AppHeader({ isAuthenticated }: Props) {
 
   return (
     <header className="border-b border-zinc-200 bg-white/90">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
-          <div className="flex items-baseline gap-3">
-            <span className="text-lg font-semibold text-zinc-900">
-              ろくめいえん秘密の花園
-            </span>
-          </div>
-        </div>
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-6 py-4">
+        <Link className="flex items-baseline gap-3" href="/matchups">
+          <span className="text-lg font-semibold text-zinc-900">
+            ろくめいえん秘密の花園
+          </span>
+        </Link>
         {isAuthenticated && (
-          <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row md:items-center">
-            <nav className="flex w-full flex-col gap-2 md:w-auto md:flex-row md:items-center">
+          <div className="flex items-center gap-3">
+            <nav className="hidden items-center gap-2 md:flex">
               {navItems.map((item) => {
                 const isActive = pathname.startsWith(item.href);
                 return (
@@ -51,17 +51,58 @@ export default function AppHeader({ isAuthenticated }: Props) {
                   </Link>
                 );
               })}
+              <button
+                className="rounded-full border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-100"
+                type="button"
+                onClick={onLogout}
+              >
+                ログアウト
+              </button>
             </nav>
             <button
-              className="rounded-full border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-100"
+              className="flex items-center justify-center rounded-full border border-zinc-200 p-2 text-zinc-700 hover:bg-zinc-100 md:hidden"
               type="button"
-              onClick={onLogout}
+              aria-label="メニューを開く"
+              onClick={() => setIsMenuOpen((open) => !open)}
             >
-              ログアウト
+              <span className="text-lg leading-none">☰</span>
             </button>
           </div>
         )}
       </div>
+      {isAuthenticated && isMenuOpen && (
+        <div className="border-t border-zinc-200 bg-white/95 px-6 py-4 md:hidden">
+          <nav className="flex flex-col gap-2">
+            {navItems.map((item) => {
+              const isActive = pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                    isActive
+                      ? "bg-zinc-900 text-white"
+                      : "text-zinc-700 hover:bg-zinc-100"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <button
+              className="rounded-full border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-100"
+              type="button"
+              onClick={() => {
+                setIsMenuOpen(false);
+                onLogout();
+              }}
+            >
+              ログアウト
+            </button>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

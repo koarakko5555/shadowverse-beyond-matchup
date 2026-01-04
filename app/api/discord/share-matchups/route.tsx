@@ -280,7 +280,7 @@ export async function POST(request: Request) {
 
     const formData = new FormData();
     const userName = user?.name ?? "ユーザー";
-    const headline = `${userName}さんの相性表が更新されました！🦌`;
+    const headline = `${userName}さんの相性表が更新されたわよ〜！🦌\nバトル❗️シャドウバース🃏`;
     formData.append("payload_json", JSON.stringify({ content: headline }));
     formData.append(
       "file",
